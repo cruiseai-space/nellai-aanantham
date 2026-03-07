@@ -302,6 +302,10 @@
             <option value="purchase">Purchases</option>
           </select>
         </div>
+        <button class="btn btn-danger" id="btn-delete-all-transactions">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+          Delete All
+        </button>
       </div>
 
       <div class="table-wrapper">
@@ -315,6 +319,7 @@
               <th>Unit Cost</th>
               <th>Revenue</th>
               <th>Profit</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody id="transactions-tbody"></tbody>
