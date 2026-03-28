@@ -1,349 +1,250 @@
 /* ===========================
-   inventory.js — Inventory Management
+   inventory.js — Inventory Management (Ingredients, Products sub-tab, Expenses)
+   Nellai Aanantham
    =========================== */
 
 const InventoryManager = (() => {
+  let editingIngId = null;
+  let editingExpId = null;
 
   function init() {
-    document.getElementById('btn-add-inventory').addEventListener('click', openAddModal);
-    document.getElementById('btn-delete-all-inventory').addEventListener('click', handleDeleteAll);
-    document.getElementById('form-inventory').addEventListener('submit', handleAdd);
-    document.getElementById('inv-product-select').addEventListener('change', handleProductSelect);
-    document.getElementById('inv-type').addEventListener('change', toggleInvSalePrice);
-    document.getElementById('inventory-search').addEventListener('input', render);
-    document.getElementById('inventory-filter-status').addEventListener('change', render);
-    document.getElementById('inventory-filter-type').addEventListener('change', render);
+    // Ingredients
+    document.getElementById('btn-add-ingredient').addEventListener('click', () => openIngredientModal());
+    document.getElementById('form-ingredient').addEventListener('submit', handleIngredientSubmit);
+    document.getElementById('ingredient-search').addEventListener('input', renderIngredients);
+    document.getElementById('ingredient-filter-category').addEventListener('change', renderIngredients);
+    document.getElementById('ingredient-filter-status').addEventListener('change', renderIngredients);
 
-    // Sell modal
-    document.getElementById('form-sell').addEventListener('submit', handleSell);
-    document.getElementById('sell-quantity').addEventListener('input', updateSellSummary);
-    document.getElementById('sell-price').addEventListener('input', updateSellSummary);
+    // Expenses
+    document.getElementById('btn-add-expense').addEventListener('click', () => openExpenseModal());
+    document.getElementById('form-expense').addEventListener('submit', handleExpenseSubmit);
+    document.getElementById('expense-search').addEventListener('input', renderExpenses);
 
-    // Close modals
-    document.querySelectorAll('[data-close="modal-inventory"]').forEach(btn => btn.addEventListener('click', closeAddModal));
-    document.querySelectorAll('[data-close="modal-sell"]').forEach(btn => btn.addEventListener('click', closeSellModal));
-
-    refreshProductDropdown();
-    render();
-  }
-
-  async function refreshProductDropdown() {
-    const products = await getAllRecords(STORES.PRODUCTS);
-    const sel = document.getElementById('inv-product-select');
-    sel.innerHTML = '<option value="">— Manual Entry —</option>';
-    products.forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.id;
-      opt.textContent = `${p.type === 'ingredient' ? '🧂' : '📦'} ${p.name} ($${p.defaultCost.toFixed(2)})`;
-      sel.appendChild(opt);
+    // Sub-tab ribbon click handler
+    const ribbon = document.getElementById('inv-ribbon');
+    ribbon.querySelectorAll('.sub-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => renderCurrentSubTab());
     });
+
+    renderIngredients();
   }
 
-  function handleProductSelect() {
-    const id = document.getElementById('inv-product-select').value;
-    if (!id) return;
-    getRecord(STORES.PRODUCTS, Number(id)).then(p => {
-      if (!p) return;
-      document.getElementById('inv-name').value = p.name;
-      document.getElementById('inv-type').value = p.type;
-      document.getElementById('inv-cost').value = p.defaultCost;
-      document.getElementById('inv-saleprice').value = p.type === 'processed' ? p.defaultSalePrice : '';
-      // Set expiry date
-      const expiry = new Date();
-      expiry.setDate(expiry.getDate() + p.defaultExpiryDays);
-      document.getElementById('inv-expiry').value = expiry.toISOString().split('T')[0];
-      toggleInvSalePrice();
-    });
+  function renderCurrentSubTab() {
+    const activeBtn = document.querySelector('#inv-ribbon .sub-tab-btn.active');
+    if (!activeBtn) return;
+    const tab = activeBtn.dataset.subtab;
+    if (tab === 'ingredients') renderIngredients();
+    else if (tab === 'products') ProductsManager.render();
+    else if (tab === 'expenses') renderExpenses();
   }
 
-  function toggleInvSalePrice() {
-    const type = document.getElementById('inv-type').value;
-    document.getElementById('inv-saleprice-group').style.display = type === 'processed' ? '' : 'none';
+  /* ========== INGREDIENTS ========== */
+
+  function openIngredientModal(item = null) {
+    editingIngId = item ? item.id : null;
+    document.getElementById('modal-ingredient-title').textContent = item ? 'Edit Ingredient' : 'Add Ingredient';
+    document.getElementById('ingredient-id').value = '';
+    document.getElementById('ing-name').value = item ? item.name : '';
+    document.getElementById('ing-category').value = item ? item.category : 'Dry Goods';
+    document.getElementById('ing-unit').value = item ? item.unit : 'mg';
+    document.getElementById('ing-quantity').value = item ? item.quantity : '';
+    document.getElementById('ing-unitcost').value = item ? item.unitCost : '';
+    document.getElementById('ing-supplier').value = item ? (item.supplier || '') : '';
+    // Default expiry
+    const d = new Date(); d.setDate(d.getDate() + 30);
+    document.getElementById('ing-expiry').value = item ? (item.expiryDate || '').split('T')[0] : d.toISOString().split('T')[0];
+    document.getElementById('modal-ingredient').classList.add('open');
+    document.getElementById('ing-name').focus();
   }
 
-  function openAddModal() {
-    document.getElementById('form-inventory').reset();
-    document.getElementById('inv-product-select').value = '';
-    toggleInvSalePrice();
-    // Default expiry to 30 days from now
-    const d = new Date();
-    d.setDate(d.getDate() + 30);
-    document.getElementById('inv-expiry').value = d.toISOString().split('T')[0];
-    document.getElementById('modal-inventory').classList.add('open');
-    document.getElementById('inv-name').focus();
-  }
-
-  function closeAddModal() {
-    document.getElementById('modal-inventory').classList.remove('open');
-  }
-
-  async function handleDeleteAll() {
-    const items = await getAllRecords(STORES.INVENTORY);
-    if (items.length === 0) {
-      showToast('Inventory is already empty', 'info');
-      return;
-    }
-    const confirmed = await showConfirm(`Delete all ${items.length} inventory items? This cannot be undone.`, 'Delete All Inventory');
-    if (confirmed) {
-      await clearStore(STORES.INVENTORY);
-      showToast('All inventory items deleted', 'info');
-      render();
-      if (typeof AnalyticsManager !== 'undefined') AnalyticsManager.refresh();
-    }
-  }
-
-  async function handleAdd(e) {
+  async function handleIngredientSubmit(e) {
     e.preventDefault();
-    const type = document.getElementById('inv-type').value;
-    const cost = parseFloat(document.getElementById('inv-cost').value) || 0;
-    const qty = parseInt(document.getElementById('inv-quantity').value) || 1;
     const data = {
-      productId: document.getElementById('inv-product-select').value ? Number(document.getElementById('inv-product-select').value) : null,
-      name: document.getElementById('inv-name').value.trim(),
-      type: type,
-      cost: cost,
-      salePrice: type === 'processed' ? (parseFloat(document.getElementById('inv-saleprice').value) || 0) : 0,
-      quantity: qty,
+      name: document.getElementById('ing-name').value.trim(),
+      category: document.getElementById('ing-category').value,
+      type: 'ingredient',
+      unit: document.getElementById('ing-unit').value,
+      quantity: parseFloat(document.getElementById('ing-quantity').value) || 0,
+      unitCost: parseFloat(document.getElementById('ing-unitcost').value) || 0,
+      supplier: document.getElementById('ing-supplier').value.trim(),
       addedAt: new Date().toISOString(),
-      expiryDate: document.getElementById('inv-expiry').value,
+      expiryDate: document.getElementById('ing-expiry').value,
     };
-
     try {
-      await addRecord(STORES.INVENTORY, data);
-
-      // Record purchase transaction for ingredients
-      if (type === 'ingredient') {
-        await addRecord(STORES.TRANSACTIONS, {
-          inventoryItemId: null,
-          name: data.name,
-          type: 'ingredient',
-          txType: 'purchase',
-          quantity: qty,
-          costPerUnit: cost,
-          salePricePerUnit: 0,
-          totalCost: cost * qty,
-          totalRevenue: 0,
-          profit: -(cost * qty),
-          date: new Date().toISOString(),
-        });
-      }
-
-      showToast(`Added ${qty}x ${data.name} to inventory`, 'success');
-      closeAddModal();
-      render();
-      if (typeof AnalyticsManager !== 'undefined') AnalyticsManager.refresh();
-    } catch (err) {
-      showToast('Error adding item: ' + err.message, 'error');
-    }
-  }
-
-  // Sell modal
-  let sellItem = null;
-
-  function openSellModal(item) {
-    sellItem = item;
-    document.getElementById('sell-item-id').value = item.id;
-    document.getElementById('sell-item-info').innerHTML = `
-      <strong>${esc(item.name)}</strong><br>
-      Available: <strong>${item.quantity}</strong> units &nbsp;|&nbsp;
-      Cost/unit: <strong>₹${item.cost.toFixed(2)}</strong> &nbsp;|&nbsp;
-      Suggested price: <strong>₹${item.salePrice.toFixed(2)}</strong>
-    `;
-    document.getElementById('sell-quantity').value = 1;
-    document.getElementById('sell-quantity').max = item.quantity;
-    document.getElementById('sell-price').value = item.salePrice || '';
-    updateSellSummary();
-    document.getElementById('modal-sell').classList.add('open');
-  }
-
-  function closeSellModal() {
-    document.getElementById('modal-sell').classList.remove('open');
-    sellItem = null;
-  }
-
-  function updateSellSummary() {
-    if (!sellItem) return;
-    const qty = parseInt(document.getElementById('sell-quantity').value) || 0;
-    const price = parseFloat(document.getElementById('sell-price').value) || 0;
-    const revenue = qty * price;
-    const cost = qty * sellItem.cost;
-    const profit = revenue - cost;
-    document.getElementById('sell-summary').innerHTML = `
-      Revenue: ₹${revenue.toFixed(2)} &nbsp;|&nbsp; 
-      Cost: ₹${cost.toFixed(2)} &nbsp;|&nbsp; 
-      Profit: <span class="${profit >= 0 ? 'text-positive' : 'text-negative'}">₹${profit.toFixed(2)}</span>
-    `;
-  }
-
-  async function handleSell(e) {
-    e.preventDefault();
-    if (!sellItem) return;
-    const qty = parseInt(document.getElementById('sell-quantity').value) || 0;
-    const price = parseFloat(document.getElementById('sell-price').value) || 0;
-
-    if (qty <= 0 || qty > sellItem.quantity) {
-      showToast('Invalid quantity', 'error');
-      return;
-    }
-
-    const revenue = qty * price;
-    const cost = qty * sellItem.cost;
-    const profit = revenue - cost;
-
-    try {
-      // Record transaction
-      await addRecord(STORES.TRANSACTIONS, {
-        inventoryItemId: sellItem.id,
-        name: sellItem.name,
-        type: 'processed',
-        txType: 'sale',
-        quantity: qty,
-        costPerUnit: sellItem.cost,
-        salePricePerUnit: price,
-        totalCost: cost,
-        totalRevenue: revenue,
-        profit: profit,
-        date: new Date().toISOString(),
-      });
-
-      // Update or delete inventory item
-      const remaining = sellItem.quantity - qty;
-      if (remaining <= 0) {
-        await deleteRecord(STORES.INVENTORY, sellItem.id);
+      if (editingIngId) {
+        data.id = editingIngId;
+        // Preserve original addedAt
+        const old = await getRecord(STORES.INVENTORY, editingIngId);
+        if (old) data.addedAt = old.addedAt;
+        await updateRecord(STORES.INVENTORY, data);
+        showToast('Ingredient updated', 'success');
       } else {
-        sellItem.quantity = remaining;
-        await updateRecord(STORES.INVENTORY, sellItem);
+        await addRecord(STORES.INVENTORY, data);
+        showToast('Ingredient added', 'success');
       }
-
-      showToast(`Sold ${qty}x ${sellItem.name} — Profit: ₹${profit.toFixed(2)}`, 'success');
-      closeSellModal();
-      render();
+      document.getElementById('modal-ingredient').classList.remove('open');
+      editingIngId = null;
+      renderIngredients();
       if (typeof AnalyticsManager !== 'undefined') AnalyticsManager.refresh();
-    } catch (err) {
-      showToast('Error processing sale: ' + err.message, 'error');
-    }
+    } catch (err) { showToast('Error: ' + err.message, 'error'); }
   }
 
   function getExpiryStatus(dateStr) {
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-    const expiry = new Date(dateStr);
-    expiry.setHours(0, 0, 0, 0);
-    const diff = Math.ceil((expiry - now) / (1000 * 60 * 60 * 24));
+    if (!dateStr) return 'good';
+    const now = new Date(); now.setHours(0,0,0,0);
+    const expiry = new Date(dateStr); expiry.setHours(0,0,0,0);
+    const diff = Math.ceil((expiry - now) / 86400000);
     if (diff < 0) return 'expired';
     if (diff <= 7) return 'expiring';
     return 'good';
   }
 
+  function daysUntil(dateStr) {
+    if (!dateStr) return 999;
+    const now = new Date(); now.setHours(0,0,0,0);
+    const t = new Date(dateStr); t.setHours(0,0,0,0);
+    return Math.ceil((t - now) / 86400000);
+  }
+
   function formatDate(dateStr) {
     if (!dateStr) return '—';
-    const d = new Date(dateStr);
-    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    return new Date(dateStr).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
   }
 
-  function daysUntil(dateStr) {
-    const now = new Date();
-    now.setHours(0, 0, 0, 0);
-    const target = new Date(dateStr);
-    target.setHours(0, 0, 0, 0);
-    return Math.ceil((target - now) / (1000 * 60 * 60 * 24));
-  }
-
-  async function render() {
-    const items = await getAllRecords(STORES.INVENTORY);
-    const search = document.getElementById('inventory-search').value.toLowerCase();
-    const statusFilter = document.getElementById('inventory-filter-status').value;
-    const typeFilter = document.getElementById('inventory-filter-type').value;
+  async function renderIngredients() {
+    const items = (await getAllRecords(STORES.INVENTORY)).filter(i => i.type === 'ingredient');
+    const search = document.getElementById('ingredient-search').value.toLowerCase();
+    const catFilter = document.getElementById('ingredient-filter-category').value;
+    const statusFilter = document.getElementById('ingredient-filter-status').value;
 
     const filtered = items.filter(item => {
       if (search && !item.name.toLowerCase().includes(search)) return false;
-      if (typeFilter !== 'all' && item.type !== typeFilter) return false;
-      if (statusFilter !== 'all') {
-        const status = getExpiryStatus(item.expiryDate);
-        if (statusFilter !== status) return false;
-      }
+      if (catFilter !== 'all' && item.category !== catFilter) return false;
+      if (statusFilter !== 'all' && getExpiryStatus(item.expiryDate) !== statusFilter) return false;
       return true;
     });
 
-    const tbody = document.getElementById('inventory-tbody');
-    const emptyState = document.getElementById('inventory-empty');
-
-    if (filtered.length === 0) {
-      tbody.innerHTML = '';
-      emptyState.classList.remove('hidden');
-      return;
-    }
-
-    emptyState.classList.add('hidden');
-
-    // Sort: expired first, then expiring, then good
+    // Sort: expired → expiring → good
     filtered.sort((a, b) => {
-      const sa = getExpiryStatus(a.expiryDate);
-      const sb = getExpiryStatus(b.expiryDate);
       const order = { expired: 0, expiring: 1, good: 2 };
+      const sa = getExpiryStatus(a.expiryDate), sb = getExpiryStatus(b.expiryDate);
       return order[sa] - order[sb] || new Date(a.expiryDate) - new Date(b.expiryDate);
     });
+
+    const tbody = document.getElementById('ingredients-tbody');
+    const emptyState = document.getElementById('ingredients-empty');
+    if (filtered.length === 0) { tbody.innerHTML = ''; emptyState.classList.remove('hidden'); return; }
+    emptyState.classList.add('hidden');
 
     tbody.innerHTML = filtered.map(item => {
       const status = getExpiryStatus(item.expiryDate);
       const days = daysUntil(item.expiryDate);
-      const statusLabels = {
-        good: '🟢 Good',
-        expiring: `🟡 ${days}d left`,
-        expired: `🔴 Expired`,
-      };
-      const badgeClass = {
-        good: 'badge-good',
-        expiring: 'badge-expiring',
-        expired: 'badge-expired',
-      };
-
-      return `
-        <tr>
-          <td><strong>${esc(item.name)}</strong></td>
-          <td><span class="badge badge-${item.type}">${item.type === 'ingredient' ? '🧂 Ingredient' : '📦 Processed'}</span></td>
-          <td>${item.quantity}</td>
-          <td>₹${item.cost.toFixed(2)}</td>
-          <td>${item.type === 'processed' ? '₹' + item.salePrice.toFixed(2) : '—'}</td>
-          <td>${formatDate(item.addedAt)}</td>
-          <td>${formatDate(item.expiryDate)}</td>
-          <td><span class="badge ${badgeClass[status]}">${statusLabels[status]}</span></td>
-          <td>
-            <div class="actions-cell">
-              ${item.type === 'processed' ? `
-              <button class="btn-icon success" title="Sell" data-sell="${item.id}">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-              </button>` : ''}
-              <button class="btn-icon danger" title="Delete" data-delete="${item.id}">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-              </button>
-            </div>
-          </td>
-        </tr>
-      `;
+      const statusLabel = status === 'good' ? '🟢 Good' : status === 'expiring' ? `🟡 ${days}d left` : '🔴 Expired';
+      const badgeClass = `badge-${status}`;
+      return `<tr>
+        <td><strong>${esc(item.name)}</strong></td>
+        <td><span class="badge badge-ingredient">${esc(item.category)}</span></td>
+        <td>${item.quantity}</td>
+        <td>${item.unit}</td>
+        <td>₹${item.unitCost.toFixed(2)}</td>
+        <td>${esc(item.supplier || '—')}</td>
+        <td>${formatDate(item.addedAt)}</td>
+        <td>${formatDate(item.expiryDate)}</td>
+        <td><span class="badge ${badgeClass}">${statusLabel}</span></td>
+        <td><div class="actions-cell">
+          <button class="btn-icon edit" title="Edit" data-edit-ing="${item.id}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+          <button class="btn-icon danger" title="Delete" data-del-ing="${item.id}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>
+        </div></td></tr>`;
     }).join('');
 
-    // Bind sell buttons
-    tbody.querySelectorAll('[data-sell]').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const item = await getRecord(STORES.INVENTORY, Number(btn.dataset.sell));
-        if (item) openSellModal(item);
-      });
-    });
-
-    // Bind delete buttons
-    tbody.querySelectorAll('[data-delete]').forEach(btn => {
-      btn.addEventListener('click', async () => {
-        const confirmed = await showConfirm('Remove this item from inventory?');
-        if (confirmed) {
-          await deleteRecord(STORES.INVENTORY, Number(btn.dataset.delete));
-          showToast('Item removed from inventory', 'info');
-          render();
-          if (typeof AnalyticsManager !== 'undefined') AnalyticsManager.refresh();
-        }
-      });
-    });
+    tbody.querySelectorAll('[data-edit-ing]').forEach(btn => btn.addEventListener('click', async () => {
+      const item = await getRecord(STORES.INVENTORY, Number(btn.dataset.editIng));
+      if (item) openIngredientModal(item);
+    }));
+    tbody.querySelectorAll('[data-del-ing]').forEach(btn => btn.addEventListener('click', async () => {
+      if (await showConfirm('Delete this ingredient?')) {
+        await deleteRecord(STORES.INVENTORY, Number(btn.dataset.delIng));
+        showToast('Ingredient deleted', 'info'); renderIngredients();
+        if (typeof AnalyticsManager !== 'undefined') AnalyticsManager.refresh();
+      }
+    }));
   }
 
-  return { init, render, refreshProductDropdown };
+  /* ========== EXPENSES ========== */
+
+  function openExpenseModal(item = null) {
+    editingExpId = item ? item.id : null;
+    document.getElementById('modal-expense-title').textContent = item ? 'Edit Expense' : 'Add Expense';
+    document.getElementById('expense-id').value = '';
+    document.getElementById('exp-name').value = item ? item.name : '';
+    document.getElementById('exp-category').value = item ? item.category : 'Rent';
+    document.getElementById('exp-amount').value = item ? item.amount : '';
+    document.getElementById('exp-date').value = item ? (item.date || '').split('T')[0] : new Date().toISOString().split('T')[0];
+    document.getElementById('exp-recurring').value = item ? (item.recurring || 'No') : 'No';
+    document.getElementById('exp-notes').value = item ? (item.notes || '') : '';
+    document.getElementById('modal-expense').classList.add('open');
+    document.getElementById('exp-name').focus();
+  }
+
+  async function handleExpenseSubmit(e) {
+    e.preventDefault();
+    const data = {
+      name: document.getElementById('exp-name').value.trim(),
+      category: document.getElementById('exp-category').value,
+      amount: parseFloat(document.getElementById('exp-amount').value) || 0,
+      date: document.getElementById('exp-date').value,
+      recurring: document.getElementById('exp-recurring').value,
+      notes: document.getElementById('exp-notes').value.trim(),
+    };
+    try {
+      if (editingExpId) {
+        data.id = editingExpId;
+        await updateRecord(STORES.EXPENSES, data);
+        showToast('Expense updated', 'success');
+      } else {
+        await addRecord(STORES.EXPENSES, data);
+        showToast('Expense added', 'success');
+      }
+      document.getElementById('modal-expense').classList.remove('open');
+      editingExpId = null;
+      renderExpenses();
+    } catch (err) { showToast('Error: ' + err.message, 'error'); }
+  }
+
+  async function renderExpenses() {
+    const items = await getAllRecords(STORES.EXPENSES);
+    const search = document.getElementById('expense-search').value.toLowerCase();
+    const filtered = items.filter(i => !search || i.name.toLowerCase().includes(search) || i.category.toLowerCase().includes(search));
+    filtered.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    const tbody = document.getElementById('expenses-tbody');
+    const emptyState = document.getElementById('expenses-empty');
+    if (filtered.length === 0) { tbody.innerHTML = ''; emptyState.classList.remove('hidden'); return; }
+    emptyState.classList.add('hidden');
+
+    tbody.innerHTML = filtered.map(item => `<tr>
+      <td><strong>${esc(item.name)}</strong></td>
+      <td>${esc(item.category)}</td>
+      <td>₹${item.amount.toFixed(2)}</td>
+      <td>${formatDate(item.date)}</td>
+      <td>${item.recurring || 'No'}</td>
+      <td>${esc(item.notes || '—')}</td>
+      <td><div class="actions-cell">
+        <button class="btn-icon edit" title="Edit" data-edit-exp="${item.id}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 013 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></button>
+        <button class="btn-icon danger" title="Delete" data-del-exp="${item.id}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg></button>
+      </div></td></tr>`).join('');
+
+    tbody.querySelectorAll('[data-edit-exp]').forEach(btn => btn.addEventListener('click', async () => {
+      const item = await getRecord(STORES.EXPENSES, Number(btn.dataset.editExp));
+      if (item) openExpenseModal(item);
+    }));
+    tbody.querySelectorAll('[data-del-exp]').forEach(btn => btn.addEventListener('click', async () => {
+      if (await showConfirm('Delete this expense?')) {
+        await deleteRecord(STORES.EXPENSES, Number(btn.dataset.delExp));
+        showToast('Expense deleted', 'info'); renderExpenses();
+      }
+    }));
+  }
+
+  return { init, renderCurrentSubTab, renderIngredients };
 })();

@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Inventory Manager — Smart inventory management for small businesses. Track stock, monitor expiry dates, analyze profits, and export reports.">
-  <title>Inventory Manager</title>
+  <meta name="description" content="Nellai Aanantham — Cafe inventory management, billing, and analytics. Track stock, manage recipes, create bills, and export reports.">
+  <title>Nellai Aanantham</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -13,6 +13,15 @@
   <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
 </head>
 <body>
+
+  <!-- Mobile Header -->
+  <header class="mobile-header" id="mobile-header">
+    <button class="mobile-menu-btn" id="mobile-menu-btn">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <span class="mobile-brand">Nellai Aanantham</span>
+  </header>
+
   <!-- Sidebar -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-brand">
@@ -23,66 +32,40 @@
           <line x1="12" y1="22.08" x2="12" y2="12"/>
         </svg>
       </div>
-      <span class="brand-name">Inventory</span>
+      <span class="brand-name">Nellai Aanantham</span>
     </div>
 
     <nav class="sidebar-nav">
       <button class="nav-btn active" data-tab="dashboard" id="nav-dashboard">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="3" y="3" width="7" height="7"/>
-          <rect x="14" y="3" width="7" height="7"/>
-          <rect x="14" y="14" width="7" height="7"/>
-          <rect x="3" y="14" width="7" height="7"/>
-        </svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         <span>Dashboard</span>
       </button>
       <button class="nav-btn" data-tab="inventory" id="nav-inventory">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
-        </svg>
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
         <span>Inventory</span>
       </button>
-      <button class="nav-btn" data-tab="products" id="nav-products">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="8" y1="6" x2="21" y2="6"/>
-          <line x1="8" y1="12" x2="21" y2="12"/>
-          <line x1="8" y1="18" x2="21" y2="18"/>
-          <line x1="3" y1="6" x2="3.01" y2="6"/>
-          <line x1="3" y1="12" x2="3.01" y2="12"/>
-          <line x1="3" y1="18" x2="3.01" y2="18"/>
-        </svg>
-        <span>Products</span>
-      </button>
-      <button class="nav-btn" data-tab="transactions" id="nav-transactions">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="12" y1="1" x2="12" y2="23"/>
-          <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/>
-        </svg>
-        <span>Transactions</span>
+      <button class="nav-btn" data-tab="billing" id="nav-billing">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+        <span>Billing</span>
       </button>
     </nav>
 
     <div class="sidebar-footer">
       <div class="sidebar-footer-btns">
         <button class="export-btn" id="btn-export" title="Export Data">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span>Export</span>
         </button>
         <button class="export-btn" id="btn-import" title="Import Data">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
-            <polyline points="17 8 12 3 7 8"/>
-            <line x1="12" y1="3" x2="12" y2="15"/>
-          </svg>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
           <span>Import</span>
         </button>
       </div>
     </div>
   </aside>
+
+  <!-- Sidebar Overlay (mobile) -->
+  <div class="sidebar-overlay" id="sidebar-overlay"></div>
 
   <!-- Main Content -->
   <main class="main-content" id="main-content">
@@ -143,27 +126,13 @@
       </div>
 
       <div class="charts-grid">
-        <div class="chart-container">
-          <h3>Monthly Profit & Loss</h3>
-          <canvas id="chart-pnl"></canvas>
-        </div>
-        <div class="chart-container">
-          <h3>Inventory by Category</h3>
-          <canvas id="chart-category"></canvas>
-        </div>
+        <div class="chart-container"><h3>Monthly Profit & Loss</h3><canvas id="chart-pnl"></canvas></div>
+        <div class="chart-container"><h3>Inventory by Category</h3><canvas id="chart-category"></canvas></div>
       </div>
-
       <div class="charts-grid">
-        <div class="chart-container">
-          <h3>Revenue Trend (Last 6 Months)</h3>
-          <canvas id="chart-revenue-trend"></canvas>
-        </div>
-        <div class="chart-container">
-          <h3>Ingredients vs Processed (Cost)</h3>
-          <canvas id="chart-type-breakdown"></canvas>
-        </div>
+        <div class="chart-container"><h3>Revenue Trend (Last 6 Months)</h3><canvas id="chart-revenue-trend"></canvas></div>
+        <div class="chart-container"><h3>Ingredients vs Processed (Cost)</h3><canvas id="chart-type-breakdown"></canvas></div>
       </div>
-
       <div class="analytics-extra">
         <div class="chart-container stats-grid-panel">
           <h3>Quick Stats</h3>
@@ -171,9 +140,7 @@
         </div>
         <div class="chart-container">
           <h3>Top Items by Value</h3>
-          <div class="top-items-list" id="top-items-list">
-            <p class="text-muted">No inventory items yet</p>
-          </div>
+          <div class="top-items-list" id="top-items-list"><p class="text-muted">No inventory items yet</p></div>
         </div>
       </div>
     </section>
@@ -182,162 +149,282 @@
     <section class="tab-panel" id="tab-inventory">
       <header class="page-header">
         <h1>Inventory</h1>
-        <p class="page-subtitle">Manage your stock and track expiry dates</p>
+        <p class="page-subtitle">Manage ingredients, products & expenses</p>
       </header>
 
-      <div class="toolbar">
-        <div class="search-box">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="inventory-search" placeholder="Search inventory...">
-        </div>
-        <div class="filter-group">
-          <select id="inventory-filter-status">
-            <option value="all">All Status</option>
-            <option value="good">Good</option>
-            <option value="expiring">Expiring Soon</option>
-            <option value="expired">Expired</option>
-          </select>
-          <select id="inventory-filter-type">
-            <option value="all">All Types</option>
-            <option value="ingredient">Ingredients</option>
-            <option value="processed">Processed</option>
-          </select>
-        </div>
-        <button class="btn btn-primary" id="btn-add-inventory">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add Item
-        </button>
-        <button class="btn btn-danger" id="btn-delete-all-inventory">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-          Delete All
-        </button>
+      <!-- Sub-tab Ribbon -->
+      <div class="sub-tab-ribbon" id="inv-ribbon">
+        <button class="sub-tab-btn active" data-subtab="ingredients">🧂 Ingredients</button>
+        <button class="sub-tab-btn" data-subtab="products">📦 Products</button>
+        <button class="sub-tab-btn" data-subtab="expenses">💰 Other Expenses</button>
       </div>
 
-      <div class="table-wrapper">
-        <table class="data-table" id="inventory-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Type</th>
-              <th>Qty</th>
-              <th>Unit Cost</th>
-              <th>Sale Price</th>
-              <th>Added</th>
-              <th>Expiry</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="inventory-tbody"></tbody>
-        </table>
-        <div class="empty-state" id="inventory-empty">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
-          <p>No inventory items yet</p>
-          <span>Click "Add Item" to get started</span>
+      <!-- === Ingredients Sub-tab === -->
+      <div class="sub-tab-panel active" id="subtab-ingredients">
+        <div class="toolbar">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="ingredient-search" placeholder="Search ingredients...">
+          </div>
+          <div class="filter-group">
+            <select id="ingredient-filter-category">
+              <option value="all">All Categories</option>
+              <option value="Dry Goods">Dry Goods</option>
+              <option value="Dairy">Dairy</option>
+              <option value="Flavouring">Flavouring</option>
+              <option value="Fruits">Fruits</option>
+              <option value="Toppings">Toppings</option>
+              <option value="Nuts & Dry Fruits">Nuts & Dry Fruits</option>
+            </select>
+            <select id="ingredient-filter-status">
+              <option value="all">All Status</option>
+              <option value="good">Good</option>
+              <option value="expiring">Expiring Soon</option>
+              <option value="expired">Expired</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="btn-add-ingredient">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Ingredient
+          </button>
+        </div>
+        <div class="table-wrapper table-responsive">
+          <table class="data-table" id="ingredients-table">
+            <thead><tr>
+              <th>Name</th><th>Category</th><th>Qty</th><th>Unit</th><th>Unit Cost (₹)</th><th>Supplier</th><th>Added</th><th>Expiry</th><th>Status</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="ingredients-tbody"></tbody>
+          </table>
+          <div class="empty-state" id="ingredients-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+            <p>No ingredients yet</p><span>Click "Add Ingredient" to get started</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- === Products Sub-tab === -->
+      <div class="sub-tab-panel" id="subtab-products">
+        <div class="toolbar">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="product-search" placeholder="Search products...">
+          </div>
+          <div class="filter-group">
+            <select id="product-filter-category">
+              <option value="all">All Categories</option>
+              <option value="Brownie">Brownie</option>
+              <option value="Tres Leches">Tres Leches</option>
+              <option value="Drinks">Drinks</option>
+              <option value="Cakes">Cakes</option>
+              <option value="Fusion Cake">Fusion Cake</option>
+              <option value="Brownie (Box)">Brownie (Box)</option>
+            </select>
+          </div>
+          <button class="btn btn-primary" id="btn-add-product">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Product
+          </button>
+        </div>
+        <div class="table-wrapper table-responsive">
+          <table class="data-table" id="products-table">
+            <thead><tr>
+              <th>Name</th><th>Category</th><th>Sale Price (₹)</th><th>Est. Cost (₹)</th><th>Margin %</th><th>Ingredients</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="products-tbody"></tbody>
+          </table>
+          <div class="empty-state" id="products-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            <p>No products yet</p><span>Create product templates for billing</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- === Other Expenses Sub-tab === -->
+      <div class="sub-tab-panel" id="subtab-expenses">
+        <div class="toolbar">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="expense-search" placeholder="Search expenses...">
+          </div>
+          <button class="btn btn-primary" id="btn-add-expense">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            Add Expense
+          </button>
+        </div>
+        <div class="table-wrapper table-responsive">
+          <table class="data-table" id="expenses-table">
+            <thead><tr>
+              <th>Name</th><th>Category</th><th>Amount (₹)</th><th>Date</th><th>Recurring</th><th>Notes</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="expenses-tbody"></tbody>
+          </table>
+          <div class="empty-state" id="expenses-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            <p>No expenses recorded</p><span>Track rent, utilities, and other costs</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== PRODUCTS TAB ===== -->
-    <section class="tab-panel" id="tab-products">
+    <!-- ===== BILLING TAB ===== -->
+    <section class="tab-panel" id="tab-billing">
       <header class="page-header">
-        <h1>Predefined Products</h1>
-        <p class="page-subtitle">Create templates for quick inventory entry</p>
+        <h1>Billing</h1>
+        <p class="page-subtitle">Create bills & view sales history</p>
       </header>
 
-      <div class="toolbar">
-        <div class="search-box">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="product-search" placeholder="Search products...">
-        </div>
-        <button class="btn btn-primary" id="btn-add-product">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
-          Add Product
-        </button>
-        <button class="btn btn-danger" id="btn-delete-all-products">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-          Delete All
-        </button>
+      <!-- Billing Sub-tabs -->
+      <div class="sub-tab-ribbon" id="billing-ribbon">
+        <button class="sub-tab-btn active" data-subtab="new-bill">🧾 New Bill</button>
+        <button class="sub-tab-btn" data-subtab="bill-history">📋 Bill History</button>
       </div>
 
-      <div class="table-wrapper">
-        <table class="data-table" id="products-table">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Category</th>
-              <th>Type</th>
-              <th>Cost</th>
-              <th>Sale Price</th>
-              <th>Expiry (days)</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="products-tbody"></tbody>
-        </table>
-        <div class="empty-state" id="products-empty">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
-          <p>No predefined products yet</p>
-          <span>Create product templates for quick inventory entry</span>
+      <!-- New Bill -->
+      <div class="sub-tab-panel active" id="subtab-new-bill">
+        <div class="billing-layout">
+          <!-- Product Grid -->
+          <div class="billing-products">
+            <div class="billing-products-header">
+              <div class="search-box">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="billing-product-search" placeholder="Search products...">
+              </div>
+              <div class="filter-group">
+                <select id="billing-category-filter">
+                  <option value="all">All Categories</option>
+                  <option value="Brownie">Brownie</option>
+                  <option value="Tres Leches">Tres Leches</option>
+                  <option value="Drinks">Drinks</option>
+                  <option value="Cakes">Cakes</option>
+                  <option value="Fusion Cake">Fusion Cake</option>
+                  <option value="Brownie (Box)">Brownie (Box)</option>
+                </select>
+              </div>
+            </div>
+            <div class="product-grid" id="billing-product-grid">
+              <!-- Populated by JS -->
+            </div>
+          </div>
+
+          <!-- Cart / Bill -->
+          <div class="billing-cart">
+            <div class="cart-header">
+              <h3>🧾 Current Bill</h3>
+              <button class="btn btn-sm btn-ghost" id="btn-clear-cart">Clear</button>
+            </div>
+            <div class="cart-items" id="cart-items">
+              <div class="cart-empty">No items added yet</div>
+            </div>
+            <div class="cart-summary">
+              <div class="cart-summary-row"><span>Subtotal</span><span id="cart-subtotal">₹0.00</span></div>
+              <div class="cart-summary-row cart-total"><span>Total</span><span id="cart-total">₹0.00</span></div>
+            </div>
+            <div class="cart-actions">
+              <input type="text" id="bill-customer-name" placeholder="Customer name (optional)" class="cart-customer-input">
+              <button class="btn btn-success btn-block" id="btn-generate-bill" disabled>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+                Generate Bill
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bill History -->
+      <div class="sub-tab-panel" id="subtab-bill-history">
+        <div class="toolbar">
+          <div class="search-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="bill-history-search" placeholder="Search bills...">
+          </div>
+          <button class="btn btn-danger" id="btn-delete-all-bills">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+            Delete All
+          </button>
+        </div>
+        <div class="table-wrapper table-responsive">
+          <table class="data-table" id="bills-table">
+            <thead><tr>
+              <th>Bill No</th><th>Date</th><th>Customer</th><th>Items</th><th>Total (₹)</th><th>Actions</th>
+            </tr></thead>
+            <tbody id="bills-tbody"></tbody>
+          </table>
+          <div class="empty-state" id="bills-empty">
+            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+            <p>No bills yet</p><span>Create your first bill from the "New Bill" tab</span>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- ===== TRANSACTIONS TAB ===== -->
-    <section class="tab-panel" id="tab-transactions">
-      <header class="page-header">
-        <h1>Transactions</h1>
-        <p class="page-subtitle">Sales and purchase history</p>
-      </header>
-
-      <div class="toolbar">
-        <div class="search-box">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          <input type="text" id="transaction-search" placeholder="Search transactions...">
-        </div>
-        <div class="filter-group">
-          <select id="transaction-filter-type">
-            <option value="all">All Types</option>
-            <option value="sale">Sales</option>
-            <option value="purchase">Purchases</option>
-          </select>
-        </div>
-        <button class="btn btn-danger" id="btn-delete-all-transactions">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
-          Delete All
-        </button>
-      </div>
-
-      <div class="table-wrapper">
-        <table class="data-table" id="transactions-table">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Item</th>
-              <th>Type</th>
-              <th>Qty</th>
-              <th>Unit Cost</th>
-              <th>Revenue</th>
-              <th>Profit</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="transactions-tbody"></tbody>
-        </table>
-        <div class="empty-state" id="transactions-empty">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-          <p>No transactions yet</p>
-          <span>Transactions are recorded when you sell or purchase items</span>
-        </div>
-      </div>
-    </section>
   </main>
 
   <!-- ===== MODALS ===== -->
 
+  <!-- Add/Edit Ingredient Modal -->
+  <div class="modal-overlay" id="modal-ingredient">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="modal-ingredient-title">Add Ingredient</h2>
+        <button class="modal-close" data-close="modal-ingredient">&times;</button>
+      </div>
+      <form id="form-ingredient" class="modal-form">
+        <input type="hidden" id="ingredient-id">
+        <div class="form-group">
+          <label for="ing-name">Name</label>
+          <input type="text" id="ing-name" required placeholder="e.g. Flour, Sugar">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ing-category">Category</label>
+            <select id="ing-category" required>
+              <option value="Dry Goods">Dry Goods</option>
+              <option value="Dairy">Dairy</option>
+              <option value="Flavouring">Flavouring</option>
+              <option value="Fruits">Fruits</option>
+              <option value="Toppings">Toppings</option>
+              <option value="Nuts & Dry Fruits">Nuts & Dry Fruits</option>
+              <option value="Other">Other</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="ing-unit">Unit</label>
+            <select id="ing-unit" required>
+              <option value="mg">mg (milligrams)</option>
+              <option value="ml">ml (milliliters)</option>
+              <option value="pcs">pcs (pieces)</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="ing-quantity">Quantity</label>
+            <input type="number" id="ing-quantity" min="0" step="any" required placeholder="0">
+          </div>
+          <div class="form-group">
+            <label for="ing-unitcost">Unit Cost (₹)</label>
+            <input type="number" id="ing-unitcost" step="0.01" min="0" required placeholder="0.00">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="ing-supplier">Supplier (optional)</label>
+          <input type="text" id="ing-supplier" placeholder="Supplier name">
+        </div>
+        <div class="form-group">
+          <label for="ing-expiry">Expiry Date</label>
+          <input type="date" id="ing-expiry" required>
+        </div>
+        <div class="form-actions">
+          <button type="button" class="btn btn-ghost" data-close="modal-ingredient">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Ingredient</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
   <!-- Add/Edit Product Modal -->
   <div class="modal-overlay" id="modal-product">
-    <div class="modal">
+    <div class="modal modal-lg">
       <div class="modal-header">
         <h2 id="modal-product-title">Add Product</h2>
         <button class="modal-close" data-close="modal-product">&times;</button>
@@ -346,35 +433,37 @@
         <input type="hidden" id="product-id">
         <div class="form-group">
           <label for="product-name">Product Name</label>
-          <input type="text" id="product-name" required placeholder="e.g. Flour, Cake, etc.">
+          <input type="text" id="product-name" required placeholder="e.g. Classic Brownie">
         </div>
         <div class="form-row">
           <div class="form-group">
             <label for="product-category">Category</label>
-            <input type="text" id="product-category" required placeholder="e.g. Bakery, Dairy">
+            <input type="text" id="product-category" required placeholder="e.g. Brownie, Cakes">
           </div>
           <div class="form-group">
-            <label for="product-type">Type</label>
-            <select id="product-type" required>
-              <option value="ingredient">🧂 Ingredient</option>
-              <option value="processed">📦 Processed</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="product-cost">Default Cost (₹)</label>
-            <input type="number" id="product-cost" step="0.01" min="0" required placeholder="0.00">
-          </div>
-          <div class="form-group" id="product-saleprice-group">
-            <label for="product-saleprice">Default Sale Price (₹)</label>
-            <input type="number" id="product-saleprice" step="0.01" min="0" placeholder="0.00">
+            <label for="product-saleprice">Sale Price (₹)</label>
+            <input type="number" id="product-saleprice" step="0.01" min="0" required placeholder="0.00">
           </div>
         </div>
         <div class="form-group">
           <label for="product-expiry-days">Default Expiry (days)</label>
-          <input type="number" id="product-expiry-days" min="1" required placeholder="e.g. 30">
+          <input type="number" id="product-expiry-days" min="1" required placeholder="e.g. 5">
         </div>
+
+        <!-- Recipe Builder -->
+        <div class="recipe-builder">
+          <div class="recipe-header">
+            <h4>🧾 Recipe — Linked Ingredients</h4>
+            <button type="button" class="btn btn-sm btn-primary" id="btn-add-recipe-row">+ Add Ingredient</button>
+          </div>
+          <div class="recipe-rows" id="recipe-rows">
+            <!-- Rows populated dynamically -->
+          </div>
+          <div class="recipe-cost-line">
+            Estimated Cost: <strong id="recipe-est-cost">₹0.00</strong>
+          </div>
+        </div>
+
         <div class="form-actions">
           <button type="button" class="btn btn-ghost" data-close="modal-product">Cancel</button>
           <button type="submit" class="btn btn-primary" id="btn-save-product">Save Product</button>
@@ -383,85 +472,88 @@
     </div>
   </div>
 
-  <!-- Add Inventory Modal -->
-  <div class="modal-overlay" id="modal-inventory">
+  <!-- Add/Edit Expense Modal -->
+  <div class="modal-overlay" id="modal-expense">
     <div class="modal">
       <div class="modal-header">
-        <h2>Add Inventory Item</h2>
-        <button class="modal-close" data-close="modal-inventory">&times;</button>
+        <h2 id="modal-expense-title">Add Expense</h2>
+        <button class="modal-close" data-close="modal-expense">&times;</button>
       </div>
-      <form id="form-inventory" class="modal-form">
+      <form id="form-expense" class="modal-form">
+        <input type="hidden" id="expense-id">
         <div class="form-group">
-          <label for="inv-product-select">From Product Template</label>
-          <select id="inv-product-select">
-            <option value="">— Manual Entry —</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="inv-name">Item Name</label>
-          <input type="text" id="inv-name" required placeholder="Item name">
+          <label for="exp-name">Expense Name</label>
+          <input type="text" id="exp-name" required placeholder="e.g. Rent, Electricity">
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="inv-type">Type</label>
-            <select id="inv-type" required>
-              <option value="ingredient">🧂 Ingredient</option>
-              <option value="processed">📦 Processed</option>
+            <label for="exp-category">Category</label>
+            <select id="exp-category" required>
+              <option value="Rent">Rent</option>
+              <option value="Utilities">Utilities</option>
+              <option value="Salary">Salary</option>
+              <option value="Packaging">Packaging</option>
+              <option value="Transport">Transport</option>
+              <option value="Marketing">Marketing</option>
+              <option value="Maintenance">Maintenance</option>
+              <option value="Other">Other</option>
             </select>
           </div>
           <div class="form-group">
-            <label for="inv-quantity">Quantity</label>
-            <input type="number" id="inv-quantity" min="1" required placeholder="1">
+            <label for="exp-amount">Amount (₹)</label>
+            <input type="number" id="exp-amount" step="0.01" min="0" required placeholder="0.00">
           </div>
         </div>
         <div class="form-row">
           <div class="form-group">
-            <label for="inv-cost">Unit Cost (₹)</label>
-            <input type="number" id="inv-cost" step="0.01" min="0" required placeholder="0.00">
+            <label for="exp-date">Date</label>
+            <input type="date" id="exp-date" required>
           </div>
-          <div class="form-group" id="inv-saleprice-group">
-            <label for="inv-saleprice">Sale Price (₹)</label>
-            <input type="number" id="inv-saleprice" step="0.01" min="0" placeholder="0.00">
+          <div class="form-group">
+            <label for="exp-recurring">Recurring</label>
+            <select id="exp-recurring">
+              <option value="No">No</option>
+              <option value="Monthly">Monthly</option>
+              <option value="Weekly">Weekly</option>
+              <option value="Yearly">Yearly</option>
+            </select>
           </div>
         </div>
         <div class="form-group">
-          <label for="inv-expiry">Expiry Date</label>
-          <input type="date" id="inv-expiry" required>
+          <label for="exp-notes">Notes (optional)</label>
+          <input type="text" id="exp-notes" placeholder="Additional details">
         </div>
         <div class="form-actions">
-          <button type="button" class="btn btn-ghost" data-close="modal-inventory">Cancel</button>
-          <button type="submit" class="btn btn-primary">Add to Inventory</button>
+          <button type="button" class="btn btn-ghost" data-close="modal-expense">Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Expense</button>
         </div>
       </form>
     </div>
   </div>
 
-  <!-- Sell Modal -->
-  <div class="modal-overlay" id="modal-sell">
-    <div class="modal modal-sm">
+  <!-- View Bill Modal -->
+  <div class="modal-overlay" id="modal-view-bill">
+    <div class="modal">
       <div class="modal-header">
-        <h2>Sell Item</h2>
-        <button class="modal-close" data-close="modal-sell">&times;</button>
+        <h2>Bill Details</h2>
+        <button class="modal-close" data-close="modal-view-bill">&times;</button>
       </div>
-      <form id="form-sell" class="modal-form">
-        <input type="hidden" id="sell-item-id">
-        <div class="sell-item-info" id="sell-item-info"></div>
-        <div class="form-row">
-          <div class="form-group">
-            <label for="sell-quantity">Quantity to Sell</label>
-            <input type="number" id="sell-quantity" min="1" required placeholder="1">
-          </div>
-          <div class="form-group">
-            <label for="sell-price">Sale Price per Unit (₹)</label>
-            <input type="number" id="sell-price" step="0.01" min="0" required placeholder="0.00">
-          </div>
-        </div>
-        <div class="sell-summary" id="sell-summary"></div>
-        <div class="form-actions">
-          <button type="button" class="btn btn-ghost" data-close="modal-sell">Cancel</button>
-          <button type="submit" class="btn btn-success">Confirm Sale</button>
-        </div>
-      </form>
+      <div class="modal-form bill-receipt" id="bill-receipt-content">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- View Recipe Modal -->
+  <div class="modal-overlay" id="modal-view-recipe">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="recipe-modal-title">Recipe</h2>
+        <button class="modal-close" data-close="modal-view-recipe">&times;</button>
+      </div>
+      <div class="modal-form" id="recipe-view-content">
+        <!-- Populated by JS -->
+      </div>
     </div>
   </div>
 
@@ -474,19 +566,16 @@
       </div>
       <div class="export-options">
         <button class="export-option-btn" id="export-txt">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <span>Text File (.txt)</span>
-          <small>Plain text report</small>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          <span>Text File (.txt)</span><small>Plain text report</small>
         </button>
         <button class="export-option-btn" id="export-xlsx">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h2l2 3 2-3h2"/><path d="M8 17h8"/></svg>
-          <span>Excel File (.xlsx)</span>
-          <small>Spreadsheet with multiple sheets</small>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h2l2 3 2-3h2"/></svg>
+          <span>Excel File (.xlsx)</span><small>Spreadsheet with multiple sheets</small>
         </button>
         <button class="export-option-btn" id="export-json">
-          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          <span>JSON Backup (.json)</span>
-          <small>Full backup — best for re-importing</small>
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          <span>JSON Backup (.json)</span><small>Full backup — best for re-importing</small>
         </button>
       </div>
     </div>
@@ -513,14 +602,12 @@
         </div>
         <div class="export-options">
           <button class="export-option-btn" id="import-xlsx-btn">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M8 13h2l2 3 2-3h2"/><path d="M8 17h8"/></svg>
-            <span>Import Excel (.xlsx)</span>
-            <small>Import from a previously exported spreadsheet</small>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>Import Excel (.xlsx)</span><small>Import from spreadsheet</small>
           </button>
           <button class="export-option-btn" id="import-json-btn">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-            <span>Import JSON (.json)</span>
-            <small>Full data backup with all fields preserved</small>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>Import JSON (.json)</span><small>Full data backup restore</small>
           </button>
         </div>
         <input type="file" id="import-file-input" accept=".xlsx,.json" style="display:none;">

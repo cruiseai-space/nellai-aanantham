@@ -1,0 +1,217 @@
+{
+    "Phase 1: Spatial Architecture & Layout Mechanics": [
+        {
+            "Skill Name": "8-Point Spatial Rhythm Configuration",
+            "Trigger Context": "Establishing padding, margins, and grid alignments.",
+            "Execution Logic": [
+                "Enforce an absolute 8-point base unit system (e.g., 4, 8, 16, 24, 32, 48, 64, 96px).",
+                "Apply internal padding (8-16px), related element gaps (8-16px), unrelated gaps (24-32px), and section breaks (48-96px).",
+                "Never use arbitrary prime numbers.",
+                "Apply the Rule of Thirds and Fibonacci sequence constraints for macro-layout balance."
+            ],
+            "Standards": ["8-Point Grid System", "Rule of Thirds", "Fibonacci Sequence"]
+        },
+        {
+            "Skill Name": "Bento Grid Structuring & Content-Out Architecture",
+            "Trigger Context": "Generating dashboards or feature-rich landing pages.",
+            "Execution Logic": [
+                "Inventory all content first.",
+                "Construct a strict 12-column (desktop) or 4-column (mobile) grid.",
+                "Partition data into modular 2x2 bento containers using CSS Grid (minmax, auto-fit).",
+                "Map visual flow using F-Pattern or Z-Pattern heuristics, placing the highest-priority metrics in the top-left."
+            ],
+            "Standards": ["CSS Grid", "F-Pattern", "Z-Pattern"]
+        },
+        {
+            "Skill Name": "Container-Query Responsive Adaptation",
+            "Trigger Context": "Designing reusable UI components for multiple viewports.",
+            "Execution Logic": [
+                "Reject viewport-based @media queries for internal components.",
+                "Use container-type: inline-size.",
+                "Define 3 variants minimum: Compact (max 300px), Medium (max 600px), and Expanded (min 601px).",
+                "Scale gracefully between them."
+            ],
+            "Standards": ["Container Queries", "Responsive Design"]
+        },
+        {
+            "Skill Name": "Algorithmic Component Dimensioning",
+            "Trigger Context": "Generating interactive buttons or data chips.",
+            "Execution Logic": [
+                "Calculate the text's computed line height + vertical paddings.",
+                "Enforce the mathematical ratio: Target Width = Computed Height × 2.",
+                "Overrule this ratio only to guarantee minimum WCAG mobile touch-target sizes of 44x44px."
+            ],
+            "Standards": ["WCAG 2.1", "Touch Target Sizes"]
+        }
+    ],
+    "Phase 2: Mathematical Typography & Iconometry": [
+        {
+            "Skill Name": "Geometric Typography Scaling",
+            "Trigger Context": "Initializing a project's text system.",
+            "Execution Logic": [
+                "Limit to 2 font families (e.g., Sans-serif for UI, Serif for Display).",
+                "Establish a base size (16px desktop, 14px mobile).",
+                "Scale headings using a strict geometric ratio (e.g., 1.25x or 1.5x) via the formula size_n = base_size × ratio^(n-1).",
+                "Limit line lengths to 60-75 characters to prevent reading fatigue."
+            ],
+            "Standards": ["Modular Scale", "Typography"]
+        },
+        {
+            "Skill Name": "Hierarchical Line Height & Kerning",
+            "Trigger Context": "Formatting text blocks for readability.",
+            "Execution Logic": [
+                "Assign line heights programmatically: Body text (1.5x font size), Small text (1.4x), Headings (1.1x to 1.2x).",
+                "Apply a kerning (letter-spacing) reduction of -2% to -3% exclusively on large display text to tighten visual presence."
+            ],
+            "Standards": ["Line Height", "Kerning"]
+        },
+        {
+            "Skill Name": "Iconometry & Vertical Rhythm Synchronization",
+            "Trigger Context": "Placing vector icons adjacent to text elements.",
+            "Execution Logic": [
+                "Extract the adjacent text's computed CSS line height (not font size).",
+                "Force the SVG bounding box to match this exact pixel integer (e.g., 24px box for a 16px font with a 1.5x line height).",
+                "Apply align-items: center to eliminate sub-pixel baseline misalignment."
+            ],
+            "Standards": ["Vertical Rhythm", "Iconography"]
+        }
+    ],
+    "Phase 3: Color Systems & Dimensional Physics": [
+        {
+            "Skill Name": "4-Layer Semantic Color Architecture",
+            "Trigger Context": "Generating color variables and themes.",
+            "Execution Logic": [
+                "Implement a 4-layer functional system: Layer 1 (Background canvas), Layer 2 (Elevated Surfaces), Layer 3 (Text/Icons), Layer 4 (Accents/CTAs).",
+                "Utilize triadic color schemes for harmony.",
+                "Ensure text opacity cascades (87% primary, 60% secondary, 38% tertiary)."
+            ],
+            "Standards": ["Color Theory", "Semantic Color"]
+        },
+        {
+            "Skill Name": "HSL Dark Mode Physics (Zero-Shadow Elevation)",
+            "Trigger Context": "Compiling prefers-color-scheme: dark variables.",
+            "Execution Logic": [
+                "Aggressively nullify all box-shadow properties.",
+                "Calculate Z-axis elevation via HSL lightness (L).",
+                "Set the base canvas ≤ 15% lightness. For every Z-index step upward, increase lightness by 3% to 5%.",
+                "Automatically desaturate accent colors by 15-20% and invert text inside chips to prevent retina halation."
+            ],
+            "Standards": ["Dark Mode", "HSL Color Model"]
+        },
+        {
+            "Skill Name": "High-Fidelity Light Mode Depth",
+            "Trigger Context": "Establishing elevation in light environments.",
+            "Execution Logic": [
+                "Render shadows virtually invisible to the naked eye.",
+                "Maximize blur radius and drastically reduce the opacity channel.",
+                "Reserve pronounced shadows strictly for transient, high-elevation elements (Dropdowns, Popovers) that break the primary layout grid."
+            ],
+            "Standards": ["Shadow Rendering", "Elevation"]
+        },
+        {
+            "Skill Name": "Performance-Optimized Glassmorphism",
+            "Trigger Context": "Designing overlays, modals, or premium SaaS cards.",
+            "Execution Logic": [
+                "Apply background blur (10-20px) coupled with a 1px low-opacity white inside border and a subtle inner shadow to simulate glass volume.",
+                "Limit backdrop-filter usage to less than 50% of the viewport to prevent severe rendering performance degradation."
+            ],
+            "Standards": ["Glassmorphism", "Performance Optimization"]
+        }
+    ],
+    "Phase 4: Component States & Interaction Mechanics": [
+        {
+            "Skill Name": "Exhaustive State Matrix Generation",
+            "Trigger Context": "Defining the interactive states of any UI primitive.",
+            "Execution Logic": [
+                "Generate strict visual variables for 6+ states: Default, Hover, Active/Pressed, Focus, Disabled, Loading, Error, Success.",
+                "Default (baseline), Hover (1.02x scale, +5% brightness, expanded shadow)",
+                "Active/Pressed (0.98x scale, inset shadow), Focus (2px semantic ring)",
+                "Disabled (0.5 opacity, grayscale background), Loading (continuous shimmer mask)",
+                "Error (semantic red tint), Success"
+            ],
+            "Standards": ["State Management", "UI Feedback"]
+        },
+        {
+            "Skill Name": "Cognitive Interruption Routing",
+            "Trigger Context": "Determining the UI paradigm for a triggered user task.",
+            "Execution Logic": [
+                "Run Hick's Law assessment. If the task is simple (≤ 2 inputs), non-destructive, and requires visual context of the main dashboard, generate a non-blocking Popover.",
+                "If the task is complex, destructive, or initiates a new workflow, generate a full-screen, background-blurred Modal to force cognitive focus."
+            ],
+            "Standards": ["Hick's Law", "UI Paradigms"]
+        },
+        {
+            "Skill Name": "Optimistic UI State Representation",
+            "Trigger Context": "Writing client-to-server data mutation logic.",
+            "Execution Logic": [
+                "Bind click event. Intercept network delay by instantly mutating the local DOM (e.g., removing a deleted row visually) and firing a success Toast.",
+                "Process the database fetch asynchronously. Revert the DOM state and fire an Error Toast only if the server returns a non-200 status code."
+            ],
+            "Standards": ["Optimistic UI", "Error Handling"]
+        },
+        {
+            "Skill Name": "Micro-Interaction Timing & Easing",
+            "Trigger Context": "Choreographing UI animations.",
+            "Execution Logic": [
+                "Enforce strict timing bounds: 150-200ms for micro-interactions, 200-300ms for component transitions.",
+                "Assign ease-out for entering elements and ease-in for exiting elements.",
+                "Apply a strict 300ms delay constraint to hover-based tooltips to prevent accidental rapid-fire triggering."
+            ],
+            "Standards": ["Animation Timing", "Easing Functions"]
+        }
+    ],
+    "Phase 5: Accessibility, Performance & Anti-Vibe Enforcement": [
+        {
+            "Skill Name": "Accessibility-First Semantic Generation",
+            "Trigger Context": "Writing DOM structure and attributes.",
+            "Execution Logic": [
+                "Map interactions natively (<button> for actions, <a> for navigation).",
+                "Verify keyboard tab index logic.",
+                "Enforce a minimum 4.5:1 text contrast and 3:1 component boundary contrast.",
+                "Inject @media (prefers-reduced-motion) constraints that nullify transition durations down to 0.01ms."
+            ],
+            "Standards": ["WCAG 2.1", "Semantic HTML"]
+        },
+        {
+            "Skill Name": "Performance-Conscious Effect Auditing",
+            "Trigger Context": "Evaluating CSS animations and transitions.",
+            "Execution Logic": [
+                "Scan CSS architecture. Strip transitions attached to layout properties (width, height, margin, padding).",
+                "Permit animations exclusively on hardware-accelerated properties (transform and opacity)."
+            ],
+            "Standards": ["CSS Performance", "GPU Acceleration"]
+        },
+        {
+            "Skill Name": "Vibe-Code Suppression & Normalization",
+            "Trigger Context": "Post-processing raw LLM-generated UI code.",
+            "Execution Logic": [
+                "Identify and purge Unicode emojis acting as system icons, replacing them with Phosphor/Lucide vectors.",
+                "Scan for and mathematically mute hyper-saturated hex codes.",
+                "Detect 'dead cards' lacking actionable data and dynamically collapse/remove them from the DOM.",
+                "Strip 'lorem ipsum' and inject realistic, context-aware placeholder data."
+            ],
+            "Standards": ["Code Normalization", "Placeholder Data"]
+        }
+    ],
+    "Phase 6: System Architecture & Presentation Handoff": [
+        {
+            "Skill Name": "Atomic to Molecular API Construction",
+            "Trigger Context": "Structuring a finalized design system for developer handoff.",
+            "Execution Logic": [
+                "Build from the token layer up. Define CSS/Design tokens as the single source of truth.",
+                "Define the Component API strictly (Props, Defaults, Constraints, Slots).",
+                "Map out progressive disclosure empty states (clear explanation + resolution action) for every data container."
+            ],
+            "Standards": ["Design Tokens", "Component API"]
+        },
+        {
+            "Skill Name": "High-Fidelity Spatial Presentation Transformations",
+            "Trigger Context": "Exporting designs for portfolio or stakeholder review.",
+            "Execution Logic": [
+                "For Creative/Portfolio Mode: Apply WebGL/CSS 3D skews (e.g., transform: perspective(1000px) rotateX(2deg) rotateY(-14deg)), offsetting sub-components along the Z-axis with high-blur drop shadows to create an exploded collage.",
+                "For Professional/Enterprise Mode: Integrate the flat UI specifically into realistic, AI-generated environmental lifestyle mockups (e.g., Midjourney natural desk lighting) to synthesize market-ready tangibility."
+            ],
+            "Standards": ["3D Presentation", "Environmental Mockups"]
+        }
+    ]
+}
