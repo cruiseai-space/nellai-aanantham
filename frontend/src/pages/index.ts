@@ -1,0 +1,7 @@
+export { LoginPage } from './LoginPage'
+export { DashboardPage } from './DashboardPage'
+export { IngredientsPage } from './IngredientsPage'
+export { BatchesPage } from './BatchesPage'
+export { RecipesPage } from './RecipesPage'
+export { ProductsPage } from './ProductsPage'
+export { OrdersPage } from './OrdersPage'
