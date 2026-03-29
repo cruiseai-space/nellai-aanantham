@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "on-error": "#ffffff",
+                "on-primary": "#ffffff",
+                "primary-container": "#d62083",
+                "surface-container": "#f8ebed",
+                "surface-container-highest": "#ecdfe1",
+                "on-secondary-fixed": "#221b00",
+                "surface-tint": "#b8006d",
+                "secondary-fixed": "#ffe16d",
+                "primary-fixed-dim": "#ffb0cd",
+                "on-tertiary-fixed-variant": "#534345",
+                "on-primary-fixed": "#3e0021",
+                "tertiary-fixed": "#f5dde0",
+                "on-tertiary-fixed": "#25181a",
+                "primary": "#b00068",
+                "on-secondary-container": "#6e5c00",
+                "surface-bright": "#fff8f8",
+                "background": "#fff8f8",
+                "primary-fixed": "#ffd9e4",
+                "surface-dim": "#e3d7d9",
+                "tertiary": "#685658",
+                "on-surface": "#201a1c",
+                "secondary": "#705d00",
+                "on-error-container": "#93000a",
+                "inverse-surface": "#362f30",
+                "on-secondary-fixed-variant": "#544600",
+                "on-background": "#201a1c",
+                "tertiary-container": "#816e71",
+                "outline-variant": "#e0bec8",
+                "on-primary-container": "#fff7f8",
+                "on-tertiary-container": "#fff8f8",
+                "inverse-on-surface": "#fbeef0",
+                "secondary-container": "#fcd400",
+                "secondary-fixed-dim": "#e9c400",
+                "surface-container-lowest": "#ffffff",
+                "on-secondary": "#ffffff",
+                "on-primary-fixed-variant": "#8d0052",
+                "outline": "#8c6f79",
+                "on-tertiary": "#ffffff",
+                "surface-container-high": "#f2e5e7",
+                "error": "#ba1a1a",
+                "surface-container-low": "#fdf0f2",
+                "inverse-primary": "#ffb0cd",
+                "surface": "#fff8f8",
+                "error-container": "#ffdad6",
+                "on-surface-variant": "#584049",
+                "tertiary-fixed-dim": "#d8c1c4",
+                "surface-variant": "#ecdfe1"
+              },
+              fontFamily: {
+                "headline": ["Playfair Display", "serif"],
+                "body": ["Inter", "sans-serif"],
+                "label": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "1.5rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .hero-gradient {
+            background: linear-gradient(to right, rgba(32, 26, 28, 0.8) 0%, rgba(32, 26, 28, 0.4) 50%, rgba(32, 26, 28, 0) 100%);
+        }
+        .artisan-shadow {
+            box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.04), 0 10px 40px -10px hsla(350, 50%, 20%, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-secondary-container selection:text-on-secondary-container">
+<!-- TopNavBar -->
+<nav class="bg-[#fff8f8]/80 dark:bg-[#fff8f8]/80 backdrop-blur-xl shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] docked full-width top-0 sticky z-50 no-border transition-colors duration-300">
+<div class="flex justify-between items-center w-full px-6 py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<img alt="Nellai Aanantham Logo" class="h-10 w-10 object-contain" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdMIGUIEZn5xVzhjaJ4ydtOO-JcygHVyXqTQbKxTQWn9t10zrvTB2hdJJGCz85rV0bW2eN_KLgAL5fi_6kdjSFd6AL4sMjaMAMdHMJS03weyEis0eTiL44crjCiFKhg8O9FJFvEI8kF_fe-z_c--gZx6mzxl7vio8j0JxVh3fdv4yWrYJKjRez8cA8FNfUfmixzCMgG6bk5xzVaivIFZmEoH8_51gqF-YrWhpZJe4-nFoX2QCzyXtAQoT1vBwx2A9lKvaBLXV5Tnc"/>
+<span class="font-['Playfair_Display'] text-2xl font-bold text-[#b00068]">Nellai Aanantham</span>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-[#b00068] border-b-2 border-[#b00068] pb-1 font-['Playfair_Display'] text-lg font-medium tracking-tight" href="#">Cakes</a>
+<a class="text-[#b00068]/60 hover:text-[#b00068] transition-all font-['Playfair_Display'] text-lg font-medium tracking-tight" href="#">Brownies</a>
+<a class="text-[#b00068]/60 hover:text-[#b00068] transition-all font-['Playfair_Display'] text-lg font-medium tracking-tight" href="#">Drinks</a>
+<a class="text-[#b00068]/60 hover:text-[#b00068] transition-all font-['Playfair_Display'] text-lg font-medium tracking-tight" href="#">About</a>
+<a class="text-[#b00068]/60 hover:text-[#b00068] transition-all font-['Playfair_Display'] text-lg font-medium tracking-tight" href="#">Contact</a>
+</div>
+<button class="bg-primary-container text-on-primary-container px-8 py-3 rounded-lg font-medium artisan-shadow hover:scale-95 duration-150 ease-in-out">
+                Order Now
+            </button>
+</div>
+</nav>
+<main>
+<!-- Hero Section -->
+<section class="relative h-screen w-full overflow-hidden flex items-center">
+<div class="absolute inset-0 z-0">
+<img alt="Signature Cake" class="w-full h-full object-cover" data-alt="Close-up of a multi-layered gourmet chocolate cake with smooth ganache and gold leaf accents on a marble surface with soft atmospheric lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCdVtpWoWt2LZ8HTDk9qLjRfQWlSEqha3zzOl25w7lDirg4kic_O0CAmoowZDW_yQNcbQ56fVqlDQqZCPDN2BOCY07x4jnoxuQ5wWpH0YbZsPV52sGF2d_d4S_3rF9aedJjgNh8-nt1gBi3gd282GsJ4Pqmd6DH_RkxJEnEfbcYgLb3C470ifjq95c_fZYOuBQlGCxjp4tzbEJYNRPevCYXh0XmNAolyoOyGdJ7uKjcSpuFkYP4f7jel0MWBVybEXmtBb5KfzDDt5E"/>
+<div class="absolute inset-0 hero-gradient"></div>
+</div>
+<div class="relative z-10 max-w-7xl mx-auto px-6 grid grid-cols-12 w-full">
+<div class="col-span-12 md:col-span-8 lg:col-span-6">
+<span class="inline-block px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container font-semibold text-sm mb-6 uppercase tracking-widest">
+                        Artisanal Excellence Since 1994
+                    </span>
+<h1 class="font-headline text-6xl md:text-8xl text-white font-bold leading-tight mb-8">
+                        Crafting <span class="text-secondary-container italic">Joy</span> in Every Bite.
+                    </h1>
+<p class="text-white/87 text-lg md:text-xl mb-12 max-w-lg leading-relaxed">
+                        Experience the finest Tamil heritage sweets and contemporary French patisserie, blended perfectly for your celebrations.
+                    </p>
+<div class="flex flex-col sm:flex-row gap-6">
+<button class="bg-primary text-on-primary h-[56px] w-[112px] min-w-[112px] flex items-center justify-center rounded-xl artisan-shadow hover:bg-primary-container transition-all group">
+<span class="material-symbols-outlined mr-2" data-icon="chat">chat</span>
+<span class="font-semibold">Order</span>
+</button>
+<button class="bg-white/10 backdrop-blur-md border border-white/20 text-white px-8 py-4 rounded-xl hover:bg-white/20 transition-all font-semibold flex items-center">
+                            View Menu
+                            <span class="material-symbols-outlined ml-2" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Section (Bento Grid) -->
+<section class="py-24 px-6 max-w-7xl mx-auto">
+<div class="mb-16 text-center">
+<h2 class="font-headline text-4xl md:text-5xl text-on-surface font-bold mb-4">Our Curated Collections</h2>
+<div class="h-1 w-24 bg-primary mx-auto rounded-full"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 md:grid-rows-2 gap-6 h-auto md:h-[700px]">
+<!-- Cakes: Large Primary Item -->
+<div class="md:col-span-2 md:row-span-2 bg-surface-container-lowest rounded-xl artisan-shadow overflow-hidden group cursor-pointer">
+<div class="relative h-full">
+<img alt="Artisanal Cakes" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Stunning wedding cake with delicate cream frosting and fresh pastel flowers on a rustic wooden table in a sunlit bakery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAABUhHt4SHdddAqPSz5So2Y7ram_5J4k2ohvHhdWbX2O8iTVdbBnR35CE-ScVT8bwirOGViD-oV1iIsUlvstqI1jSmuMyXz_9c7MaUECYSpzewFx91L7ib6UgnWuASwCvi0XkWo6wDQCjf8tHBGSa45jbJG3hhDVw_yHLdPBIzZokPT9LXen79l6bapnU2kKBtSDiNsSKDbsv3dKvVJIUGsK15DeczB-ZXPbZluxpt9-to2-NyQvq7VwuyRb01AeH_crjybJsv4KM"/>
+<div class="absolute inset-0 bg-gradient-to-t from-on-surface/80 via-transparent to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-10">
+<h3 class="font-headline text-4xl text-white mb-2">Signature Cakes</h3>
+<p class="text-white/70 mb-6 max-w-xs">Custom masterpieces for your most cherished moments.</p>
+<span class="text-secondary-container flex items-center font-bold">
+                                Explore Collection <span class="material-symbols-outlined ml-2" data-icon="arrow_outward">arrow_outward</span>
+</span>
+</div>
+</div>
+</div>
+<!-- Brownies: Secondary -->
+<div class="md:col-span-2 bg-surface-container-low rounded-xl artisan-shadow overflow-hidden group cursor-pointer flex flex-col md:flex-row">
+<div class="flex-1 p-8 flex flex-col justify-center">
+<h3 class="font-headline text-2xl text-on-surface mb-2">Fudgy Brownies</h3>
+<p class="text-on-surface-variant text-sm mb-4">Rich, dark chocolate indulgence with a crinkle top.</p>
+<span class="text-primary font-semibold flex items-center">
+                            Shop Now <span class="material-symbols-outlined ml-2 text-sm" data-icon="chevron_right">chevron_right</span>
+</span>
+</div>
+<div class="flex-1 h-48 md:h-auto overflow-hidden">
+<img alt="Gourmet Brownies" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Stack of dark chocolate brownies with sea salt sprinkles and molten chocolate centers on a minimalist ceramic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAJ9dSQYbsVeDV1dZsfG2HE2E-Qrkad5VWZReSC4_Wdoct7UIHd-9uDxnzNYUe9jMA0oIIngNEwDELf_yXp3SlbY3Rp-e-je1SGsd4kAmKLmnarqiwttTASmoSznX4Cg7dhlHPUJiCx9x-rfXsPO94yFvEDKF3zsu8whZpL93-65ZmtkGiKrOKZWY0LORvpw4O3-El8o-tHb_XeNhn0lHccI6ZZfSUN95M3BWUwdQNb3SSkb2C50sTZMRJ9ongdBJ5szsN8ScgjbhA"/>
+</div>
+</div>
+<!-- Drinks: Small -->
+<div class="md:col-span-1 bg-surface-container-high rounded-xl artisan-shadow overflow-hidden group cursor-pointer relative">
+<img alt="Specialty Coffee" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" data-alt="Rich hot chocolate with frothy milk and a dusting of cocoa powder in a ceramic mug with soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuC1tDWPD-kNTJYjMUgtAbLZSt6JiLysQwfO00YhYRTv6I5EcZ_mii1924Cmsfmmrjr1tiBHjlFLtksNjsXRRkUbzAGviMc6UlYoGu2ldpbwqxgY5fe_j3kpe-dl8A5o9NrHc-YMXEW2yd6iiZHXetNuDuSyTWFBur8cIr9teqYrQuVAYT9SAg8aXJoTUxfk0-S1l7r7geLB3Ep8qZE_gGJCa2JOvUS6IM5uWbRQERbDq9vPYe2Wpap7Yy8xkCLAY-uBu1ZemenXAfA"/>
+<div class="absolute inset-0 bg-on-surface/30"></div>
+<div class="absolute inset-0 p-6 flex flex-col justify-end">
+<h3 class="font-headline text-xl text-white">Cold Brews</h3>
+</div>
+</div>
+<!-- About Us: Small Text-focused -->
+<div class="md:col-span-1 bg-primary-container rounded-xl artisan-shadow p-6 flex flex-col justify-between group cursor-pointer">
+<div class="text-on-primary-container">
+<span class="material-symbols-outlined text-4xl mb-4" data-icon="history_edu">history_edu</span>
+<h3 class="font-headline text-xl mb-2">Our Heritage</h3>
+<p class="text-on-primary-container/80 text-sm">A legacy of sweetness since 1994, from Nellai to the world.</p>
+</div>
+<div class="flex justify-end">
+<span class="material-symbols-outlined text-on-primary-container group-hover:translate-x-2 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Newsletter / Social Section -->
+<section class="bg-surface-container-low py-20 px-6">
+<div class="max-w-3xl mx-auto text-center">
+<span class="material-symbols-outlined text-primary text-5xl mb-6" data-icon="cake">cake</span>
+<h2 class="font-headline text-4xl text-on-surface font-bold mb-6">Join the Confection Connection</h2>
+<p class="text-on-surface-variant mb-10 leading-relaxed">
+                    Subscribe to receive secret recipes, early access to seasonal launches, and a 10% discount on your first online order.
+                </p>
+<form class="flex flex-col sm:flex-row gap-4">
+<input class="flex-1 px-6 py-4 rounded-xl bg-surface-container-lowest border-none focus:ring-2 focus:ring-primary artisan-shadow" placeholder="Your email address" type="email"/>
+<button class="bg-primary text-on-primary px-10 py-4 rounded-xl font-bold artisan-shadow hover:bg-primary-container transition-all">
+                        Subscribe
+                    </button>
+</form>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-[#f2e5e7] dark:bg-[#f2e5e7] full-width py-16 tonal-shift-bg">
+<div class="grid grid-cols-1 md:grid-cols-12 gap-8 max-w-7xl mx-auto px-6">
+<div class="md:col-span-4">
+<span class="font-['Playfair_Display'] text-xl font-bold text-[#b00068] block mb-6">Nellai Aanantham</span>
+<p class="text-[#b00068]/70 font-['Inter'] text-sm leading-relaxed mb-6">
+                    Handcrafting authentic sweetness and artisanal delights for the discerning palate. Quality ingredients, time-honored techniques.
+                </p>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-[#b00068] cursor-pointer" data-icon="language">language</span>
+<span class="material-symbols-outlined text-[#b00068] cursor-pointer" data-icon="share">share</span>
+<span class="material-symbols-outlined text-[#b00068] cursor-pointer" data-icon="pin_drop">pin_drop</span>
+</div>
+</div>
+<div class="md:col-span-2">
+<h4 class="font-bold text-[#b00068] mb-6">Navigation</h4>
+<ul class="space-y-4">
+<li><a class="text-[#b00068]/70 hover:text-[#b00068] font-['Inter'] text-sm underline-offset-4 transition-all" href="#">Cakes</a></li>
+<li><a class="text-[#b00068]/70 hover:text-[#b00068] font-['Inter'] text-sm underline-offset-4 transition-all" href="#">Brownies</a></li>
+<li><a class="text-[#b00068]/70 hover:text-[#b00068] font-['Inter'] text-sm underline-offset-4 transition-all" href="#">Drinks</a></li>
+</ul>
+</div>
+<div class="md:col-span-3">
+<h4 class="font-bold text-[#b00068] mb-6">Information</h4>
+<ul class="space-y-4">
+<li><a class="text-[#b00068]/70 hover:text-[#b00068] font-['Inter'] text-sm underline-offset-4 transition-all" href="#">Privacy Policy</a></li>
+<li><a class="text-[#b00068]/70 hover:text-[#b00068] font-['Inter'] text-sm underline-offset-4 transition-all" href="#">Terms of Service</a></li>
+<li><a class="text-[#b00068]/70 hover:text-[#b00068] font-['Inter'] text-sm underline-offset-4 transition-all" href="#">Shipping Info</a></li>
+</ul>
+</div>
+<div class="md:col-span-3">
+<h4 class="font-bold text-[#b00068] mb-6">Newsletter</h4>
+<p class="text-[#b00068]/70 text-sm mb-4">Stay sweet with our latest news.</p>
+<div class="flex">
+<input class="bg-white/50 border-none rounded-l-lg w-full px-4 text-sm focus:ring-1 focus:ring-primary" placeholder="Email" type="text"/>
+<button class="bg-[#b00068] text-white px-4 py-2 rounded-r-lg">
+<span class="material-symbols-outlined text-sm" data-icon="send">send</span>
+</button>
+</div>
+</div>
+</div>
+<div class="max-w-7xl mx-auto px-6 mt-16 pt-8 border-t border-[#b00068]/10 text-center">
+<p class="text-[#b00068]/70 font-['Inter'] text-sm leading-relaxed">
+                © 2024 Nellai Aanantham Bakery. All rights reserved.
+            </p>
+</div>
+</footer>
+</body></html>

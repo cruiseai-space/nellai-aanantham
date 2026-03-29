@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nellai Aanantham - Full Menu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,900&amp;family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "tertiary-container": "#816e71",
+              "primary-fixed-dim": "#ffb0cd",
+              "surface": "#fff8f8",
+              "on-primary-container": "#fff7f8",
+              "on-tertiary-container": "#fff8f8",
+              "inverse-surface": "#362f30",
+              "outline": "#8c6f79",
+              "error-container": "#ffdad6",
+              "on-surface": "#201a1c",
+              "surface-container-highest": "#ecdfe1",
+              "secondary-fixed-dim": "#e9c400",
+              "secondary-fixed": "#ffe16d",
+              "surface-container-low": "#fdf0f2",
+              "on-tertiary-fixed-variant": "#534345",
+              "primary-fixed": "#ffd9e4",
+              "on-error": "#ffffff",
+              "surface-container-lowest": "#ffffff",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "surface-bright": "#fff8f8",
+              "secondary": "#705d00",
+              "on-secondary-fixed-variant": "#544600",
+              "on-surface-variant": "#584049",
+              "inverse-primary": "#ffb0cd",
+              "on-primary-fixed": "#3e0021",
+              "tertiary": "#685658",
+              "surface-variant": "#ecdfe1",
+              "on-error-container": "#93000a",
+              "on-tertiary": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed": "#25181a",
+              "on-secondary-fixed": "#221b00",
+              "on-background": "#201a1c",
+              "secondary-container": "#fcd400",
+              "surface-container": "#f8ebed",
+              "on-primary": "#ffffff",
+              "surface-tint": "#b8006d",
+              "surface-container-high": "#f2e5e7",
+              "on-primary-fixed-variant": "#8d0052",
+              "inverse-on-surface": "#fbeef0",
+              "on-secondary": "#ffffff",
+              "background": "#fff8f8",
+              "tertiary-fixed": "#f5dde0",
+              "primary-container": "#d62083",
+              "outline-variant": "#e0bec8",
+              "primary": "#b00068",
+              "on-secondary-container": "#6e5c00",
+              "surface-dim": "#e3d7d9"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "brand": ["Playfair Display"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .product-grid-container {
+            container-type: inline-size;
+        }
+        @container (max-width: 400px) {
+            .responsive-grid { grid-template-columns: 1fr; }
+        }
+        @container (min-width: 401px) and (max-width: 800px) {
+            .responsive-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @container (min-width: 801px) {
+            .responsive-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+        @container (min-width: 1100px) {
+            .responsive-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+        .editorial-shadow {
+            box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.04), 0 10px 40px -10px hsla(350, 50%, 20%, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-surface text-on-surface font-body selection:bg-primary-fixed selection:text-primary">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full flex justify-between items-center px-6 py-4 bg-[#fff8f8]/80 dark:bg-slate-950/80 backdrop-blur-md z-50 shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)]">
+<div class="flex items-center gap-8">
+<span class="text-2xl font-black text-[#b00068] dark:text-[#d62083] italic font-brand">Nellai Aanantham</span>
+<nav class="hidden md:flex gap-6 items-center">
+<a class="text-[#b00068] border-b-2 border-[#b00068] pb-1 font-medium" href="#">Menu</a>
+<a class="text-[#b00068]/60 hover:text-[#b00068] transition-colors font-medium" href="#">Fusion</a>
+<a class="text-[#b00068]/60 hover:text-[#b00068] transition-colors font-medium" href="#">Specialty</a>
+</nav>
+</div>
+<div class="flex items-center gap-2">
+<div class="hidden md:flex items-center bg-surface-container-high rounded-full px-4 py-2 mr-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-sm w-48 placeholder:text-on-surface-variant/50" placeholder="Search flavors..." type="text"/>
+</div>
+<button class="hover:bg-[#f2e5e7] dark:hover:bg-slate-800 rounded-full p-2 transition-all scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined text-[#b00068]" data-icon="shopping_bag">shopping_bag</span>
+</button>
+<button class="hover:bg-[#f2e5e7] dark:hover:bg-slate-800 rounded-full p-2 transition-all scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined text-[#b00068]" data-icon="person">person</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32">
+<!-- Hero Section -->
+<section class="px-6 mb-12">
+<div class="max-w-7xl mx-auto">
+<div class="grid grid-cols-12 gap-8 items-end">
+<div class="col-span-12 lg:col-span-8">
+<span class="text-primary font-semibold tracking-widest uppercase text-xs mb-4 block">Freshly Baked Daily</span>
+<h1 class="text-5xl md:text-7xl font-brand font-bold text-on-surface leading-tight">
+                            The Full <span class="italic text-primary">Signature</span> Collection
+                        </h1>
+</div>
+<div class="hidden lg:block lg:col-span-4 pb-4">
+<p class="text-on-surface-variant leading-relaxed opacity-80 text-lg italic">
+                            Handcrafted with artisanal precision, blending traditional heritage with contemporary fusion flavors.
+                        </p>
+</div>
+</div>
+</div>
+</section>
+<!-- Sticky Categories -->
+<div class="sticky top-[72px] z-40 bg-surface/95 backdrop-blur-sm py-4 mb-8">
+<div class="max-w-7xl mx-auto px-6 overflow-x-auto no-scrollbar">
+<div class="flex gap-4 min-w-max">
+<button class="px-6 py-2 rounded-full bg-secondary-container text-on-secondary-container font-medium flex items-center gap-2 transition-all shadow-sm">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">stars</span>
+                        Cakes
+                    </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">auto_awesome</span>
+                        Fusion
+                    </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">bakery_dining</span>
+                        Brownies
+                    </button>
+<button class="px-6 py-2 rounded-full bg-surface-container-high text-on-surface-variant hover:bg-surface-container-highest transition-all font-medium flex items-center gap-2">
+<span class="material-symbols-outlined text-sm">local_cafe</span>
+                        Drinks
+                    </button>
+</div>
+</div>
+</div>
+<!-- Product Grid -->
+<section class="px-6 max-w-7xl mx-auto">
+<div class="product-grid-container">
+<div class="responsive-grid grid gap-8">
+<!-- Product Card 1 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative editorial-shadow transition-transform duration-150 ease-out group-hover:scale-[1.02] group-hover:shadow-[0_4px_12px_hsla(0,0%,0%,0.08)]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="close-up of a luxurious dark chocolate layer cake with silk frosting and fresh raspberries on top, soft morning light" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtzjfiAPewvfbIuazGB8dY7V7UilhX-9lmUFgqQBPuCeptKE6TcDCnr7kHVxOI9FisDHs7gcDYEYg0-S6gzyS11v-ypvTe4XYCX10HALx9MF-5RLHzT3Pmd8hkpUPo19y53St8SjAFQAfBTOEpNDfMVeX4VKvGraAXzL5RZ400zHQMgTHDa3WHhnJ6iJ5Ycj6auu29wL1IG_9e67wAlE1zohqloB1K9z3wFT-UEQQAhhtlCzhQcmbXOaHId1sTPuJLAmvM774o9dk"/>
+<div class="absolute top-4 right-4 bg-secondary-container/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-on-secondary-container">Best Seller</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-brand font-bold text-on-surface">Velvet Rose Cake</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-[1.5] opacity-80">Infused with Damascus rose water and pistachio crumble.</p>
+</div>
+<span class="text-primary font-bold text-lg">$42</span>
+</div>
+<button class="mt-4 w-full min-h-[44px] bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+<!-- Product Card 2 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative editorial-shadow transition-transform duration-150 ease-out group-hover:scale-[1.02] group-hover:shadow-[0_4px_12px_hsla(0,0%,0%,0.08)]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="artisanal fusion cardamom and saffron macarons beautifully arranged on a minimalist white ceramic plate, editorial food photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCp3yBUboOHyDPXNOgMdnCTO8vEOMkohrH2xOjRifwBJlscD60X90IDyUu5TUuteXM_jlJobt9IhV3L9PYwTSr3E2dqy4UYV9SAXuJJOnlbGiCN5taJYaR3uQb39Mas8nHFfdYZKGvQtJrxg6aFLh0JSDFPhUVR2WZ6XbSwNHYSuXGeLByR1kLqqw7CIVlIp3OvmznUaWFHVdeJUop4lPJfB8f3k15JDPMhBzBMOjrKMeaH5pUftI4AtpA1oiBr6uni_iT2TFKqF6g"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-brand font-bold text-on-surface">Saffron Delights</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-[1.5] opacity-80">Heritage saffron infused shells with white chocolate ganache.</p>
+</div>
+<span class="text-primary font-bold text-lg">$24</span>
+</div>
+<button class="mt-4 w-full min-h-[44px] bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+<!-- Product Card 3 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative editorial-shadow transition-transform duration-150 ease-out group-hover:scale-[1.02] group-hover:shadow-[0_4px_12px_hsla(0,0%,0%,0.08)]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="fudgy chocolate sea salt brownies stacked on a wooden board, golden hour lighting highlighting the texture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA033LsiId_BMPHUQl_Xhb7lossWkZDfzp0qNoYP_4kCt9rT8Q5qs9I4Uhi1m4D9fRsb89NawLq1n1yybvBOAwQftTpthmWi_Nf4aLcgrhhye9w1YW_fq29ujgJWQTmzdrKeNhr54uFgfHGTbIXKzKgmLnfp0JAcpmWfKkTpP5YzJWq_zyjUVOZFp5U6EW2o3tCn8OzAfe-Fun9xUC2X216P9qPsVTJ3y_G0xfT6_SZK3lHn0bW4Ote6tN5ngiff_1zl8NfClFNDis"/>
+<div class="absolute top-4 right-4 bg-primary/90 backdrop-blur-md px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider text-white">New</div>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-brand font-bold text-on-surface">Espresso Brownie</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-[1.5] opacity-80">70% single-origin cocoa with roasted coffee bean bits.</p>
+</div>
+<span class="text-primary font-bold text-lg">$18</span>
+</div>
+<button class="mt-4 w-full min-h-[44px] bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+<!-- Product Card 4 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative editorial-shadow transition-transform duration-150 ease-out group-hover:scale-[1.02] group-hover:shadow-[0_4px_12px_hsla(0,0%,0%,0.08)]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="pink hibiscus iced tea in a tall ribbed glass with fresh mint and ice, vibrant summer aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRVGNJC9ORdmfWH2-gE5i0OEXfM_AnfRcGcBsbr-oEEgpEfPpZPDkqfhiUIICgY4kQHXjpofi5uNeIQhqN4EZ6i_NJUsWqWUwro30wcNNlFkVnwI8d9U_Va47HmQ0iCRxUTnvhL0zUNRtKahHdORZXHdjJ6GeFhqNreLNUGbJVX7IOqHyo3ldAqkTXv4dLdZ1ZOO8ocvxbdP9faqFiC3lbZATe4qfrSAyv_aOP7a-4KkMGpoCTPxJ9BX9jaFajr6EIatCo55wbIAA"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-brand font-bold text-on-surface">Hibiscus Spritz</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-[1.5] opacity-80">Cold-pressed hibiscus flowers with sparkling botanical water.</p>
+</div>
+<span class="text-primary font-bold text-lg">$12</span>
+</div>
+<button class="mt-4 w-full min-h-[44px] bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+<!-- Product Card 5 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative editorial-shadow transition-transform duration-150 ease-out group-hover:scale-[1.02] group-hover:shadow-[0_4px_12px_hsla(0,0%,0%,0.08)]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="mini strawberry cream tarts on a marble surface, topped with edible gold leaf, soft pink and white tones" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB_caMFz9pJZxi9G0V3J1YeFL7jF5kBj6w5GduaCPAmtD6fkALW-mmxJjxMC7G7NMopauh-Onaq7NPiYTP9osYvF-IlLAJogyYelUIsKb_yVLPFByUVkwNFhsewsBuftsqOsflC38M4TQcHPH3UNOk4swMsJcJ_htG8aY_T8LvSVzfCpx_LsDaS48wqjMnvA-5BV0HFBJHzDhX3jSzQ9X2aoqazGnTgdFgVYU5RVbZF0XHgWhoVeVuWMy7Akq4AYrnep72HWm6_Wjg"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-brand font-bold text-on-surface">Summer Berry Tart</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-[1.5] opacity-80">Butter crust with vanilla bean custard and local berries.</p>
+</div>
+<span class="text-primary font-bold text-lg">$36</span>
+</div>
+<button class="mt-4 w-full min-h-[44px] bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+<!-- Product Card 6 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative editorial-shadow transition-transform duration-150 ease-out group-hover:scale-[1.02] group-hover:shadow-[0_4px_12px_hsla(0,0%,0%,0.08)]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="gourmet donuts with pastel lavender glaze and edible flower petals, minimalist soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCfTlDsO-IftuMbD-DgW1r9hwHnIOPzpN_aBny6aQhrDQ_EXOCW5E-tuoaR4aceMcwrsRjS8McczJx09VPofzHsMGFdfeGffyFyX9Zv13MsTaafJtUSFdpsZu7RyflgBa05JlGu94oC3NN3RAYOmK1Jgm7KxEyXC0FgGEOU3jT0UP1X2AWmQofA_FSKBjhwkzAmN0Wgn6zwqYqa1Nzxe5riHoXkr6fHyb9a0a1wVahptE8V63n92RphcYOzLVQ4UJsrHgs81yycz_Y"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-brand font-bold text-on-surface">Lavender Glaze</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-[1.5] opacity-80">Brioche dough with honey lavender glaze and dried buds.</p>
+</div>
+<span class="text-primary font-bold text-lg">$16</span>
+</div>
+<button class="mt-4 w-full min-h-[44px] bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+<!-- Product Card 7 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative editorial-shadow transition-transform duration-150 ease-out group-hover:scale-[1.02] group-hover:shadow-[0_4px_12px_hsla(0,0%,0%,0.08)]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="matcha green tea cake with smooth cream layers and white chocolate curls, bright natural lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCovJ2rV4KMtP87lwz-iPYq_AIIAHre9O6qHmXRXU2h2tKYSuscTwjMJOZYTkEzbLhrnpkNQYuPgLUB8g9XsJp5Yv10AnIlN_cmRqRgGM0KjEMzeyVGG2l9TAgVX5O5P1R6lW98nRVT3YyrVVhh6fwZ9R13tfVeyU6ufam2zypRlsh2gdURAeke1Ajo3W6BbbdE53oO1uMR_NAut5rci0iaRBihq_3z4LlaGBAarRUALMWca-Fkjay8irjyYbrW_UuOXqDi-vS35xU"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-brand font-bold text-on-surface">Zen Matcha Tier</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-[1.5] opacity-80">Ceremonial grade matcha with whipped white chocolate.</p>
+</div>
+<span class="text-primary font-bold text-lg">$48</span>
+</div>
+<button class="mt-4 w-full min-h-[44px] bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+<!-- Product Card 8 -->
+<div class="group cursor-pointer">
+<div class="aspect-square rounded-xl overflow-hidden mb-4 relative editorial-shadow transition-transform duration-150 ease-out group-hover:scale-[1.02] group-hover:shadow-[0_4px_12px_hsla(0,0%,0%,0.08)]">
+<img class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="luxury eclairs with golden caramel glaze and salt flakes, high-end pastry presentation" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYHQD3i_HSItfaRvnPP6BKYeNGZ4r_9soNVKveA3ziyTdrpEJ3o9M2TGwynMhrBKZDSphb_WveMbLtuKFPjLsdGjf6Y7x7PZS-f4PvT-uYIAiiSgLcVAUBerYIpuzEsyCluozvxOqPMLcu5zi3AGozYBbU9pWiDaq5g_YFi0BfAkrCsjY-GLhwMqRWe2EiKLkG6JwZ-zYjH_kSTI9mD2gWrubXAYeOpOpVCnQsVBnkdxzAxxdyMFiBd2TnsBqoT1OekznC4Pj5uBE"/>
+</div>
+<div class="flex justify-between items-start">
+<div>
+<h3 class="text-xl font-brand font-bold text-on-surface">Caramel Noir Eclair</h3>
+<p class="text-on-surface-variant text-sm mt-1 leading-[1.5] opacity-80">Salted burnt caramel cream inside a crisp choux pastry.</p>
+</div>
+<span class="text-primary font-bold text-lg">$14</span>
+</div>
+<button class="mt-4 w-full min-h-[44px] bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-lg font-medium flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-lg">add_shopping_cart</span>
+                            Add to Cart
+                        </button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- BottomNavBar (Mobile Only) -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f8] dark:bg-slate-900 border-t border-[#f2e5e7] dark:border-slate-800 rounded-t-[1.5rem] shadow-[0_-4px_20px_rgba(176,0,104,0.05)]">
+<a class="flex flex-col items-center justify-center bg-gradient-to-br from-[#b00068] to-[#d62083] text-white rounded-2xl px-5 py-2 scale-110 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">restaurant_menu</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide uppercase mt-1">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-slate-400 px-5 py-2 hover:text-[#b00068] transition-all" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide uppercase mt-1">Fusion</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-slate-400 px-5 py-2 hover:text-[#b00068] transition-all" href="#">
+<span class="material-symbols-outlined">stars</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide uppercase mt-1">Specialty</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-slate-400 px-5 py-2 hover:text-[#b00068] transition-all" href="#">
+<span class="material-symbols-outlined">shopping_cart</span>
+<span class="font-['Inter'] text-[10px] font-medium tracking-wide uppercase mt-1">Cart</span>
+</a>
+</footer>
+</body></html>

@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#ecdfe1",
+              "secondary": "#705d00",
+              "inverse-primary": "#ffb0cd",
+              "on-tertiary-fixed": "#25181a",
+              "surface": "#fff8f8",
+              "primary-container": "#d62083",
+              "on-surface": "#201a1c",
+              "inverse-surface": "#362f30",
+              "secondary-fixed": "#ffe16d",
+              "primary": "#b00068",
+              "on-background": "#201a1c",
+              "surface-container-lowest": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#fff8f8",
+              "on-primary-container": "#fff7f8",
+              "on-primary": "#ffffff",
+              "tertiary": "#685658",
+              "primary-fixed-dim": "#ffb0cd",
+              "background": "#fff8f8",
+              "primary-fixed": "#ffd9e4",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#584049",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#f5dde0",
+              "surface-container-highest": "#ecdfe1",
+              "outline-variant": "#e0bec8",
+              "on-tertiary-fixed-variant": "#534345",
+              "surface-container-low": "#fdf0f2",
+              "secondary-fixed-dim": "#e9c400",
+              "on-secondary-fixed": "#221b00",
+              "outline": "#8c6f79",
+              "on-primary-fixed-variant": "#8d0052",
+              "secondary-container": "#fcd400",
+              "surface-container": "#f8ebed",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed-variant": "#544600",
+              "surface-dim": "#e3d7d9",
+              "surface-bright": "#fff8f8",
+              "error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "surface-container-high": "#f2e5e7",
+              "tertiary-container": "#816e71",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#fbeef0",
+              "surface-tint": "#b8006d",
+              "on-secondary-container": "#6e5c00",
+              "on-primary-fixed": "#3e0021"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "serif": ["Playfair Display"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            background-color: #fff8f8;
+            color: #201a1c;
+            font-family: 'Inter', sans-serif;
+        }
+        .editorial-shadow {
+            box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.04), 0 10px 40px -10px hsla(350, 50%, 20%, 0.08);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="bg-[#fff8f8]/80 dark:bg-[#1a0f11]/80 backdrop-blur-md fixed top-0 w-full z-50 shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] transition-colors duration-300">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<button class="text-[#b00068] dark:text-[#ff8cc6] hover:bg-[#f2e5e7] dark:hover:bg-[#2d1a1d] transition-all p-2 rounded-full scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-['Playfair_Display'] font-bold text-lg text-[#b00068] dark:text-[#ff8cc6] tracking-tight">The Artisanal Editor</h1>
+<button class="text-[#b00068] dark:text-[#ff8cc6] hover:bg-[#f2e5e7] dark:hover:bg-[#2d1a1d] transition-all p-2 rounded-full scale-95 active:scale-90 duration-200">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</div>
+</header>
+<main class="flex-grow pt-24 pb-32 px-6">
+<!-- Content Placeholder -->
+<div class="max-w-md mx-auto space-y-12">
+<section class="space-y-4">
+<h2 class="font-serif text-4xl text-primary leading-tight">Freshly Baked Editorial</h2>
+<div class="rounded-xl overflow-hidden editorial-shadow">
+<img alt="Artisan Bread" class="w-full h-64 object-cover" data-alt="close-up of artisan sourdough bread on dark marble countertop with dramatic side lighting and flour dust" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAndNjqdVqmwegRzza41BJn-wOy57JC_RwUxMbscmQ491OYHx0FqAcBtq8Fo3O7SmJwLa9LGeZ35CMYszGcPM3QZ_CXTr2SvWbU_gWSvGTsJ8p9bKEensJcescg1XbagKpX3ACkddKnTIroyYOEL0RADPhQkHLOcod3v-QUaAMPQ3LJu8lg8ILVg4YFyeTaYPX5pamf_zycMI7rn1v24lZrWM-5pOlXeUC6j2Xq1t2jX1sXmdhWL6TbYIlSopOTqsHWBS-R28PrQmc"/>
+</div>
+<p class="text-on-surface/80 leading-relaxed">Discover the alchemy of flour, water, and time. Every loaf tells a story of patience and craft.</p>
+</section>
+<section class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest p-5 rounded-xl editorial-shadow space-y-3">
+<span class="material-symbols-outlined text-primary text-3xl">bakery_dining</span>
+<h3 class="font-bold text-on-surface">Daily Specials</h3>
+<p class="text-sm text-on-surface/60">Crafted at dawn, sold by dusk.</p>
+</div>
+<div class="bg-surface-container-lowest p-5 rounded-xl editorial-shadow space-y-3">
+<span class="material-symbols-outlined text-primary text-3xl">local_cafe</span>
+<h3 class="font-bold text-on-surface">Coffee Pairings</h3>
+<p class="text-sm text-on-surface/60">Ethically sourced, perfectly roasted.</p>
+</div>
+</section>
+</div>
+</main>
+<!-- Global Mobile Footer -->
+<footer class="bg-[#1a1a1a] text-white py-[64px] px-8 flex flex-col gap-8">
+<!-- Brand Section -->
+<div class="flex flex-col gap-2">
+<h3 class="font-serif text-2xl text-white/87 tracking-tight">The Artisanal Editor</h3>
+<p class="text-white/60 font-body text-sm leading-relaxed">Curating the finest moments in pastry and grain since 1994. Every bite is a calculated masterpiece.</p>
+</div>
+<!-- Navigation Links -->
+<nav class="flex flex-col gap-4">
+<h4 class="text-white/38 uppercase tracking-[0.2em] text-[10px] font-bold">The Collections</h4>
+<div class="flex flex-col items-start gap-4">
+<a class="text-white/87 text-lg hover:underline decoration-primary decoration-2 underline-offset-8 transition-all" href="#">Seasonal Specials</a>
+<a class="text-white/87 text-lg hover:underline decoration-primary decoration-2 underline-offset-8 transition-all" href="#">Sourdough Breads</a>
+<a class="text-white/87 text-lg hover:underline decoration-primary decoration-2 underline-offset-8 transition-all" href="#">Morning Pastries</a>
+<a class="text-white/87 text-lg hover:underline decoration-primary decoration-2 underline-offset-8 transition-all" href="#">Celebration Cakes</a>
+</div>
+</nav>
+<!-- Functional Links -->
+<nav class="flex flex-col gap-4">
+<h4 class="text-white/38 uppercase tracking-[0.2em] text-[10px] font-bold">Journal</h4>
+<div class="flex flex-col items-start gap-3">
+<a class="text-white/60 text-sm hover:text-white transition-colors" href="#">Our Story</a>
+<a class="text-white/60 text-sm hover:text-white transition-colors" href="#">Baking Classes</a>
+<a class="text-white/60 text-sm hover:text-white transition-colors" href="#">Wholesale Inquiry</a>
+<a class="text-white/60 text-sm hover:text-white transition-colors" href="#">Sustainability</a>
+</div>
+</nav>
+<!-- Newsletter / Contact -->
+<div class="flex flex-col gap-4">
+<h4 class="text-white/38 uppercase tracking-[0.2em] text-[10px] font-bold">Stay Updated</h4>
+<div class="relative">
+<input class="w-full bg-white/5 border-b-2 border-white/20 py-3 px-0 text-white placeholder:text-white/38 focus:outline-none focus:border-primary transition-colors bg-transparent" placeholder="Your email address" type="email"/>
+<button class="absolute right-0 top-1/2 -translate-y-1/2 text-primary">
+<span class="material-symbols-outlined">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Secondary Legal/Copyright -->
+<div class="pt-8 mt-4 border-t border-white/10 flex flex-col gap-4">
+<div class="flex gap-6">
+<a class="text-white/38 text-xs hover:text-white transition-colors" href="#">Privacy</a>
+<a class="text-white/38 text-xs hover:text-white transition-colors" href="#">Terms</a>
+<a class="text-white/38 text-xs hover:text-white transition-colors" href="#">Shipping</a>
+</div>
+<p class="text-white/38 text-[11px]">© 2024 The Artisanal Editor. All rights reserved. Handcrafted with love.</p>
+</div>
+</footer>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f8] dark:bg-[#1a0f11] bg-gradient-to-b from-[#fdf0f2] to-[#fff8f8] dark:from-[#2d1a1d] dark:to-[#1a0f11] shadow-[0_-4px_20px_rgba(176,0,104,0.05)] rounded-t-3xl">
+<a class="flex flex-col items-center justify-center bg-[#fcd400] dark:bg-[#b00068] text-[#b00068] dark:text-[#fff8f8] rounded-2xl px-4 py-1.5 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 hover:text-[#b00068] dark:hover:text-[#ff8cc6] active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 hover:text-[#b00068] dark:hover:text-[#ff8cc6] active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">About</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 hover:text-[#b00068] dark:hover:text-[#ff8cc6] active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Contact</span>
+</a>
+</nav>
+</body></html>

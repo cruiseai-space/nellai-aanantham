@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,700;1,700&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#ecdfe1",
+              "secondary": "#705d00",
+              "inverse-primary": "#ffb0cd",
+              "on-tertiary-fixed": "#25181a",
+              "surface": "#fff8f8",
+              "primary-container": "#d62083",
+              "on-surface": "#201a1c",
+              "inverse-surface": "#362f30",
+              "secondary-fixed": "#ffe16d",
+              "primary": "#b00068",
+              "on-background": "#201a1c",
+              "surface-container-lowest": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#fff8f8",
+              "on-primary-container": "#fff7f8",
+              "on-primary": "#ffffff",
+              "tertiary": "#685658",
+              "primary-fixed-dim": "#ffb0cd",
+              "background": "#fff8f8",
+              "primary-fixed": "#ffd9e4",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#584049",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#f5dde0",
+              "surface-container-highest": "#ecdfe1",
+              "outline-variant": "#e0bec8",
+              "on-tertiary-fixed-variant": "#534345",
+              "surface-container-low": "#fdf0f2",
+              "secondary-fixed-dim": "#e9c400",
+              "on-secondary-fixed": "#221b00",
+              "outline": "#8c6f79",
+              "on-primary-fixed-variant": "#8d0052",
+              "secondary-container": "#fcd400",
+              "surface-container": "#f8ebed",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed-variant": "#544600",
+              "surface-dim": "#e3d7d9",
+              "surface-bright": "#fff8f8",
+              "error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "surface-container-high": "#f2e5e7",
+              "tertiary-container": "#816e71",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#fbeef0",
+              "surface-tint": "#b8006d",
+              "on-secondary-container": "#6e5c00",
+              "on-primary-fixed": "#3e0021"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .premium-shadow {
+            box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.04), 0 10px 40px -10px hsla(350, 50%, 20%, 0.08);
+        }
+        .glass-nav {
+            background: hsla(350, 100%, 95%, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- Top App Bar -->
+<header class="fixed top-0 w-full z-50 glass-nav shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)]">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary cursor-pointer" data-icon="menu">menu</span>
+<h1 class="font-['Playfair_Display'] font-bold text-lg text-primary tracking-tight">The Artisanal Editor</h1>
+</div>
+<span class="material-symbols-outlined text-primary" data-icon="shopping_bag">shopping_bag</span>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-md mx-auto">
+<!-- Hero Section -->
+<div class="mb-12">
+<h2 class="font-headline text-3xl font-bold text-primary mb-4 leading-tight">Notification Systems</h2>
+<p class="text-on-surface/70 leading-relaxed">Refined micro-interactions designed for the premium editorial experience. Our toasts balance visibility with elegance.</p>
+</div>
+<!-- Toast Gallery Canvas -->
+<div class="space-y-8 relative">
+<!-- Success Toast Variant -->
+<div class="flex flex-col gap-4">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface/50 ml-2">Success State</span>
+<div class="w-full max-w-[90vw] mx-auto bg-surface-container-lowest rounded-xl premium-shadow p-4 flex items-center gap-4 border-l-4 border-secondary-container">
+<div class="w-10 h-10 rounded-full bg-secondary-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container" data-icon="check_circle" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm text-on-surface">Order Confirmed</h4>
+<p class="text-xs text-on-surface/60">Your sourdough is being prepared.</p>
+</div>
+<span class="material-symbols-outlined text-on-surface/30 text-sm" data-icon="close">close</span>
+</div>
+</div>
+<!-- Info / Pink Toast Variant -->
+<div class="flex flex-col gap-4">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface/50 ml-2">Informational (Brand)</span>
+<div class="w-full max-w-[90vw] mx-auto bg-surface-container-lowest rounded-xl premium-shadow p-4 flex items-center gap-4 border-l-4 border-primary">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-primary" data-icon="auto_awesome" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm text-on-surface">New Seasonal Batch</h4>
+<p class="text-xs text-on-surface/60">Lavender Macarons are now available.</p>
+</div>
+<span class="material-symbols-outlined text-on-surface/30 text-sm" data-icon="close">close</span>
+</div>
+</div>
+<!-- Error Toast Variant -->
+<div class="flex flex-col gap-4">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface/50 ml-2">Critical Error</span>
+<div class="w-full max-w-[90vw] mx-auto bg-surface-container-lowest rounded-xl premium-shadow p-4 flex items-center gap-4 border-l-4 border-error">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error" data-icon="error_outline" style="font-variation-settings: 'FILL' 1;">error_outline</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm text-on-surface">Payment Failed</h4>
+<p class="text-xs text-on-surface/60">Please check your card details again.</p>
+</div>
+<span class="material-symbols-outlined text-on-surface/30 text-sm" data-icon="close">close</span>
+</div>
+</div>
+<!-- Warning / Loading Variant -->
+<div class="flex flex-col gap-4">
+<span class="text-xs font-label uppercase tracking-widest text-on-surface/50 ml-2">In-Progress</span>
+<div class="w-full max-w-[90vw] mx-auto bg-surface-container-lowest rounded-xl premium-shadow p-4 flex items-center gap-4 border-l-4 border-outline">
+<div class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-outline animate-spin" data-icon="progress_activity">progress_activity</span>
+</div>
+<div class="flex-1">
+<h4 class="font-bold text-sm text-on-surface">Updating Cart</h4>
+<p class="text-xs text-on-surface/60">One moment while we verify stock.</p>
+</div>
+<span class="material-symbols-outlined text-on-surface/30 text-sm" data-icon="close">close</span>
+</div>
+</div>
+</div>
+<!-- Design Guidelines Section -->
+<section class="mt-20 space-y-6">
+<h3 class="font-headline text-2xl text-primary">Specification</h3>
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-[10px] font-label uppercase tracking-tighter text-primary/60 mb-1">Corner Radius</p>
+<p class="font-bold text-on-surface">12px (xl)</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-[10px] font-label uppercase tracking-tighter text-primary/60 mb-1">Max Width</p>
+<p class="font-bold text-on-surface">90vw</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-[10px] font-label uppercase tracking-tighter text-primary/60 mb-1">Entrance</p>
+<p class="font-bold text-on-surface">250ms Slide</p>
+</div>
+<div class="bg-surface-container-low p-4 rounded-xl">
+<p class="text-[10px] font-label uppercase tracking-tighter text-primary/60 mb-1">Exit</p>
+<p class="font-bold text-on-surface">200ms Fade</p>
+</div>
+</div>
+</section>
+<!-- Decorative Card Image -->
+<div class="mt-16 rounded-3xl overflow-hidden premium-shadow aspect-video">
+<img alt="Artisanal Bakery Scene" class="w-full h-full object-cover" data-alt="close-up of artisan sourdough bread on dark marble countertop with dramatic side lighting and a dusting of flour" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDvdmnhVSpc4CqGq_RG6q3exjHdpd5pskqW91R6O7CpDs0biY4NAPITQV19rvBSON51eG_YDjBp8FWtREB8ZoaxO0H5Snd1r7ByF6gvDBu0WVNQWO7REZGRC621wNPzyENTtoWpiItlWx2OZ9WUsmVl0Sre-M0ARJ1Lq8QdVyQP_7r-c8eTWbVudGzAMDwaVTjDSjYInHrI5IHL9FYg6XvGZGsmfDAIDxXyRDVHHdbLHfyMjz_Uo4fFl2KWmAgDZogrZ08pn2IpmV8"/>
+</div>
+</main>
+<!-- Bottom Navigation -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-gradient-to-b from-[#fdf0f2] to-[#fff8f8] dark:from-[#2d1a1d] dark:to-[#1a0f11] shadow-[0_-4px_20px_rgba(176,0,104,0.05)] rounded-t-3xl">
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="home">home</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#fcd400] dark:bg-[#b00068] text-[#b00068] dark:text-[#fff8f8] rounded-2xl px-4 py-1.5 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="restaurant_menu">restaurant_menu</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="auto_awesome">auto_awesome</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">About</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="mail">mail</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase">Contact</span>
+</a>
+</nav>
+</body></html>

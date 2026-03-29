@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nellai Aanantham | Artisanal Button Library</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Noto+Serif:ital,wght@0,700;1,700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary": "#705d00",
+              "on-surface": "#201a1c",
+              "background": "#fff8f8",
+              "on-primary-container": "#fff7f8",
+              "on-tertiary": "#ffffff",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "surface-tint": "#b8006d",
+              "surface-container-low": "#fdf0f2",
+              "secondary-fixed-dim": "#e9c400",
+              "secondary-fixed": "#ffe16d",
+              "on-surface-variant": "#584049",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#ffb0cd",
+              "on-error": "#ffffff",
+              "on-secondary-container": "#6e5c00",
+              "on-error-container": "#93000a",
+              "on-tertiary-container": "#fff8f8",
+              "inverse-surface": "#362f30",
+              "primary-fixed": "#ffd9e4",
+              "surface-variant": "#ecdfe1",
+              "tertiary": "#685658",
+              "secondary-container": "#fcd400",
+              "surface-bright": "#fff8f8",
+              "tertiary-container": "#816e71",
+              "surface-container-lowest": "#ffffff",
+              "on-background": "#201a1c",
+              "on-secondary-fixed": "#221b00",
+              "surface-dim": "#e3d7d9",
+              "surface-container": "#f8ebed",
+              "outline": "#8c6f79",
+              "inverse-primary": "#ffb0cd",
+              "on-tertiary-fixed": "#25181a",
+              "error-container": "#ffdad6",
+              "error": "#ba1a1a",
+              "surface": "#fff8f8",
+              "surface-container-highest": "#ecdfe1",
+              "on-primary-fixed-variant": "#8d0052",
+              "surface-container-high": "#f2e5e7",
+              "on-tertiary-fixed-variant": "#534345",
+              "on-primary": "#ffffff",
+              "primary-container": "#d62083",
+              "outline-variant": "#e0bec8",
+              "on-primary-fixed": "#3e0021",
+              "tertiary-fixed": "#f5dde0",
+              "inverse-on-surface": "#fbeef0",
+              "primary": "#b00068",
+              "on-secondary-fixed-variant": "#544600"
+            },
+            fontFamily: {
+              "headline": ["Playfair Display", "Noto Serif", "serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      .btn-shimmer {
+        position: relative;
+        overflow: hidden;
+      }
+      .btn-shimmer::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+        background-size: 200% 100%;
+        animation: shimmer 2s infinite linear;
+      }
+      @keyframes shimmer {
+        from { background-position: 200% 0; }
+        to { background-position: -200% 0; }
+      }
+      .custom-scroll::-webkit-scrollbar {
+        width: 6px;
+      }
+      .custom-scroll::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scroll::-webkit-scrollbar-thumb {
+        background: #e0bec8;
+        border-radius: 10px;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary-fixed selection:text-on-primary-fixed min-h-screen">
+<!-- Top Navigation (Contextual Suppression: Sub-page layout) -->
+<nav class="fixed top-0 w-full z-50 bg-[#fff8f8]/80 backdrop-blur-xl shadow-[0_1px_3px_rgba(176,0,104,0.04),0_10px_40px_-10px_rgba(176,0,104,0.08)]">
+<div class="flex justify-between items-center h-20 px-8 max-w-7xl mx-auto">
+<div class="flex items-center gap-4">
+<span class="text-2xl font-headline italic text-primary font-bold">Artisanal Editor</span>
+<div class="h-6 w-px bg-outline-variant/30 mx-2"></div>
+<h1 class="font-headline text-lg text-primary/80 font-bold tracking-tight">Component Library</h1>
+</div>
+<div class="hidden md:flex items-center gap-8">
+<a class="text-zinc-600 hover:text-primary transition-colors font-label font-medium text-sm" href="#">Documentation</a>
+<a class="text-zinc-600 hover:text-primary transition-colors font-label font-medium text-sm" href="#">Guidelines</a>
+<div class="flex items-center gap-4 ml-4">
+<button class="p-2 rounded-full hover:bg-surface-container-low text-primary transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-low text-primary transition-all active:scale-95">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</div>
+</nav>
+<main class="pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto">
+<!-- Header Section -->
+<header class="mb-16">
+<div class="inline-block px-4 py-1.5 bg-secondary-container text-on-secondary-container rounded-full text-xs font-label font-semibold mb-6 tracking-wider">
+                DESIGN SYSTEM v1.0
+            </div>
+<h2 class="text-5xl md:text-6xl font-headline text-on-surface leading-tight mb-6 max-w-3xl">
+                The Anatomy of <span class="text-primary italic">Interaction.</span>
+</h2>
+<p class="text-on-surface-variant text-lg max-w-2xl leading-relaxed">
+                A definitive guide to the artisanal button system. Every interaction is measured, every state is intentional, ensuring a seamless journey from browsing to checkout.
+            </p>
+</header>
+<!-- Button Matrix Container -->
+<div class="space-y-24">
+<!-- Type Section: Primary -->
+<section>
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<h3 class="text-2xl font-headline font-bold text-primary mb-2">01. Primary Actions</h3>
+<p class="text-on-surface-variant font-label text-sm italic">High-intent actions: "Place Order", "Join Now".</p>
+</div>
+<div class="flex gap-3">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] uppercase tracking-widest font-bold text-outline">Inter Font</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] uppercase tracking-widest font-bold text-outline">Gradient Fill</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
+<!-- Default -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] bg-primary text-on-primary rounded-lg font-label font-semibold flex items-center justify-center transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Default</span>
+</div>
+<!-- Hover -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] bg-primary text-on-primary rounded-lg font-label font-semibold flex items-center justify-center scale-[1.02] shadow-[0_4px_12px_hsla(0,0%,0%,0.12)] transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Hover</span>
+</div>
+<!-- Active -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] bg-primary text-on-primary rounded-lg font-label font-semibold flex items-center justify-center scale-[0.98] shadow-inner transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Active</span>
+</div>
+<!-- Focus -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] bg-primary text-on-primary rounded-lg font-label font-semibold flex items-center justify-center outline outline-2 outline-primary outline-offset-2 transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Focus</span>
+</div>
+<!-- Disabled -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] bg-primary text-on-primary rounded-lg font-label font-semibold flex items-center justify-center opacity-50 grayscale cursor-not-allowed transition-all" disabled="">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Disabled</span>
+</div>
+<!-- Loading -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] bg-primary text-on-primary rounded-lg font-label font-semibold flex items-center justify-center btn-shimmer transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Loading</span>
+</div>
+</div>
+</section>
+<!-- Type Section: Secondary -->
+<section>
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<h3 class="text-2xl font-headline font-bold text-primary mb-2">02. Secondary Actions</h3>
+<p class="text-on-surface-variant font-label text-sm italic">Supporting actions: "View Details", "Back to Gallery".</p>
+</div>
+<div class="flex gap-3">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] uppercase tracking-widest font-bold text-outline">2px Border</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] uppercase tracking-widest font-bold text-outline">Transparent</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
+<!-- Default -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] border-2 border-primary text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Default</span>
+</div>
+<!-- Hover -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] border-2 border-primary text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center scale-[1.02] shadow-[0_4px_12px_hsla(0,0%,0%,0.12)] transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Hover</span>
+</div>
+<!-- Active -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] border-2 border-primary text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center scale-[0.98] shadow-inner transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Active</span>
+</div>
+<!-- Focus -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] border-2 border-primary text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center outline outline-2 outline-primary outline-offset-2 transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Focus</span>
+</div>
+<!-- Disabled -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] border-2 border-primary text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center opacity-50 grayscale cursor-not-allowed transition-all" disabled="">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Disabled</span>
+</div>
+<!-- Loading -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] border-2 border-primary text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center btn-shimmer transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Loading</span>
+</div>
+</div>
+</section>
+<!-- Type Section: Ghost -->
+<section>
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<h3 class="text-2xl font-headline font-bold text-primary mb-2">03. Ghost Elements</h3>
+<p class="text-on-surface-variant font-label text-sm italic">Tertiary navigation and low-priority tasks: "Cancel", "Clear Filter".</p>
+</div>
+<div class="flex gap-3">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] uppercase tracking-widest font-bold text-outline">Borderless</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] uppercase tracking-widest font-bold text-outline">Editorial</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
+<!-- Default -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Default</span>
+</div>
+<!-- Hover -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] text-primary bg-surface-container-low rounded-lg font-label font-semibold flex items-center justify-center scale-[1.02] shadow-[0_4px_12px_hsla(0,0%,0%,0.12)] transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Hover</span>
+</div>
+<!-- Active -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] text-primary bg-surface-container-high rounded-lg font-label font-semibold flex items-center justify-center scale-[0.98] transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Active</span>
+</div>
+<!-- Focus -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center outline outline-2 outline-primary outline-offset-2 transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Focus</span>
+</div>
+<!-- Disabled -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center opacity-50 grayscale cursor-not-allowed transition-all" disabled="">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Disabled</span>
+</div>
+<!-- Loading -->
+<div class="flex flex-col gap-4">
+<button class="h-11 px-8 min-w-[88px] text-primary bg-transparent rounded-lg font-label font-semibold flex items-center justify-center btn-shimmer transition-all">
+                            Label
+                        </button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Loading</span>
+</div>
+</div>
+</section>
+<!-- Type Section: Icon Buttons -->
+<section>
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+<div>
+<h3 class="text-2xl font-headline font-bold text-primary mb-2">04. Iconography Clusters</h3>
+<p class="text-on-surface-variant font-label text-sm italic">Purely functional controls: "Close", "Menu", "Cart".</p>
+</div>
+<div class="flex gap-3">
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] uppercase tracking-widest font-bold text-outline">Circular</span>
+<span class="px-3 py-1 bg-surface-container-high rounded-full text-[10px] uppercase tracking-widest font-bold text-outline">44x44 Min</span>
+</div>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-8">
+<!-- Default -->
+<div class="flex flex-col items-center gap-4">
+<button class="w-11 h-11 flex items-center justify-center rounded-full text-primary transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Default</span>
+</div>
+<!-- Hover -->
+<div class="flex flex-col items-center gap-4">
+<button class="w-11 h-11 flex items-center justify-center rounded-full text-primary bg-surface-container-low scale-[1.02] shadow-[0_4px_12px_hsla(0,0%,0%,0.12)] transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Hover</span>
+</div>
+<!-- Active -->
+<div class="flex flex-col items-center gap-4">
+<button class="w-11 h-11 flex items-center justify-center rounded-full text-primary bg-surface-container-high scale-[0.98] transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Active</span>
+</div>
+<!-- Focus -->
+<div class="flex flex-col items-center gap-4">
+<button class="w-11 h-11 flex items-center justify-center rounded-full text-primary outline outline-2 outline-primary outline-offset-2 transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Focus</span>
+</div>
+<!-- Disabled -->
+<div class="flex flex-col items-center gap-4">
+<button class="w-11 h-11 flex items-center justify-center rounded-full text-primary opacity-50 grayscale cursor-not-allowed transition-all" disabled="">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Disabled</span>
+</div>
+<!-- Loading -->
+<div class="flex flex-col items-center gap-4">
+<button class="w-11 h-11 flex items-center justify-center rounded-full text-primary btn-shimmer transition-all">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+</button>
+<span class="text-xs text-outline font-label uppercase tracking-tighter">Loading</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Descriptive Section: Visual Rules -->
+<section class="mt-32 border-t border-outline-variant/20 pt-24 grid grid-cols-1 md:grid-cols-2 gap-16">
+<div class="relative group overflow-hidden rounded-2xl aspect-video bg-surface-container-low flex items-center justify-center">
+<img alt="Artisan kitchen setup" class="absolute inset-0 w-full h-full object-cover opacity-20 transition-transform duration-700 group-hover:scale-110" data-alt="Close-up of artisan baking tools on a marble countertop with soft morning sunlight casting long shadows and a dusted surface of flour" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBN-ofJN6TzFzvdHZlxUrr7dyBQ-nk3L8_LbKlPBk4dMfU3tkx4MR_DnU7bRVfLFtavzM-723JjYhqQUwBEX4u3UKV8fb3uIvmtTD0euMHRMuCr6b_6jiHLGPtZ__2OLJlY7K0oYfOREK-7Dr71qsKCJy7tsR2KZ8JdG2R_H7I-qlj-OGmROEeYtrw50H903lTWUeRM7zfpiTuqH5pg5XNIjA8ucGbpfcTSCeP8mU9Vi41D_mGgln-DsD_Or6teJ7FlZ6lTt6M4bos"/>
+<div class="relative text-center p-8">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="architecture">architecture</span>
+<h4 class="text-2xl font-headline font-bold text-on-surface mb-4">Algorithmic Dimensions</h4>
+<p class="text-on-surface-variant leading-relaxed">
+                        Height × 2 = Width. A mathematical balance for text buttons that ensures optimal click areas and visual weight across the library.
+                    </p>
+</div>
+</div>
+<div class="relative group overflow-hidden rounded-2xl aspect-video bg-surface-container-low flex items-center justify-center">
+<img alt="Minimalist textures" class="absolute inset-0 w-full h-full object-cover opacity-20 transition-transform duration-700 group-hover:scale-110" data-alt="Minimalist abstract texture of swirling light pink and white silk fabric with elegant folds and soft depth" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtOWggOYacJ4ZnUABEE7VFxYZ5JTCUZrepu55VIcfzqR3d11urap9ZhJq0cMSRPUWZLgtPKzTNumhN0oSdjjdAzBe0i8LgYdCR5fSbt9QSXzy6BO2rZEgFKRG0zpBtS7sNh2sclYyF0hfYVPHUv4bh7j8U2kYa1zNmI-vcDk89ia-RKznfk8hnFJa33TvwKhSyHpsOZ83xBpd4vm0BcB7iLtTx1yB_3o4hkLuss2DmHLtWaH1e0m2XqP8qdzBMYXA_bI66MNc49EI"/>
+<div class="relative text-center p-8">
+<span class="material-symbols-outlined text-4xl text-primary mb-4" data-icon="palette">palette</span>
+<h4 class="text-2xl font-headline font-bold text-on-surface mb-4">Tonal Hierarchy</h4>
+<p class="text-on-surface-variant leading-relaxed">
+                        Using shadows rooted in brand pinks rather than grays to maintain the "Bakery Warmth" even in technical interface elements.
+                    </p>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Nav (Contextual Pivot: Only for top-level) -->
+<div class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 h-24 bg-[#fff8f8] dark:bg-zinc-950 rounded-t-[1.5rem] shadow-[0_-4px_20px_-5px_rgba(176,0,104,0.1)] border-t border-[#f2e5e7]/20 z-50">
+<div class="flex flex-col items-center justify-center text-zinc-500 px-5 py-2">
+<span class="material-symbols-outlined text-xl" data-icon="home_app_logo">home_app_logo</span>
+<span class="font-sans text-[10px] font-medium tracking-wide mt-1">Home</span>
+</div>
+<div class="flex flex-col items-center justify-center text-zinc-500 px-5 py-2">
+<span class="material-symbols-outlined text-xl" data-icon="bakery_dining">bakery_dining</span>
+<span class="font-sans text-[10px] font-medium tracking-wide mt-1">Menu</span>
+</div>
+<div class="flex flex-col items-center justify-center text-zinc-500 px-5 py-2">
+<span class="material-symbols-outlined text-xl" data-icon="receipt_long">receipt_long</span>
+<span class="font-sans text-[10px] font-medium tracking-wide mt-1">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-zinc-500 px-5 py-2">
+<span class="material-symbols-outlined text-xl" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-sans text-[10px] font-medium tracking-wide mt-1">Cart</span>
+</div>
+</div>
+</body></html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,900&amp;family=Inter:wght@400;500;600;700&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "surface-container-lowest": "#ffffff",
+                "surface-container-highest": "#ecdfe1",
+                "surface-container": "#f8ebed",
+                "on-primary": "#ffffff",
+                "on-error-container": "#93000a",
+                "background": "#fff8f8",
+                "error": "#ba1a1a",
+                "outline": "#8c6f79",
+                "secondary-container": "#fcd400",
+                "on-secondary-fixed-variant": "#544600",
+                "tertiary": "#685658",
+                "tertiary-fixed-dim": "#d8c1c4",
+                "on-tertiary-fixed": "#25181a",
+                "surface-variant": "#ecdfe1",
+                "primary-container": "#d62083",
+                "on-surface-variant": "#584049",
+                "error-container": "#ffdad6",
+                "surface-container-low": "#fdf0f2",
+                "on-tertiary-fixed-variant": "#534345",
+                "secondary-fixed-dim": "#e9c400",
+                "outline-variant": "#e0bec8",
+                "tertiary-container": "#816e71",
+                "on-primary-fixed-variant": "#8d0052",
+                "on-error": "#ffffff",
+                "inverse-surface": "#362f30",
+                "on-tertiary-container": "#fff8f8",
+                "on-secondary": "#ffffff",
+                "tertiary-fixed": "#f5dde0",
+                "inverse-primary": "#ffb0cd",
+                "on-secondary-fixed": "#221b00",
+                "inverse-on-surface": "#fbeef0",
+                "on-tertiary": "#ffffff",
+                "surface-container-high": "#f2e5e7",
+                "primary-fixed": "#ffd9e4",
+                "surface": "#fff8f8",
+                "secondary": "#705d00",
+                "on-primary-fixed": "#3e0021",
+                "surface-tint": "#b8006d",
+                "surface-bright": "#fff8f8",
+                "secondary-fixed": "#ffe16d",
+                "on-surface": "#201a1c",
+                "surface-dim": "#e3d7d9",
+                "on-background": "#201a1c",
+                "primary-fixed-dim": "#ffb0cd",
+                "on-secondary-container": "#6e5c00",
+                "on-primary-container": "#fff7f8",
+                "primary": "#b00068"
+              },
+              fontFamily: {
+                "headline": ["Playfair Display", "Noto Serif", "serif"],
+                "body": ["Inter", "sans-serif"],
+                "label": ["Inter", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+            },
+          },
+        }
+      </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .bento-card-hover {
+            transition: transform 150ms ease-out, box-shadow 150ms ease-out;
+        }
+        .bento-card-hover:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 40px -10px hsla(350, 50%, 20%, 0.08);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-[#fff8f8]/80 dark:bg-slate-950/80 backdrop-blur-md shadow-[0_10px_40px_-10px_hsla(350,50%,20%,0.08)]">
+<nav class="flex justify-between items-center px-6 py-4 max-w-7xl mx-auto">
+<div class="font-['Playfair_Display'] font-black text-[#b00068] dark:text-[#d62083] italic text-lg md:text-2xl tracking-tight">
+                The Artisanal Editor
+            </div>
+<div class="hidden md:flex items-center space-x-8">
+<a class="font-['Playfair_Display'] text-lg text-[#b00068] dark:text-[#d62083] border-b-2 border-[#b00068] pb-1" href="#">Shop</a>
+<a class="font-['Playfair_Display'] text-lg text-slate-600 dark:text-slate-400 hover:text-[#b00068] transition-colors" href="#">Bestsellers</a>
+<a class="font-['Playfair_Display'] text-lg text-slate-600 dark:text-slate-400 hover:text-[#b00068] transition-colors" href="#">Categories</a>
+<a class="font-['Playfair_Display'] text-lg text-slate-600 dark:text-slate-400 hover:text-[#b00068] transition-colors" href="#">About</a>
+</div>
+<div class="flex items-center space-x-5">
+<button class="text-[#b00068] hover:bg-[#f2e5e7] p-2 rounded-full transition-all scale-105 active:scale-95">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+<button class="text-[#b00068] hover:bg-[#f2e5e7] p-2 rounded-full transition-all scale-105 active:scale-95">
+<span class="material-symbols-outlined">person</span>
+</button>
+</div>
+</nav>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<section class="mb-12">
+<h1 class="font-headline text-5xl md:text-6xl font-black text-primary mb-4 tracking-tight">The Component Library</h1>
+<p class="text-on-surface-variant text-lg max-w-2xl font-body leading-relaxed">A curated collection of artisanal product card variants designed for a premium, editorial bento-style experience.</p>
+</section>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+<!-- 1. Featured Bestseller (4:3 Aspect, Spans 8 columns) -->
+<div class="md:col-span-8 group bento-card-hover bg-surface-container-lowest rounded-3xl overflow-hidden relative">
+<div class="absolute top-4 right-4 z-10">
+<span class="bg-secondary-container text-on-secondary-container px-4 py-1.5 rounded-full font-label text-xs font-bold tracking-widest uppercase shadow-sm">BESTSELLER</span>
+</div>
+<div class="aspect-[4/3] w-full bg-surface-container overflow-hidden">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Close-up of three exquisite vanilla bean cupcakes with high swirls of pink buttercream frosting and edible gold leaf accents" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA7P0U6DQ3Gtw5NBnn6LIibK9JmhnPxOWOgn89f_fs4I9ASrhr_S1LtKynjvSuiBCFvV7amy6tyawEovC_fiSp8BoIDQLiYC2POnTZVZVKf-5WWHg12pSmbJdpy3SnwOL1MdgjJmRffeJ7er-15pO8Et5515YMWa6H3VI9p1pFcuy4cpwgbI3vlU5xMehsUfH3FYC2AvLXVTmnSyug0kLSutlgJXYYKWtY55anpbDJD1LW5CF1uxjqCNP4SlCPGJYnQnUwORxjiZxM"/>
+</div>
+<div class="p-8 flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-2">
+<h2 class="font-headline text-4xl font-bold text-on-surface leading-tight">Vanilla Bean &amp; Rose Petal Silk Cupcake</h2>
+<p class="text-on-surface-variant font-body text-lg leading-relaxed max-w-md">Our signature light sponge infused with Tahitian vanilla, topped with artisanal rose-water buttercream.</p>
+</div>
+<div class="flex flex-col items-end gap-4 min-w-[140px]">
+<span class="text-3xl font-headline font-black text-primary">$6.50</span>
+<button class="w-full md:w-auto h-14 px-8 bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-label font-semibold text-sm tracking-wide shadow-lg active:scale-95 transition-transform flex items-center justify-center gap-2">
+<span>ADD TO BOX</span>
+<span class="material-symbols-outlined text-sm">arrow_forward</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 2. Standard Product (1:1 Aspect, Spans 4 columns) -->
+<div class="md:col-span-4 group bento-card-hover bg-surface-container-lowest rounded-3xl overflow-hidden flex flex-col">
+<div class="aspect-square bg-surface-container overflow-hidden relative">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" data-alt="Top down view of a single artisanal croissant on a white ceramic plate with flaky texture and golden brown crust" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBq0lz__fw8SFvKiwkFPOTDvudKRtFNtUd1rVy0-xEPYqUaEHQXF7btXH9S_rcjJIub0eswfMVbvjWgraTnAAiDazNQkqxdhPylTZYpRtiW65_Ya7gGDosGsqLCyKdX5LIUVwOrK5FE5vhRHZ8xSgzMNDDCKHIP9AR9Jr9TOrxNQRgoLiwSvhyIY4Qzy7754L_5sTJ5OKuYIcQ0yBHnhdCnt1tZUo9-KpgJHeQAfkNl6MieZZoGppcgcemFAeLr4OqM_FWAxdyxOf4"/>
+</div>
+<div class="p-6 space-y-4 flex-grow flex flex-col justify-between">
+<div class="space-y-2">
+<h3 class="font-headline text-2xl font-bold text-on-surface">Honeycomb Croissant</h3>
+<p class="text-on-surface-variant font-body text-sm leading-snug">72-hour fermented dough with local wildflower honey glaze.</p>
+<span class="block text-xl font-body font-medium text-on-surface">$4.75</span>
+</div>
+<button class="w-full h-11 bg-primary text-on-primary rounded-xl font-label font-bold text-xs tracking-widest uppercase hover:bg-primary-container transition-colors shadow-md flex items-center justify-center">
+                        QUICK ADD
+                    </button>
+</div>
+</div>
+<!-- 3. Category Bento Card (Full Bleed, Spans 6 columns) -->
+<div class="md:col-span-6 h-[400px] group bento-card-hover rounded-3xl overflow-hidden relative cursor-pointer">
+<div class="absolute inset-0 z-0">
+<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="Wide shot of several tiered wedding cakes decorated with fresh lavender and white frosting in a minimalist bakery setting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUDZ3PC8UhKhURn_nx2C6GcqaHEezddd_jZ0Tz_wWwbw9psFJR1WHHZr3VW6n_T1KLtjX46_m9WjrKjXGSVjLUQIlCL4B3DO1GsgkyP6GvhHDTzETZZrTVTsKbAcC3Lvln9B7vL7CsHhX-m5wQ10ex6awhwuxupcpNeYlIOEP8kC8A_9az3ksCPj8rVJ1iUV_nH8jUgkWN8T3Jaqtrn2R1ed3CvQRP3oJ009qAq6IX92kHebXwsz2MppSH6wEGevybOokyMrdIU7s"/>
+</div>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
+<div class="absolute bottom-0 left-0 p-10 z-20 w-full flex justify-between items-end">
+<div class="space-y-2">
+<span class="text-secondary-container font-label text-xs font-black tracking-[0.2em] uppercase">COLLECTION</span>
+<h3 class="font-headline text-5xl font-black text-white italic leading-none">Artisan Cakes</h3>
+</div>
+<div class="w-12 h-12 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center text-white border border-white/30 group-hover:bg-primary group-hover:border-primary transition-all duration-300">
+<span class="material-symbols-outlined">north_east</span>
+</div>
+</div>
+</div>
+<!-- Right Column for Vertical List Items (Spans 6 columns) -->
+<div class="md:col-span-6 grid grid-cols-1 gap-4">
+<!-- 4. Compact List Item 1 -->
+<div class="group bento-card-hover bg-surface-container-lowest p-4 rounded-3xl flex items-center gap-6">
+<div class="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Macarons stacked in a vertical line with pastel colors like lavender, mint, and peach on a soft background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAUo-T731WY7UxqR843Okp4JcV-RskFoYVFiYp9xqqRHd2-rx2ZBOpHtz7fsoWntJuNfRg-796ofwo8VuFS5pxvC5oRXzHAQsFXsGXEK3t7mtCst1WSXFmPhR3zpcEt0gg_ZJmLz0tcCFWOEHXCFEhFyn5a4w9Pu7gmLoCyEm_38NKPj2uP4E1cPqVggaF1xXPObFGG6sl9TV6eRTIa8VKuzj9-ehOPTlkO-pIeZvji3LMeK7s4-jVjrCGhGxSRllrhC4M_KRGPbxE"/>
+</div>
+<div class="flex-grow flex justify-between items-center">
+<div class="space-y-1">
+<h4 class="font-headline text-lg font-bold text-on-surface">Lavender Macaron Box</h4>
+<p class="text-on-surface-variant font-body text-xs font-medium uppercase tracking-wider">Set of 6 • $18.00</p>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-xl">add</span>
+</button>
+</div>
+</div>
+<!-- 4. Compact List Item 2 -->
+<div class="group bento-card-hover bg-surface-container-lowest p-4 rounded-3xl flex items-center gap-6">
+<div class="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="Close-up of a rustic sourdough loaf with a cross cut on top, showing air bubbles in the crust" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBHC-Y7za-l-HbbgR1NWXb3RiObXqpY9lf-JM6gE1OhDVd8o_AY2hxnwi5BRaG9clAyusIF1MFk5Pf0sDQYhpy2K7LH6E-q-jfS1SxR3q7Ui9uUvA0qeRasMgvgPsi8-uGAU8kLJeLxflhtKYazJ0luVu5hQpkFk7cZ4WEDbjBDvSUr56LQZ5kPQg0u3BcSp4VTDCALweeiXhD0LShSLm3dmiCIH8a1Ftgp0Djr6gOGtbNqz2HtKTuDaNUpDnCGLcPy2s6jwn77J4I"/>
+</div>
+<div class="flex-grow flex justify-between items-center">
+<div class="space-y-1">
+<h4 class="font-headline text-lg font-bold text-on-surface">Country Sourdough</h4>
+<p class="text-on-surface-variant font-body text-xs font-medium uppercase tracking-wider">Fresh Daily • $9.00</p>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-xl">add</span>
+</button>
+</div>
+</div>
+<!-- 4. Compact List Item 3 -->
+<div class="group bento-card-hover bg-surface-container-lowest p-4 rounded-3xl flex items-center gap-6">
+<div class="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-surface-container">
+<img class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300" data-alt="A stack of golden brown chocolate chip cookies with melted chocolate puddles on top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDl1MthanM7F58QaI-KnifYix8YOItE6DsMJbVlvspHbboW_sP51MN8FunDuoBjww9VqEnKYBIQWaOGq-xU2yYryUDimOGAaoGutyGzFP-z-BgHqDG1IdLi3LvUn39Yhp2WFVe0Sf7fkLvKsKWOB3flidHQjU9ywxwM_t-ezzjNap6hguxbXjaPDaAAQQNzPUjwwAIOSyQzBzcjcdfLTA835b0lDUMNrNPyIfXg2clTw4sSvLcccb41DIUF8D8bmRczlgcjHt9Q-k4"/>
+</div>
+<div class="flex-grow flex justify-between items-center">
+<div class="space-y-1">
+<h4 class="font-headline text-lg font-bold text-on-surface">Sea Salt Dark Choc Cookie</h4>
+<p class="text-on-surface-variant font-body text-xs font-medium uppercase tracking-wider">Individual • $3.50</p>
+</div>
+<button class="w-10 h-10 rounded-full bg-surface-container-high text-primary flex items-center justify-center hover:bg-primary hover:text-white transition-all">
+<span class="material-symbols-outlined text-xl">add</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Visible on Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-safe h-20 bg-[#fff8f8] dark:bg-slate-950 rounded-t-[1.5rem] border-t border-[#f2e5e7] dark:border-slate-800 shadow-[0_-4px_20px_rgba(176,0,104,0.05)] z-50">
+<a class="flex flex-col items-center justify-center bg-[#fcd400] text-black rounded-2xl p-3 transform scale-110 -translate-y-2 transition-all" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-2 hover:text-[#b00068] transition-all" href="#">
+<span class="material-symbols-outlined">bakery_dining</span>
+<span class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest mt-1">Pastries</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-2 hover:text-[#b00068] transition-all" href="#">
+<span class="material-symbols-outlined">search</span>
+<span class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest mt-1">Search</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 dark:text-slate-400 p-2 hover:text-[#b00068] transition-all relative" href="#">
+<span class="material-symbols-outlined">shopping_basket</span>
+<span class="font-['Inter'] text-[10px] font-medium uppercase tracking-widest mt-1">Cart</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
+</a>
+</nav>
+</body></html>

@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Inter:wght@100..900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "on-surface": "#201a1c",
+              "background": "#fff8f8",
+              "secondary-fixed-dim": "#e9c400",
+              "on-tertiary-fixed": "#25181a",
+              "on-primary-container": "#fff7f8",
+              "error": "#ba1a1a",
+              "surface-bright": "#fff8f8",
+              "secondary": "#705d00",
+              "on-tertiary-container": "#fff8f8",
+              "secondary-container": "#fcd400",
+              "primary-container": "#d62083",
+              "surface-container-highest": "#ecdfe1",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "outline": "#8c6f79",
+              "tertiary": "#685658",
+              "surface-variant": "#ecdfe1",
+              "on-primary-fixed": "#3e0021",
+              "on-error": "#ffffff",
+              "on-error-container": "#93000a",
+              "secondary-fixed": "#ffe16d",
+              "primary": "#b00068",
+              "surface-container-low": "#fdf0f2",
+              "primary-fixed-dim": "#ffb0cd",
+              "on-tertiary-fixed-variant": "#534345",
+              "tertiary-container": "#816e71",
+              "surface-container-lowest": "#ffffff",
+              "surface": "#fff8f8",
+              "on-primary": "#ffffff",
+              "primary-fixed": "#ffd9e4",
+              "surface-container": "#f8ebed",
+              "on-background": "#201a1c",
+              "inverse-primary": "#ffb0cd",
+              "on-surface-variant": "#584049",
+              "inverse-on-surface": "#fbeef0",
+              "on-primary-fixed-variant": "#8d0052",
+              "tertiary-fixed": "#f5dde0",
+              "on-secondary": "#ffffff",
+              "surface-container-high": "#f2e5e7",
+              "error-container": "#ffdad6",
+              "on-secondary-fixed-variant": "#544600",
+              "on-secondary-fixed": "#221b00",
+              "outline-variant": "#e0bec8",
+              "on-tertiary": "#ffffff",
+              "surface-dim": "#e3d7d9",
+              "inverse-surface": "#362f30",
+              "surface-tint": "#b8006d",
+              "on-secondary-container": "#6e5c00"
+            },
+            fontFamily: {
+              "headline": ["Playfair Display", "serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .footer-heading {
+            color: hsla(0, 0%, 100%, 0.87);
+        }
+        .footer-link {
+            color: hsla(0, 0%, 100%, 0.60);
+        }
+        .footer-legal {
+            color: hsla(0, 0%, 100%, 0.38);
+        }
+    </style>
+</head>
+<body class="bg-background font-body text-on-surface">
+<!-- Main Content Canvas (Placeholder for Context) -->
+<main class="min-h-screen flex items-center justify-center p-8">
+<div class="max-w-4xl w-full">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="space-y-6">
+<span class="inline-block px-4 py-1 rounded-full bg-secondary-container text-on-secondary-container text-sm font-medium">Coming Soon</span>
+<h1 class="text-6xl md:text-7xl font-headline font-bold leading-tight">Nellai <br/><span class="text-primary italic">Aanantham</span></h1>
+<p class="text-lg text-on-surface/60 max-w-md">Our digital bakery is currently being baked to perfection. Stay tuned for an editorial experience of our artisanal delights.</p>
+</div>
+<div class="relative">
+<div class="aspect-[4/5] rounded-xl overflow-hidden shadow-2xl">
+<img class="w-full h-full object-cover" data-alt="close-up of artisan sourdough bread on a dark marble countertop with dramatic side lighting and a dusting of flour" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDkGo8NOs3I-0D5u66yOcVPzp2173ixkwe3frg9_IZDsz65F2UgZi92zOTaR01GWSWE_yLr1QIdLk_wNaoYu0rV8uS4yHCR_BvoVOHYeDy3h24M3uBOxM_lFD7v3UB0YUipT50LN3wWhu9TntJiP6oH5l_TKGfqaXOrzcRjoS6joBQ1VtDdnui1PC1nzBFSSAmI2oj_somWGyn2WNfbzUMCBLTrAIK3vj3NsRfUOhMy2gKmJBaQOqAdJySfv6bBxmSQyymJuXEOueA"/>
+</div>
+<div class="absolute -bottom-6 -left-6 bg-surface_container_lowest p-6 rounded-xl shadow-lg max-w-[200px]">
+<p class="font-headline italic text-primary text-xl">Baked with Love since 1984</p>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer Component -->
+<!-- Applying Shared Component Styles: bg-neutral-900 (dark:bg-black equivalent to dark hsl(0,0%,10%)), py-12 md:py-16 (64px padding) -->
+<footer class="bg-[#1a1a1a] py-16 px-6 md:px-12 w-full">
+<!-- style_shell_layout: grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 max-w-7xl mx-auto -->
+<div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12">
+<!-- Column 1: Brand Identity (Spans 5 cols on desktop) -->
+<div class="md:col-span-5 flex flex-col space-y-6">
+<!-- style_brand_logo: text-2xl font-serif italic text-pink-500 -->
+<div class="text-3xl font-headline italic text-primary-fixed-dim leading-none">
+                    Nellai Aanantham
+                </div>
+<p class="font-body text-neutral-100/60 text-sm max-w-xs leading-relaxed">
+                    Crafting traditional flavors with modern precision. Every pastry tells a story of heritage and artisanal excellence.
+                </p>
+<div class="flex gap-4">
+<a class="footer-link hover:text-primary-fixed-dim transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="facebook">social_leaderboard</span>
+</a>
+<a class="footer-link hover:text-primary-fixed-dim transition-colors duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="instagram">retweet</span>
+</a>
+</div>
+</div>
+<!-- Column 2: Quick Links (Spans 3 cols on desktop) -->
+<div class="md:col-span-3 flex flex-col space-y-6">
+<!-- style_typography for Heading -->
+<h3 class="font-headline footer-heading text-lg font-medium">Explore</h3>
+<nav class="flex flex-col space-y-4">
+<!-- Ghost button style for links (underline on hover, 150ms transition) -->
+<a class="footer-link font-body text-sm hover:underline hover:text-white transition-all duration-150 w-fit" href="#">Menu</a>
+<a class="footer-link font-body text-sm hover:underline hover:text-white transition-all duration-150 w-fit" href="#">Our Story</a>
+<a class="footer-link font-body text-sm hover:underline hover:text-white transition-all duration-150 w-fit" href="#">Contact</a>
+</nav>
+</div>
+<!-- Column 3: Contact & Social (Spans 4 cols on desktop) -->
+<div class="md:col-span-4 flex flex-col space-y-6">
+<h3 class="font-headline footer-heading text-lg font-medium">Connect</h3>
+<div class="flex flex-col space-y-4">
+<a class="flex items-center gap-3 footer-link font-body text-sm hover:underline hover:text-white transition-all duration-150 w-fit" href="https://wa.me/1234567890">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="chat">chat</span>
+                        WhatsApp
+                    </a>
+<a class="flex items-center gap-3 footer-link font-body text-sm hover:underline hover:text-white transition-all duration-150 w-fit" href="https://instagram.com/nellaiaanantham">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="photo_camera">photo_camera</span>
+                        Instagram
+                    </a>
+<div class="pt-2 flex items-start gap-3 footer-link font-body text-sm">
+<span class="material-symbols-outlined text-primary-fixed-dim" data-icon="location_on">location_on</span>
+<span>123 Baker's Street, Tirunelveli,<br/>Tamil Nadu, India</span>
+</div>
+</div>
+</div>
+<!-- Footer Bottom: Legal -->
+<div class="md:col-span-12 pt-12 mt-4 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4">
+<!-- style_typography: Legal: text-neutral-100/38 text-xs -->
+<p class="footer-legal text-xs font-body tracking-wider uppercase">
+                    © 2024 The Artisanal Editor. All Rights Reserved.
+                </p>
+<p class="footer-legal text-xs font-body tracking-wider uppercase">
+                    FSSAI License No. 12345678901234.
+                </p>
+</div>
+</div>
+</footer>
+</body></html>

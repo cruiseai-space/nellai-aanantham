@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Nellai Aanantham - The Artisanal Bakery</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "error": "#ba1a1a",
+              "surface": "#fff8f8",
+              "inverse-primary": "#ffb0cd",
+              "surface-dim": "#e3d7d9",
+              "on-tertiary-fixed-variant": "#534345",
+              "outline": "#8c6f79",
+              "on-secondary-fixed-variant": "#544600",
+              "outline-variant": "#e0bec8",
+              "secondary-container": "#fcd400",
+              "primary-fixed-dim": "#ffb0cd",
+              "on-secondary": "#ffffff",
+              "on-primary-container": "#fff7f8",
+              "error-container": "#ffdad6",
+              "secondary-fixed-dim": "#e9c400",
+              "on-primary": "#ffffff",
+              "on-surface": "#201a1c",
+              "on-tertiary-fixed": "#25181a",
+              "tertiary": "#685658",
+              "background": "#fff8f8",
+              "on-secondary-container": "#6e5c00",
+              "on-error-container": "#93000a",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "primary-container": "#d62083",
+              "on-surface-variant": "#584049",
+              "on-primary-fixed-variant": "#8d0052",
+              "surface-container-lowest": "#ffffff",
+              "surface-container-low": "#fdf0f2",
+              "surface-container-high": "#f2e5e7",
+              "surface-container": "#f8ebed",
+              "primary": "#b00068",
+              "inverse-surface": "#362f30",
+              "surface-tint": "#b8006d",
+              "surface-variant": "#ecdfe1",
+              "tertiary-container": "#816e71",
+              "inverse-on-surface": "#fbeef0",
+              "primary-fixed": "#ffd9e4",
+              "secondary": "#705d00",
+              "secondary-fixed": "#ffe16d",
+              "surface-container-highest": "#ecdfe1",
+              "tertiary-fixed": "#f5dde0",
+              "on-error": "#ffffff",
+              "on-tertiary-container": "#fff8f8",
+              "on-tertiary": "#ffffff",
+              "on-secondary-fixed": "#221b00",
+              "on-primary-fixed": "#3e0021",
+              "surface-bright": "#fff8f8",
+              "on-background": "#201a1c"
+            },
+            fontFamily: {
+              "headline": ["Playfair Display"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1.5rem", "3xl": "2rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .backdrop-blur-custom {
+            backdrop-filter: blur(16px);
+            background: hsla(0, 0%, 0%, 0.5);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface selection:bg-primary-fixed selection:text-on-primary-fixed overflow-hidden">
+<!-- Background Landing Page (Blurred Content) -->
+<main class="min-h-screen w-full relative">
+<nav class="fixed top-0 w-full z-10 flex justify-between items-center px-6 md:px-12 py-4 bg-surface/80 backdrop-blur-md">
+<span class="text-2xl font-headline font-bold text-primary tracking-tight">Nellai Aanantham</span>
+<div class="hidden md:flex gap-8 items-center">
+<a class="text-primary border-b-2 border-primary pb-1" href="#">Our Menu</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Gift Boxes</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Sustainability</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Journal</a>
+</div>
+<div class="flex items-center gap-4">
+<span class="material-symbols-outlined text-primary p-2 hover:bg-surface-container-low rounded-full transition-all cursor-pointer">shopping_bag</span>
+<span class="material-symbols-outlined text-primary p-2 hover:bg-surface-container-low rounded-full transition-all cursor-pointer">person</span>
+</div>
+</nav>
+<section class="pt-32 px-6 md:px-12 max-w-screen-2xl mx-auto">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div>
+<h1 class="text-6xl md:text-8xl font-headline font-bold text-on-surface mb-8 leading-tight">Artisanal <br/><span class="text-primary">Tradition</span></h1>
+<p class="text-lg text-on-surface-variant max-w-md mb-12">Crafting moments of joy through heritage recipes and contemporary elegance. Every bite is a story told in sugar and flour.</p>
+</div>
+<div class="relative h-[600px] rounded-3xl overflow-hidden shadow-2xl">
+<img alt="Bakery Interior" class="w-full h-full object-cover" data-alt="Luxurious artisanal bakery interior with marble countertops, warm ambient lighting, and glass display cases filled with golden pastries" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAFPiG2don_2_bEFnfPHOKAe7F-IUs6NOGz6goMLNOax2dxOF_zS3ZQEkFAU4cqtVConbHXKf0R_h_uVLTsEAdHTUsSPhTwVaMV0_SpvXkBUv-cxWgoawbGQQdERinok4K01_T3t3mOMSG55nnne1lL9bycboSpVLLl4-v0JXJTAvPM34VmPm1RlXevG69arOS4J7XwXntqh0PC_kLjO96nph-2YL2zU5rJ_Ir9W-AaWg_7neFmR5YjsQJTynbRZvF5cvVpTacPOXI"/>
+</div>
+</div>
+</section>
+</main>
+<!-- Overlay / Modal System -->
+<div class="fixed inset-0 z-[100] flex items-end md:items-center justify-center backdrop-blur-custom">
+<!-- Desktop Modal / Mobile Bottom Sheet -->
+<div class="bg-surface-container-lowest w-full md:max-w-[500px] max-h-[921px] overflow-y-auto rounded-t-3xl md:rounded-3xl shadow-[0_24px_48px_hsla(0,0%,0%,0.2)] relative transition-all duration-300 ease-out transform translate-y-0 scale-100">
+<!-- Close Button -->
+<button class="absolute top-6 right-6 z-10 p-2 bg-surface-container-lowest/80 backdrop-blur-md rounded-full text-on-surface-variant hover:text-primary transition-colors shadow-sm">
+<span class="material-symbols-outlined">close</span>
+</button>
+<!-- Product Image -->
+<div class="aspect-[4/5] w-full overflow-hidden">
+<img alt="Velvet Rose Cake" class="w-full h-full object-cover" data-alt="Close-up of a premium Velvet Rose Cake with delicate edible petals and gold leaf accents on a white marble pedestal" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDUmXT2rapyIHS9YVMbEN2d3uof1LMfxsgZ8OTwxxu6aCDri3DWyDCIWWTzSXXeO6-IQ7bdcqCXUWlorbJW6wq43S8xdGrvdMpFGl30rLObwKhZAcds4QqM8cPReCg3zMYGqKjHeU-aJbntvfqmIVVrTJDJfz_7y1LZk1-C4odL7orsR0lQ1VuvKRYOnrZPnDRGp8SIYCQmGoolTDKW3EUKwBzLg9R7kAI07q7HXmUHoscDxcjsK-da7owr9zTyTcAGHDnrQnyqPUc"/>
+</div>
+<!-- Content Area -->
+<div class="p-8 md:p-10 space-y-6">
+<div class="space-y-2">
+<div class="flex justify-between items-start">
+<h2 class="text-3xl md:text-4xl font-headline font-bold text-on-surface leading-tight">Velvet Rose Cake</h2>
+<span class="bg-secondary-container text-on-secondary-container text-xs font-bold px-3 py-1 rounded-full flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+                            New
+                        </span>
+</div>
+<p class="text-primary font-medium tracking-wide">Signature Collection</p>
+</div>
+<div class="space-y-4">
+<p class="text-on-surface-variant leading-relaxed">
+                        An ethereal blend of organic Bulgarian rose water and premium Madagascar vanilla. Each layer is meticulously hand-brushed with honey syrup and filled with a cloud-like mascarpone frosting. 
+                    </p>
+<div class="flex flex-wrap gap-3">
+<span class="bg-surface-container-high px-4 py-1.5 rounded-full text-sm font-medium text-on-surface-variant">Eggless available</span>
+<span class="bg-surface-container-high px-4 py-1.5 rounded-full text-sm font-medium text-on-surface-variant">Artisanal Flour</span>
+<span class="bg-surface-container-high px-4 py-1.5 rounded-full text-sm font-medium text-on-surface-variant">No Preservatives</span>
+</div>
+</div>
+<!-- Price and CTA -->
+<div class="pt-4 flex flex-col gap-4">
+<div class="flex items-baseline gap-2">
+<span class="text-2xl font-bold text-on-surface">₹2,450</span>
+<span class="text-sm text-on-surface-variant line-through opacity-60">₹2,800</span>
+</div>
+<a class="w-full flex items-center justify-center gap-3 bg-primary text-on-primary py-4 px-8 rounded-full font-semibold text-lg shadow-[0_4px_20px_rgba(176,0,104,0.3)] hover:opacity-90 active:scale-95 transition-all duration-200" href="https://wa.me/yournumber">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">chat</span>
+                        Order on WhatsApp
+                    </a>
+<p class="text-center text-[11px] text-on-surface-variant uppercase tracking-widest font-medium opacity-60">
+                        Delivered fresh within 4 hours in Tirunelveli
+                    </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Hidden Bottom Nav for Mobile Consistency (Suppressing per task but keeping shell structure) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-6 pt-3 bg-surface border-t border-surface-container-high z-[90]">
+<div class="flex flex-col items-center justify-center bg-secondary-container text-primary rounded-2xl px-5 py-2">
+<span class="material-symbols-outlined" data-icon="bakery_dining">bakery_dining</span>
+<span class="font-label text-[10px] font-medium tracking-wide uppercase mt-1">Shop</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 opacity-50">
+<span class="material-symbols-outlined" data-icon="star">star</span>
+<span class="font-label text-[10px] font-medium tracking-wide uppercase mt-1">Bestsellers</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 opacity-50">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span class="font-label text-[10px] font-medium tracking-wide uppercase mt-1">Cart</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant px-4 py-2 opacity-50">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label text-[10px] font-medium tracking-wide uppercase mt-1">Profile</span>
+</div>
+</nav>
+</body></html>

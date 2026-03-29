@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Contact &amp; Ordering - The Artisanal Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&amp;family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#ecdfe1",
+              "secondary": "#705d00",
+              "inverse-primary": "#ffb0cd",
+              "on-tertiary-fixed": "#25181a",
+              "surface": "#fff8f8",
+              "primary-container": "#d62083",
+              "on-surface": "#201a1c",
+              "inverse-surface": "#362f30",
+              "secondary-fixed": "#ffe16d",
+              "primary": "#b00068",
+              "on-background": "#201a1c",
+              "surface-container-lowest": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#fff8f8",
+              "on-primary-container": "#fff7f8",
+              "on-primary": "#ffffff",
+              "tertiary": "#685658",
+              "primary-fixed-dim": "#ffb0cd",
+              "background": "#fff8f8",
+              "primary-fixed": "#ffd9e4",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#584049",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#f5dde0",
+              "surface-container-highest": "#ecdfe1",
+              "outline-variant": "#e0bec8",
+              "on-tertiary-fixed-variant": "#534345",
+              "surface-container-low": "#fdf0f2",
+              "secondary-fixed-dim": "#e9c400",
+              "on-secondary-fixed": "#221b00",
+              "outline": "#8c6f79",
+              "on-primary-fixed-variant": "#8d0052",
+              "secondary-container": "#fcd400",
+              "surface-container": "#f8ebed",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed-variant": "#544600",
+              "surface-dim": "#e3d7d9",
+              "surface-bright": "#fff8f8",
+              "error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "surface-container-high": "#f2e5e7",
+              "tertiary-container": "#816e71",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#fbeef0",
+              "surface-tint": "#b8006d",
+              "on-secondary-container": "#6e5c00",
+              "on-primary-fixed": "#3e0021"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .step-line::before {
+            content: '';
+            position: absolute;
+            left: 11px;
+            top: 32px;
+            bottom: -8px;
+            width: 2px;
+            background-color: #e0bec8;
+            opacity: 0.4;
+        }
+        .step-line-last::before {
+            display: none;
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- TopAppBar -->
+<header class="bg-[#fff8f8]/80 dark:bg-[#1a0f11]/80 backdrop-blur-md fixed top-0 w-full z-50 shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] transition-colors duration-300">
+<div class="flex items-center justify-between px-6 py-4 w-full">
+<button class="text-[#b00068] dark:text-[#ff8cc6] hover:bg-[#f2e5e7] dark:hover:bg-[#2d1a1d] transition-all scale-95 active:scale-90 duration-200 rounded-full p-2">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-['Playfair_Display'] font-bold text-lg text-[#b00068] dark:text-[#ff8cc6] tracking-tight">The Artisanal Editor</h1>
+<button class="text-[#b00068] dark:text-[#ff8cc6] hover:bg-[#f2e5e7] dark:hover:bg-[#2d1a1d] transition-all scale-95 active:scale-90 duration-200 rounded-full p-2">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-md mx-auto">
+<!-- Hero Section -->
+<section class="mb-12">
+<h2 class="font-headline text-4xl text-primary leading-tight mb-4">Get in Touch</h2>
+<p class="text-on-surface-variant text-lg leading-relaxed opacity-80">Whether it's a custom cake request or a simple "hello," we're here to make your sweet dreams come true.</p>
+</section>
+<!-- Social Touch Targets -->
+<section class="grid grid-cols-2 gap-4 mb-12">
+<a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-3xl shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] hover:bg-surface-container-low focus:ring-2 focus:ring-primary focus:outline-none active:scale-95 transition-all duration-200 group" href="#">
+<div class="w-11 h-11 flex items-center justify-center bg-primary-container rounded-2xl mb-3 group-hover:bg-primary">
+<span class="material-symbols-outlined text-white" style="font-variation-settings: 'FILL' 1;">chat</span>
+</div>
+<span class="font-label text-xs font-semibold uppercase tracking-widest text-primary">WhatsApp</span>
+</a>
+<a class="flex flex-col items-center justify-center p-6 bg-surface-container-lowest rounded-3xl shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] hover:bg-surface-container-low focus:ring-2 focus:ring-primary focus:outline-none active:scale-95 transition-all duration-200 group" href="#">
+<div class="w-11 h-11 flex items-center justify-center bg-secondary-container rounded-2xl mb-3 group-hover:bg-secondary">
+<span class="material-symbols-outlined text-on-secondary-container" style="font-variation-settings: 'FILL' 1;">photo_camera</span>
+</div>
+<span class="font-label text-xs font-semibold uppercase tracking-widest text-primary">Instagram</span>
+</a>
+</section>
+<!-- Ordering Timeline -->
+<section class="mb-16">
+<div class="flex items-center justify-between mb-8">
+<h3 class="font-headline text-2xl text-on-surface">How to Order</h3>
+<span class="material-symbols-outlined text-secondary" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+</div>
+<div class="space-y-8">
+<!-- Step 1 -->
+<div class="relative step-line flex gap-6">
+<div class="z-10 w-6 h-6 rounded-full bg-primary flex items-center justify-center mt-1 shrink-0">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'FILL' 1;">menu_book</span>
+</div>
+<div>
+<h4 class="font-semibold text-lg text-on-surface mb-1">Browse our Collections</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Explore our seasonal menu or wedding catalog for inspiration and base flavors.</p>
+</div>
+</div>
+<!-- Step 2 -->
+<div class="relative step-line flex gap-6">
+<div class="z-10 w-6 h-6 rounded-full bg-secondary-container flex items-center justify-center mt-1 shrink-0">
+<span class="material-symbols-outlined text-on-secondary-container text-[14px]" style="font-variation-settings: 'FILL' 1;">edit_note</span>
+</div>
+<div>
+<h4 class="font-semibold text-lg text-on-surface mb-1">Customize Your Request</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Select your size, sponge flavor, and any dietary requirements (eggless, sugar-free).</p>
+</div>
+</div>
+<!-- Step 3 -->
+<div class="relative step-line flex gap-6">
+<div class="z-10 w-6 h-6 rounded-full bg-surface-container-highest flex items-center justify-center mt-1 shrink-0">
+<span class="material-symbols-outlined text-primary text-[14px]" style="font-variation-settings: 'FILL' 1;">send</span>
+</div>
+<div>
+<h4 class="font-semibold text-lg text-on-surface mb-1">Send Inquiry</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Use our WhatsApp link to send your request. We'll confirm availability within 24 hours.</p>
+</div>
+</div>
+<!-- Step 4 -->
+<div class="relative step-line step-line-last flex gap-6">
+<div class="z-10 w-6 h-6 rounded-full bg-primary-container flex items-center justify-center mt-1 shrink-0">
+<span class="material-symbols-outlined text-white text-[14px]" style="font-variation-settings: 'FILL' 1;">celebration</span>
+</div>
+<div>
+<h4 class="font-semibold text-lg text-on-surface mb-1">Confirmation &amp; Deposit</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">Secure your slot with a 50% deposit. Then, simply wait for your artisanal creation!</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Button State Matrix (Demonstration) -->
+<section class="mb-12 p-8 bg-surface-container-low rounded-3xl">
+<h3 class="font-label text-[11px] font-bold uppercase tracking-widest text-on-surface-variant mb-6 text-center">Interactive States</h3>
+<div class="space-y-4">
+<!-- Primary Button -->
+<button class="w-full h-12 flex items-center justify-center bg-gradient-to-br from-primary to-primary-container text-on-primary rounded-xl font-semibold shadow-lg shadow-primary/10 transition-all duration-300">
+                    Submit Inquiry (Default)
+                </button>
+<!-- Hover/Focus state demonstration -->
+<button class="w-full h-12 flex items-center justify-center bg-primary text-on-primary rounded-xl font-semibold ring-4 ring-primary-fixed ring-opacity-50 transition-all duration-300">
+                    Hover / Focused State
+                </button>
+<!-- Active/Pressed state demonstration -->
+<button class="w-full h-12 flex items-center justify-center bg-primary-container text-on-primary rounded-xl font-semibold scale-95 transition-all duration-150 opacity-90">
+                    Pressed State
+                </button>
+<!-- Secondary Ghost demonstration -->
+<button class="w-full h-12 flex items-center justify-center text-primary font-semibold hover:bg-surface-container-highest rounded-xl transition-all duration-300">
+                    View FAQ
+                </button>
+</div>
+</section>
+<!-- Decorative Image Section -->
+<div class="w-full h-48 rounded-3xl overflow-hidden mb-12">
+<img alt="Artisan bakery counter" class="w-full h-full object-cover" data-alt="Close-up of artisan pastries on a clean marble counter in a sunlit boutique bakery with soft shadows and premium editorial aesthetic" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxU4B5qQcRVrwvrmOcsjkps9h7y3OCwbwO4IrqDK7v-5I5Zx15764blZAIabxn3r1ek-x08V6Q49Fehbh31XuxBDxKVwWLKYlvvD8BGIW3E1aSUL-3WRBPVVtfg2ZhRSo8d47W13bDtZmOdviU4pFvA8ykm-P6hgREoFpgWdYoMew8GR0VAP1qd6bFC73o6X_1930tNBZWZamRSVeKSPGegv37ul1DhRFjxUXkpeQo3M2GbphTnG4q7aGygv3qpCgiswTnPlG5WDI"/>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f8] dark:bg-[#1a0f11] shadow-[0_-4px_20px_rgba(176,0,104,0.05)] bg-gradient-to-b from-[#fdf0f2] to-[#fff8f8] dark:from-[#2d1a1d] dark:to-[#1a0f11] rounded-t-3xl border-t-0">
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#b00068] dark:hover:text-[#ff8cc6]">home</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-1">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#b00068] dark:hover:text-[#ff8cc6]">restaurant_menu</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-1">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 dark:text-[#ff8cc6]/40 active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined group-hover:text-[#b00068] dark:hover:text-[#ff8cc6]">auto_awesome</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-1">About</span>
+</a>
+<!-- Active Tab: Contact -->
+<a class="flex flex-col items-center justify-center bg-[#fcd400] dark:bg-[#b00068] text-[#b00068] dark:text-[#fff8f8] rounded-2xl px-4 py-1.5 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">mail</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-1">Contact</span>
+</a>
+</nav>
+</body></html>

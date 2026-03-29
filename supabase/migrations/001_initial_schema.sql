@@ -1,5 +1,4 @@
--- Enable UUID extension
-CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
+
 
 -- ENUM types
 CREATE TYPE order_status AS ENUM ('draft', 'scheduled', 'billed', 'cancelled');
@@ -7,7 +6,7 @@ CREATE TYPE inventory_change_type AS ENUM ('add', 'consume', 'spoil', 'adjust');
 
 -- Ingredients
 CREATE TABLE ingredients (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   unit TEXT NOT NULL,
   created_by UUID NOT NULL,
@@ -16,7 +15,7 @@ CREATE TABLE ingredients (
 
 -- Ingredient Batches
 CREATE TABLE ingredient_batches (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   ingredient_id UUID NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
   qty_total NUMERIC(10,2) NOT NULL,
   qty_remaining NUMERIC(10,2) NOT NULL,
@@ -30,7 +29,7 @@ CREATE TABLE ingredient_batches (
 
 -- Recipes
 CREATE TABLE recipes (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   created_by UUID NOT NULL,
   created_at TIMESTAMPTZ DEFAULT NOW()
@@ -38,7 +37,7 @@ CREATE TABLE recipes (
 
 -- Recipe Items
 CREATE TABLE recipe_items (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   recipe_id UUID NOT NULL REFERENCES recipes(id) ON DELETE CASCADE,
   ingredient_id UUID NOT NULL REFERENCES ingredients(id) ON DELETE CASCADE,
   quantity_required NUMERIC(10,3) NOT NULL,
@@ -47,7 +46,7 @@ CREATE TABLE recipe_items (
 
 -- Products
 CREATE TABLE products (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   name TEXT NOT NULL,
   recipe_id UUID REFERENCES recipes(id) ON DELETE SET NULL,
   sale_price NUMERIC(10,2) NOT NULL,
@@ -57,7 +56,7 @@ CREATE TABLE products (
 
 -- Orders
 CREATE TABLE orders (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   status order_status DEFAULT 'draft',
   scheduled_for TIMESTAMPTZ,
   total_amount NUMERIC(10,2),
@@ -68,7 +67,7 @@ CREATE TABLE orders (
 
 -- Order Items
 CREATE TABLE order_items (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
   product_id UUID NOT NULL REFERENCES products(id) ON DELETE CASCADE,
   quantity INTEGER NOT NULL DEFAULT 1,
@@ -78,7 +77,7 @@ CREATE TABLE order_items (
 
 -- Transactions
 CREATE TABLE transactions (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   order_id UUID NOT NULL REFERENCES orders(id) ON DELETE CASCADE,
   txn_id TEXT,
   upi_id TEXT,
@@ -89,7 +88,7 @@ CREATE TABLE transactions (
 
 -- Inventory Logs
 CREATE TABLE inventory_logs (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
   batch_id UUID NOT NULL REFERENCES ingredient_batches(id) ON DELETE CASCADE,
   change_type inventory_change_type NOT NULL,
   qty_change NUMERIC(10,2) NOT NULL,

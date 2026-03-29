@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Artisanal Editor - Notification System</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&amp;family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "inverse-primary": "#ffb0cd",
+                "on-surface": "#201a1c",
+                "surface-tint": "#b8006d",
+                "surface-container-lowest": "#ffffff",
+                "on-tertiary-container": "#fff8f8",
+                "on-error": "#ffffff",
+                "background": "#fff8f8",
+                "error": "#ba1a1a",
+                "on-secondary-container": "#6e5c00",
+                "surface-variant": "#ecdfe1",
+                "on-primary-fixed": "#3e0021",
+                "inverse-surface": "#362f30",
+                "outline-variant": "#e0bec8",
+                "tertiary-fixed-dim": "#d8c1c4",
+                "secondary-fixed": "#ffe16d",
+                "primary-container": "#d62083",
+                "outline": "#8c6f79",
+                "on-secondary": "#ffffff",
+                "on-secondary-fixed-variant": "#544600",
+                "on-tertiary-fixed": "#25181a",
+                "surface-bright": "#fff8f8",
+                "primary-fixed-dim": "#ffb0cd",
+                "tertiary-fixed": "#f5dde0",
+                "surface-container-low": "#fdf0f2",
+                "surface-container": "#f8ebed",
+                "on-secondary-fixed": "#221b00",
+                "on-primary-container": "#fff7f8",
+                "secondary": "#705d00",
+                "on-background": "#201a1c",
+                "tertiary": "#685658",
+                "on-primary-fixed-variant": "#8d0052",
+                "primary-fixed": "#ffd9e4",
+                "tertiary-container": "#816e71",
+                "surface-container-high": "#f2e5e7",
+                "surface": "#fff8f8",
+                "on-tertiary": "#ffffff",
+                "on-tertiary-fixed-variant": "#534345",
+                "primary": "#b00068",
+                "on-surface-variant": "#584049",
+                "surface-dim": "#e3d7d9",
+                "secondary-fixed-dim": "#e9c400",
+                "on-error-container": "#93000a",
+                "surface-container-highest": "#ecdfe1",
+                "on-primary": "#ffffff",
+                "inverse-on-surface": "#fbeef0",
+                "secondary-container": "#fcd400",
+                "error-container": "#ffdad6"
+              },
+              fontFamily: {
+                "headline": ["Noto Serif"],
+                "body": ["Inter"],
+                "label": ["Inter"],
+                "display": ["Playfair Display"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .toast-shadow {
+            box-shadow: 0 4px 24px hsla(0,0%,0%,0.12);
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .animate-toast-enter, .animate-toast-exit {
+                animation: none !important;
+                transition: opacity 0.2s ease-in-out !important;
+            }
+        }
+        .animate-toast-enter {
+            animation: slideUp 250ms cubic-bezier(0.0, 0.0, 0.2, 1) forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .toast-success-accent { color: hsl(145, 63%, 42%); }
+        .toast-error-accent { color: hsl(0, 72%, 51%); }
+        .toast-info-accent { color: #b00068; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body min-h-screen">
+<!-- Top Navigation Anchor -->
+<header class="fixed top-0 w-full flex justify-between items-center px-6 py-4 bg-[#fff8f8]/80 dark:bg-zinc-950/80 backdrop-blur-xl z-40 no-border bg-surface-container-low">
+<div class="font-['Playfair_Display'] text-2xl tracking-tight text-2xl font-black text-[#b00068] dark:text-[#d62083] italic">
+            The Artisanal Editor
+        </div>
+<nav class="hidden md:flex gap-8 items-center">
+<a class="text-[#b00068] dark:text-[#fcd400] font-bold border-b-2 border-[#b00068] transition-all" href="#">Gallery</a>
+<a class="text-zinc-600 dark:text-zinc-400 font-medium hover:text-[#b00068] transition-colors duration-200" href="#">Orders</a>
+<a class="text-zinc-600 dark:text-zinc-400 font-medium hover:text-[#b00068] transition-colors duration-200" href="#">Craft</a>
+<a class="text-zinc-600 dark:text-zinc-400 font-medium hover:text-[#b00068] transition-colors duration-200" href="#">Profile</a>
+</nav>
+<div class="flex items-center gap-4">
+<button class="material-symbols-outlined text-[#b00068] dark:text-[#d62083]">notifications</button>
+<button class="material-symbols-outlined text-[#b00068] dark:text-[#d62083]">shopping_bag</button>
+</div>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-7xl mx-auto">
+<!-- Hero Section -->
+<section class="mb-20">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="order-2 md:order-1">
+<h1 class="font-display text-5xl md:text-7xl font-black leading-tight mb-6 text-on-surface">
+                        Nellai Aanantham <br/><span class="italic text-primary">System States</span>
+</h1>
+<p class="text-on-surface-variant text-lg max-w-md leading-relaxed mb-8">
+                        Experience the refined choreography of our notification engine. Each alert is crafted to balance utility with the bakery's artisanal warmth.
+                    </p>
+<div class="flex gap-4">
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-8 py-3 rounded-lg font-semibold shadow-lg active:scale-95 transition-all">
+                            View Documentation
+                        </button>
+<button class="text-primary font-semibold px-8 py-3 rounded-lg hover:bg-surface-container-high transition-colors">
+                            Component API
+                        </button>
+</div>
+</div>
+<div class="order-1 md:order-2 relative">
+<div class="aspect-[4/5] bg-surface-container-highest rounded-[2rem] overflow-hidden rotate-2 shadow-2xl">
+<img alt="Artisan bakery display" class="w-full h-full object-cover" data-alt="close-up of artisan pastries and fresh bread arranged on a marble surface with soft morning light and warm highlights" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCpFpkeDkGbPedqbN14MqnDoXocwd6q6GGjmf5KnaUmB69_ETESbYfAQTJpI_LuOfJkHlBbVDMxU545ifBRq1DEJj8fjav319YI9DDI_ipUt7jY5FzI0UT74Oh6NyBl_wk8Tewm1qPXAZbdeQ27QuSSj-7ZflggDn4zyesxX2P8YCmGXF4ZmIyzDc3JM71Kar25r9r9tiA654tvXgcDYd8UJDt4NS-l_Y9YQ0i626MVV1BIqTGlpyL4jqdcW1g79b4kZ8k_wgIAmJU"/>
+</div>
+<div class="absolute -bottom-6 -left-6 aspect-square w-48 bg-secondary-container rounded-full flex items-center justify-center p-8 -rotate-12 shadow-xl border-4 border-white">
+<span class="font-display text-center text-on-secondary-container font-black leading-none">EST.<br/>1982</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Notification Gallery (Static Preview) -->
+<section class="mb-20">
+<div class="mb-12">
+<h2 class="font-display text-3xl font-bold mb-2">Notification Gallery</h2>
+<div class="h-1 w-20 bg-secondary-container"></div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Success State Card -->
+<div class="bg-surface-container-lowest p-8 rounded-[1.5rem] flex flex-col gap-6 items-start transition-all hover:translate-y-[-4px]">
+<div class="w-12 h-12 rounded-full bg-green-50 flex items-center justify-center text-[hsl(145,63%,42%)]">
+<span class="material-symbols-outlined text-3xl">check_circle</span>
+</div>
+<div>
+<h3 class="font-display text-2xl font-bold mb-2">Success Variant</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                            Used for completed transactions, confirmed orders, and successful profile updates.
+                        </p>
+</div>
+<div class="w-full h-px bg-surface-container-high"></div>
+<div class="w-full">
+<div class="toast-shadow bg-white rounded-[12px] px-6 py-4 flex items-center gap-4 w-full border-l-4 border-[hsl(145,63%,42%)]">
+<span class="material-symbols-outlined toast-success-accent">check_circle</span>
+<div class="flex-1">
+<h4 class="font-display font-bold text-sm text-on-surface">Order Confirmed</h4>
+<p class="font-body text-xs text-on-surface-variant">Your sourdough is being prepared.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Info State Card -->
+<div class="bg-surface-container-lowest p-8 rounded-[1.5rem] flex flex-col gap-6 items-start transition-all hover:translate-y-[-4px]">
+<div class="w-12 h-12 rounded-full bg-pink-50 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-3xl">info</span>
+</div>
+<div>
+<h3 class="font-display text-2xl font-bold mb-2">Info Variant</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                            Standard system updates, new product announcements, or general informational cues.
+                        </p>
+</div>
+<div class="w-full h-px bg-surface-container-high"></div>
+<div class="w-full">
+<div class="toast-shadow bg-white rounded-[12px] px-6 py-4 flex items-center gap-4 w-full border-l-4 border-[#b00068]">
+<span class="material-symbols-outlined toast-info-accent">info</span>
+<div class="flex-1">
+<h4 class="font-display font-bold text-sm text-on-surface">Fresh Batch Ready</h4>
+<p class="font-body text-xs text-on-surface-variant">Hot Macarons just out of the oven.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Error State Card -->
+<div class="bg-surface-container-lowest p-8 rounded-[1.5rem] flex flex-col gap-6 items-start transition-all hover:translate-y-[-4px]">
+<div class="w-12 h-12 rounded-full bg-red-50 flex items-center justify-center text-[hsl(0,72%,51%)]">
+<span class="material-symbols-outlined text-3xl">error</span>
+</div>
+<div>
+<h3 class="font-display text-2xl font-bold mb-2">Error Variant</h3>
+<p class="text-on-surface-variant text-sm leading-relaxed">
+                            Critical failures, payment declines, or validation errors that require user attention.
+                        </p>
+</div>
+<div class="w-full h-px bg-surface-container-high"></div>
+<div class="w-full">
+<div class="toast-shadow bg-white rounded-[12px] px-6 py-4 flex items-center gap-4 w-full border-l-4 border-[hsl(0,72%,51%)]">
+<span class="material-symbols-outlined toast-error-accent">error</span>
+<div class="flex-1">
+<h4 class="font-display font-bold text-sm text-on-surface">Payment Failed</h4>
+<p class="font-body text-xs text-on-surface-variant">Please check your card details.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Design Principles Grid -->
+<section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div class="bg-surface-container-low p-10 rounded-[2rem] flex flex-col justify-center">
+<span class="text-primary font-bold tracking-widest uppercase text-xs mb-4">The Specs</span>
+<h3 class="font-display text-4xl font-black mb-6">Micro-interactions that matter.</h3>
+<ul class="space-y-4">
+<li class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="text-on-surface-variant">12px border radius for approachable warmth.</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="text-on-surface-variant">250ms slide-up enter choreography.</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="w-2 h-2 rounded-full bg-secondary-container"></span>
+<span class="text-on-surface-variant">Premium 24px drop-shadow elevation.</span>
+</li>
+</ul>
+</div>
+<div class="bg-surface-container-highest rounded-[2rem] h-[400px] overflow-hidden">
+<img alt="Close up bakery detail" class="w-full h-full object-cover" data-alt="dramatic lighting on a hand dusting flour over freshly shaped dough on a dark wooden surface, professional culinary photography" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCxR2b4rrPX5foAseaNE8uX5DOu_aAG-C5YVF6FBzwcwR7vGj8xbiNmqhFBFiYJLEG1FApygNXhAkm75ZWzVL2JeY1HKemcI9rZHRyKtOXBAfEu0ZMEX9cQAPy1KxBlS1axdGk869w2jCSLdV_Z2hH9Mi2d73BaH5PR7upQk095BLKu7Ztq_GTeS27-vgcZfYtfFR0XHeLJahH96qApgbQCZ3kAfNDzVhpKoSE0mb2z5PkBINYsn7jvUw5RqbM8FTYDP8W_nwyfvXk"/>
+</div>
+</section>
+</main>
+<!-- LIVE TOAST OVERLAY (Simulating the UI) -->
+<!-- Positioned bottom-center for mobile, bottom-right for desktop -->
+<div class="fixed bottom-24 md:bottom-8 right-0 left-0 md:left-auto md:right-8 flex flex-col items-center md:items-end gap-3 z-50 pointer-events-none px-4">
+<!-- Info Toast (Active Simulation) -->
+<div class="pointer-events-auto w-max max-w-[90vw] animate-toast-enter toast-shadow bg-white rounded-[12px] px-6 py-4 flex items-center gap-4 border-l-4 border-[#b00068]">
+<span class="material-symbols-outlined toast-info-accent text-[24px]">shopping_bag</span>
+<div class="flex-1 pr-4">
+<h4 class="font-display font-bold text-[16px] text-on-surface leading-tight">Cart Updated</h4>
+<p class="font-body text-[13px] text-on-surface-variant leading-tight">Dark Chocolate Brownie added.</p>
+</div>
+<button class="material-symbols-outlined text-zinc-300 hover:text-zinc-500 transition-colors text-[20px]">close</button>
+</div>
+<!-- Success Toast (Active Simulation) -->
+<div class="pointer-events-auto w-max max-w-[90vw] animate-toast-enter toast-shadow bg-white rounded-[12px] px-6 py-4 flex items-center gap-4 border-l-4 border-[hsl(145,63%,42%)]">
+<span class="material-symbols-outlined toast-success-accent text-[24px]">loyalty</span>
+<div class="flex-1 pr-4">
+<h4 class="font-display font-bold text-[16px] text-on-surface leading-tight">Points Earned</h4>
+<p class="font-body text-[13px] text-on-surface-variant leading-tight">You earned 50 points on this order.</p>
+</div>
+<button class="material-symbols-outlined text-zinc-300 hover:text-zinc-500 transition-colors text-[20px]">close</button>
+</div>
+</div>
+<!-- Bottom Navigation Bar (Mobile) -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-md border-t border-zinc-100 dark:border-zinc-800 shadow-[0_-4px_24px_rgba(214,32,131,0.08)] rounded-t-[1.5rem]">
+<div class="flex flex-col items-center justify-center text-[#b00068] dark:text-[#fcd400] scale-110 transition-transform">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Gallery</span>
+</div>
+<div class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-[#b00068]">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Orders</span>
+</div>
+<div class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-[#b00068]">
+<span class="material-symbols-outlined">bakery_dining</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Craft</span>
+</div>
+<div class="flex flex-col items-center justify-center text-zinc-400 dark:text-zinc-500 hover:text-[#b00068]">
+<span class="material-symbols-outlined">person</span>
+<span class="font-['Inter'] text-[11px] font-semibold uppercase tracking-wider">Profile</span>
+</div>
+</nav>
+</body></html>

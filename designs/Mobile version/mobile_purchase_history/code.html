@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Artisanal Admin - Inventory Validation</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-tint": "#b8006d",
+              "on-secondary-fixed-variant": "#544600",
+              "on-secondary-container": "#6e5c00",
+              "primary-container": "#d62083",
+              "surface-dim": "#e3d7d9",
+              "surface-container": "#f8ebed",
+              "secondary-fixed": "#ffe16d",
+              "on-tertiary-fixed-variant": "#534345",
+              "primary": "#b00068",
+              "inverse-surface": "#362f30",
+              "on-secondary": "#ffffff",
+              "on-error-container": "#93000a",
+              "primary-fixed-dim": "#ffb0cd",
+              "surface-bright": "#fff8f8",
+              "on-surface": "#201a1c",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#f5dde0",
+              "tertiary-container": "#816e71",
+              "background": "#fff8f8",
+              "on-primary-fixed-variant": "#8d0052",
+              "outline": "#8c6f79",
+              "secondary-container": "#fcd400",
+              "surface-container-low": "#fdf0f2",
+              "surface-container-highest": "#ecdfe1",
+              "error": "#ba1a1a",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "on-tertiary-fixed": "#25181a",
+              "primary-fixed": "#ffd9e4",
+              "secondary-fixed-dim": "#e9c400",
+              "secondary": "#705d00",
+              "on-tertiary": "#ffffff",
+              "on-primary-fixed": "#3e0021",
+              "tertiary": "#685658",
+              "on-primary": "#ffffff",
+              "surface-variant": "#ecdfe1",
+              "on-background": "#201a1c",
+              "error-container": "#ffdad6",
+              "surface-container-high": "#f2e5e7",
+              "surface": "#fff8f8",
+              "inverse-on-surface": "#fbeef0",
+              "on-secondary-fixed": "#221b00",
+              "on-primary-container": "#fff7f8",
+              "surface-container-lowest": "#ffffff",
+              "on-tertiary-container": "#fff8f8",
+              "inverse-primary": "#ffb0cd",
+              "outline-variant": "#e0bec8",
+              "on-surface-variant": "#584049"
+            },
+            fontFamily: {
+              "headline": ["Playfair Display"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        font-family: 'Inter', sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+      .serif-headline {
+        font-family: 'Playfair Display', serif;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-surface min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="docked full-width top-0 sticky z-50 no-border bg-[#fff8f8] backdrop-blur-md shadow-[0_1px_3px_hsla(0,0%,0%,0.04)]">
+<div class="flex justify-between items-center px-6 py-4 w-full max-w-screen-xl mx-auto">
+<div class="flex items-center gap-4">
+<button class="text-[#b00068] dark:text-pink-400 hover:bg-[#fdf0f2] p-2 rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined" data-icon="menu">menu</span>
+</button>
+<h1 class="font-serif text-xl font-bold text-[#b00068] dark:text-pink-500 italic">Artisanal Admin</h1>
+</div>
+<div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-fixed shadow-sm">
+<img alt="Admin Profile" class="w-full h-full object-cover" data-alt="Close-up professional portrait of a woman in a chef's coat with a soft-focus bakery background and warm ambient lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCg8TXYnYSJ5ALBdBYcmEiLfBwdOb1zrE0KTqydCyLS_5t6WmCYytsz0dPlJ_HyvBfftYUwjXDg3pZ4HRQwM5Y33uCZ0ch1ut8rdUzM1jJYbpDckUVYs9qAzoWiNfVwLPiPMzOKOhtDdneBzp6iUr-L6yaOXNIDlU0hJ1ytyX7Va29STInYR12IGVQCCYIh1w1Wv41T8wHtmeAZmct-GD0GEqv59kHrPUZqfoJRaEjc9SwQ4axDUvVxGaYZ-1kZ9Rv6TSdyZS04h98"/>
+</div>
+</div>
+</header>
+<!-- Content Canvas -->
+<main class="flex-grow pb-32">
+<!-- Date Range Filter Section -->
+<section class="px-6 pt-6 pb-2">
+<div class="bg-surface-container-low rounded-3xl p-5 shadow-sm">
+<div class="flex items-center justify-between mb-4">
+<h2 class="text-on-surface font-semibold text-sm tracking-tight">Validation Period</h2>
+<span class="material-symbols-outlined text-primary text-xl" data-icon="calendar_today">calendar_today</span>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex-1 bg-surface-container-lowest rounded-2xl py-3 px-4 border-b-2 border-outline-variant/20">
+<p class="text-[10px] uppercase font-bold text-on-surface-variant mb-0.5">From</p>
+<p class="text-sm font-medium">Oct 12, 2023</p>
+</div>
+<div class="w-4 h-0.5 bg-outline-variant/30 rounded-full"></div>
+<div class="flex-1 bg-surface-container-lowest rounded-2xl py-3 px-4 border-b-2 border-outline-variant/20">
+<p class="text-[10px] uppercase font-bold text-on-surface-variant mb-0.5">To</p>
+<p class="text-sm font-medium">Oct 19, 2023</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Stats Overview (Subtle Bento-ish) -->
+<section class="grid grid-cols-2 gap-4 px-6 py-4">
+<div class="bg-surface-container-highest/40 p-4 rounded-3xl">
+<p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Total Items</p>
+<p class="text-2xl font-bold serif-headline text-primary">124</p>
+</div>
+<div class="bg-secondary-container/20 p-4 rounded-3xl border border-secondary-container/30">
+<p class="text-[11px] font-bold text-on-surface-variant uppercase tracking-wider mb-1">Attention</p>
+<p class="text-2xl font-bold serif-headline text-secondary">08</p>
+</div>
+</section>
+<!-- Purchase Cards List -->
+<section class="px-6 flex flex-col gap-4">
+<div class="flex justify-between items-end mb-1">
+<h3 class="text-lg font-bold serif-headline">Purchase Logs</h3>
+<p class="text-xs text-on-surface-variant font-medium">Showing 42 results</p>
+</div>
+<!-- Card 1: Active -->
+<div class="bg-surface-container-lowest rounded-3xl p-5 shadow-[0_1px_3px_hsla(0,0%,0%,0.04)] group active:scale-[0.98] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-base text-on-surface leading-tight">Madagascar Vanilla Beans</h4>
+<p class="text-xs text-on-surface-variant mt-1">Batch: #VN-8821</p>
+</div>
+<span class="bg-green-100 text-green-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Active</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter">Purchase Date</p>
+<p class="text-sm font-medium">Oct 18, 2023</p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter text-right">Quantity</p>
+<p class="text-sm font-medium text-right">2.5 kg</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-container-high flex justify-end">
+<button class="text-primary text-xs font-bold flex items-center gap-1">
+                        View Details <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+<!-- Card 2: Spoiled -->
+<div class="bg-surface-container-lowest rounded-3xl p-5 shadow-[0_1px_3px_hsla(0,0%,0%,0.04)] group active:scale-[0.98] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-base text-on-surface leading-tight">Organic Heavy Cream</h4>
+<p class="text-xs text-on-surface-variant mt-1">Batch: #DY-4402</p>
+</div>
+<span class="bg-error-container text-error text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Spoiled</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter">Purchase Date</p>
+<p class="text-sm font-medium">Oct 14, 2023</p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter text-right">Quantity</p>
+<p class="text-sm font-medium text-right">12 Liters</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-container-high flex justify-end">
+<button class="bg-primary text-on-primary px-4 py-1.5 rounded-full text-xs font-bold shadow-sm">
+                        Process Disposal
+                    </button>
+</div>
+</div>
+<!-- Card 3: Expired -->
+<div class="bg-surface-container-lowest rounded-3xl p-5 shadow-[0_1px_3px_hsla(0,0%,0%,0.04)] group active:scale-[0.98] transition-all border-l-4 border-secondary">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-base text-on-surface leading-tight">Dried Lavender Buds</h4>
+<p class="text-xs text-on-surface-variant mt-1">Batch: #HB-219</p>
+</div>
+<span class="bg-secondary-container text-on-secondary-container text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Expired</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter">Purchase Date</p>
+<p class="text-sm font-medium">Sept 12, 2023</p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter text-right">Quantity</p>
+<p class="text-sm font-medium text-right">500 g</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-container-high flex justify-between items-center">
+<p class="text-[10px] text-error font-medium italic">Expired 2 days ago</p>
+<button class="text-primary text-xs font-bold flex items-center gap-1">
+                        Edit Log <span class="material-symbols-outlined text-sm" data-icon="edit">edit</span>
+</button>
+</div>
+</div>
+<!-- Card 4: Active -->
+<div class="bg-surface-container-lowest rounded-3xl p-5 shadow-[0_1px_3px_hsla(0,0%,0%,0.04)] group active:scale-[0.98] transition-all">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h4 class="font-bold text-base text-on-surface leading-tight">Unsalted Cultured Butter</h4>
+<p class="text-xs text-on-surface-variant mt-1">Batch: #DY-9910</p>
+</div>
+<span class="bg-green-100 text-green-800 text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">Active</span>
+</div>
+<div class="grid grid-cols-2 gap-y-4">
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter">Purchase Date</p>
+<p class="text-sm font-medium">Oct 19, 2023</p>
+</div>
+<div>
+<p class="text-[10px] text-on-surface-variant uppercase font-bold tracking-tighter text-right">Quantity</p>
+<p class="text-sm font-medium text-right">25 kg</p>
+</div>
+</div>
+<div class="mt-4 pt-4 border-t border-surface-container-high flex justify-end">
+<button class="text-primary text-xs font-bold flex items-center gap-1">
+                        View Details <span class="material-symbols-outlined text-sm" data-icon="chevron_right">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+</main>
+<!-- FAB for adding new entry (Design Choice) -->
+<div class="fixed bottom-28 right-6 z-40">
+<button class="w-14 h-14 bg-primary text-on-primary rounded-2xl shadow-xl flex items-center justify-center active:scale-90 transition-transform">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0, 'wght' 600;">add</span>
+</button>
+</div>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 no-border bg-[#fdf0f2] shadow-[0_-10px_40px_-10px_hsla(350,50%,20%,0.08)] rounded-t-3xl">
+<a class="flex flex-col items-center justify-center text-slate-500 px-3 py-1.5 hover:bg-white/50" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="shopping_bag">shopping_bag</span>
+<span class="font-sans text-[11px] font-medium tracking-wide uppercase">Orders</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 px-3 py-1.5 hover:bg-white/50" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="group">group</span>
+<span class="font-sans text-[11px] font-medium tracking-wide uppercase">Users</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 px-3 py-1.5 hover:bg-white/50" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="verified_user">verified_user</span>
+<span class="font-sans text-[11px] font-medium tracking-wide uppercase">Roles</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-[#fcd400] text-black rounded-xl px-3 py-1.5 shadow-sm scale-110 duration-300 ease-out" href="#">
+<span class="material-symbols-outlined mb-1" data-icon="rule" style="font-variation-settings: 'FILL' 1;">rule</span>
+<span class="font-sans text-[11px] font-medium tracking-wide uppercase">Validation</span>
+</a>
+</nav>
+</body></html>

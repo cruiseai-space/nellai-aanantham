@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Artisanal Editor - Recipe Builder</title>
+<!-- Google Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,700;1,400;1,700&amp;family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#ecdfe1",
+              "surface-container-lowest": "#ffffff",
+              "error-container": "#ffdad6",
+              "surface-container-highest": "#ecdfe1",
+              "on-secondary-fixed": "#221b00",
+              "surface-tint": "#b8006d",
+              "inverse-on-surface": "#fbeef0",
+              "on-tertiary": "#ffffff",
+              "on-secondary": "#ffffff",
+              "on-tertiary-container": "#fff8f8",
+              "on-background": "#201a1c",
+              "surface-dim": "#e3d7d9",
+              "surface-container": "#f8ebed",
+              "on-primary-fixed-variant": "#8d0052",
+              "on-surface-variant": "#584049",
+              "tertiary-container": "#816e71",
+              "on-primary": "#ffffff",
+              "primary-fixed-dim": "#ffb0cd",
+              "inverse-primary": "#ffb0cd",
+              "surface-container-low": "#fdf0f2",
+              "secondary": "#705d00",
+              "outline-variant": "#e0bec8",
+              "outline": "#8c6f79",
+              "on-tertiary-fixed-variant": "#534345",
+              "surface": "#fff8f8",
+              "on-secondary-container": "#6e5c00",
+              "error": "#ba1a1a",
+              "surface-bright": "#fff8f8",
+              "primary-fixed": "#ffd9e4",
+              "on-tertiary-fixed": "#25181a",
+              "on-error-container": "#93000a",
+              "tertiary-fixed": "#f5dde0",
+              "on-surface": "#201a1c",
+              "secondary-fixed": "#ffe16d",
+              "secondary-fixed-dim": "#e9c400",
+              "primary-container": "#d62083",
+              "on-primary-container": "#fff7f8",
+              "tertiary": "#685658",
+              "on-error": "#ffffff",
+              "background": "#fff8f8",
+              "surface-container-high": "#f2e5e7",
+              "on-primary-fixed": "#3e0021",
+              "inverse-surface": "#362f30",
+              "primary": "#b00068",
+              "on-secondary-fixed-variant": "#544600",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "secondary-container": "#fcd400"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-nav {
+            background: hsla(350, 100%, 95%, 0.8);
+            backdrop-filter: blur(12px);
+        }
+        .premium-shadow {
+            box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.04), 0 10px 40px -10px hsla(350, 50%, 20%, 0.08);
+        }
+        .ingredient-row:hover {
+            background: hsla(0,0%,0%,0.02);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased flex">
+<!-- SideNavBar (Shared Component) -->
+<aside class="h-screen w-64 border-r-0 bg-[#fff8f8] dark:bg-slate-950 flex flex-col py-8 px-4 sticky top-0 shrink-0">
+<div class="mb-10 px-4">
+<h1 class="text-2xl font-bold text-[#b00068] dark:text-pink-500 italic font-headline">The Artisanal Editor</h1>
+<p class="text-xs text-slate-500 font-medium tracking-widest uppercase mt-1">Master Baker</p>
+</div>
+<nav class="flex-1 space-y-2">
+<!-- Dashboard (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Noto_Serif'] font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-[#b00068] hover:bg-[#f2e5e7] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span>Dashboard</span>
+</a>
+<!-- Inventory (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Noto_Serif'] font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-[#b00068] hover:bg-[#f2e5e7] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="inventory_2">inventory_2</span>
+<span>Inventory</span>
+</a>
+<!-- Recipes (Active) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Noto_Serif'] font-bold text-sm text-[#b00068] dark:text-pink-400 border-r-4 border-[#b00068] bg-[#f2e5e7] dark:bg-pink-900/20 transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="menu_book">menu_book</span>
+<span>Recipes</span>
+</a>
+<!-- Products (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Noto_Serif'] font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-[#b00068] hover:bg-[#f2e5e7] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="bakery_dining">bakery_dining</span>
+<span>Products</span>
+</a>
+<!-- Orders (Inactive) -->
+<a class="flex items-center gap-3 px-4 py-3 rounded-xl font-['Noto_Serif'] font-medium text-sm text-slate-600 dark:text-slate-400 hover:text-[#b00068] hover:bg-[#f2e5e7] transition-colors duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="shopping_bag">shopping_bag</span>
+<span>Orders</span>
+</a>
+</nav>
+<div class="mt-auto px-4 pt-4 border-t border-[#f2e5e7]">
+<div class="flex items-center gap-3">
+<img alt="Bakery Owner Profile" class="w-10 h-10 rounded-full bg-surface-container-high" data-alt="portrait of a professional pastry chef in a clean white coat with a warm smile in a sunlit artisanal kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD0AR_EuARLFQn6U-9E4eUVzjMP8CadNxNUoEFLd9YbIpwTU2hmJYf63RdHty8-DrlpG472HePfWgbHy31f5YuiFlYbofEbXN-hWsiTCz3GTg5cVN505f56rME46RuaYMjhMQEvpqJtRadpUXtHRyBT3Eyqomn23cawdpTffb0b30XLPugHjmun7YLK3A6LG2hkdPGMF9r1FpBxmznSaaGw9lrkQUQQrBdHUaTNjiQe1E1p5Mn_xQ1GhPgQ2-hA11wg5d7pjnM9H2Q"/>
+<div>
+<p class="text-sm font-bold text-on-surface">Jean-Luc</p>
+<p class="text-xs text-on-surface-variant">Admin Access</p>
+</div>
+</div>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="glass-nav sticky top-0 z-30 flex justify-between items-center w-full px-8 py-4 border-b border-[#f2e5e7] dark:border-slate-800 shadow-sm">
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="absolute inset-y-0 left-3 flex items-center text-on-surface-variant group-focus-within:text-primary">
+<span class="material-symbols-outlined text-xl" data-icon="search">search</span>
+</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-2 w-64 text-sm focus:ring-2 focus:ring-[#b00068] transition-all" placeholder="Search recipes..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<button class="p-2 text-slate-500 hover:text-[#b00068] transition-all relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<button class="p-2 text-slate-500 hover:text-[#b00068] transition-all">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="p-8 max-w-7xl mx-auto w-full">
+<div class="mb-10">
+<h2 class="font-headline text-3xl font-bold tracking-tight text-on-surface">Recipe Builder &amp; Costing</h2>
+<p class="text-on-surface-variant mt-2 text-lg">Define ingredients and analyze margins for your artisanal creations.</p>
+</div>
+<!-- Dual-panel Split View -->
+<div class="grid grid-cols-12 gap-8 items-start">
+<!-- Left Panel: Recipe Builder (8 columns) -->
+<section class="col-span-12 lg:col-span-8 bg-surface-container-lowest rounded-xl premium-shadow p-8">
+<form class="space-y-10">
+<!-- Recipe Header -->
+<div class="space-y-4">
+<label class="block text-xs font-bold tracking-widest uppercase text-on-surface-variant">Recipe Identity</label>
+<input class="w-full text-2xl font-headline font-bold border-b-2 border-outline-variant/20 focus:border-primary focus:ring-0 px-0 py-2 bg-transparent transition-all" placeholder="Enter recipe name..." type="text" value="Classic Sourdough"/>
+</div>
+<!-- Dynamic Ingredients List -->
+<div class="space-y-4">
+<div class="flex justify-between items-center mb-4">
+<h3 class="font-headline text-xl font-bold">Ingredients</h3>
+<button class="flex items-center gap-2 text-primary font-medium hover:bg-surface-container-high px-3 py-1.5 rounded-lg transition-all" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+<span>Add Ingredient</span>
+</button>
+</div>
+<div class="overflow-hidden">
+<!-- Table Headers -->
+<div class="grid grid-cols-12 gap-4 px-4 py-2 text-xs font-bold tracking-widest uppercase text-on-surface-variant border-b border-surface-container-high">
+<div class="col-span-6">Ingredient Name</div>
+<div class="col-span-2 text-right">Quantity</div>
+<div class="col-span-2">Unit</div>
+<div class="col-span-2 text-right">Action</div>
+</div>
+<!-- Rows -->
+<div class="divide-y divide-surface-container-high/30">
+<!-- Ingredient Row 1 -->
+<div class="grid grid-cols-12 gap-4 px-4 py-4 ingredient-row transition-all items-center">
+<div class="col-span-6">
+<input class="w-full bg-transparent border-none p-0 text-sm focus:ring-0 font-medium" type="text" value="Premium Bread Flour"/>
+</div>
+<div class="col-span-2 text-right">
+<input class="w-full bg-transparent border-none p-0 text-sm text-right focus:ring-0" type="number" value="1.50"/>
+</div>
+<div class="col-span-2">
+<select class="bg-transparent border-none p-0 text-sm focus:ring-0 w-full appearance-none">
+<option>kg</option>
+<option>g</option>
+<option>ml</option>
+</select>
+</div>
+<div class="col-span-2 text-right">
+<button class="text-slate-400 hover:text-error transition-colors p-1" type="button">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Ingredient Row 2 -->
+<div class="grid grid-cols-12 gap-4 px-4 py-4 ingredient-row transition-all items-center">
+<div class="col-span-6">
+<input class="w-full bg-transparent border-none p-0 text-sm focus:ring-0 font-medium" type="text" value="Filtered Spring Water"/>
+</div>
+<div class="col-span-2 text-right">
+<input class="w-full bg-transparent border-none p-0 text-sm text-right focus:ring-0" type="number" value="0.95"/>
+</div>
+<div class="col-span-2">
+<select class="bg-transparent border-none p-0 text-sm focus:ring-0 w-full appearance-none">
+<option>kg</option>
+<option>g</option>
+<option>ml</option>
+</select>
+</div>
+<div class="col-span-2 text-right">
+<button class="text-slate-400 hover:text-error transition-colors p-1" type="button">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Ingredient Row 3 -->
+<div class="grid grid-cols-12 gap-4 px-4 py-4 ingredient-row transition-all items-center">
+<div class="col-span-6">
+<input class="w-full bg-transparent border-none p-0 text-sm focus:ring-0 font-medium" type="text" value="Sea Salt (Fine)"/>
+</div>
+<div class="col-span-2 text-right">
+<input class="w-full bg-transparent border-none p-0 text-sm text-right focus:ring-0" type="number" value="30"/>
+</div>
+<div class="col-span-2">
+<select class="bg-transparent border-none p-0 text-sm focus:ring-0 w-full appearance-none">
+<option>g</option>
+<option>kg</option>
+<option>ml</option>
+</select>
+</div>
+<div class="col-span-2 text-right">
+<button class="text-slate-400 hover:text-error transition-colors p-1" type="button">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+<!-- Ingredient Row 4 -->
+<div class="grid grid-cols-12 gap-4 px-4 py-4 ingredient-row transition-all items-center">
+<div class="col-span-6">
+<input class="w-full bg-transparent border-none p-0 text-sm focus:ring-0 font-medium" type="text" value="Wild Yeast Starter"/>
+</div>
+<div class="col-span-2 text-right">
+<input class="w-full bg-transparent border-none p-0 text-sm text-right focus:ring-0" type="number" value="300"/>
+</div>
+<div class="col-span-2">
+<select class="bg-transparent border-none p-0 text-sm focus:ring-0 w-full appearance-none">
+<option>g</option>
+<option>kg</option>
+<option>ml</option>
+</select>
+</div>
+<div class="col-span-2 text-right">
+<button class="text-slate-400 hover:text-error transition-colors p-1" type="button">
+<span class="material-symbols-outlined" data-icon="delete">delete</span>
+</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="pt-8 border-t border-surface-container-high flex justify-between items-center">
+<button class="text-on-surface-variant font-medium hover:text-primary transition-colors flex items-center gap-2" type="button">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span>Discard Changes</span>
+</button>
+<button class="bg-gradient-to-br from-primary to-primary-container text-on-primary px-10 py-4 rounded-xl font-bold premium-shadow hover:scale-105 active:scale-95 transition-all" type="submit">
+                                Save Recipe
+                            </button>
+</div>
+</form>
+</section>
+<!-- Right Panel: Product Costing (4 columns) -->
+<aside class="col-span-12 lg:col-span-4 space-y-6">
+<div class="bg-surface-container-lowest rounded-xl premium-shadow overflow-hidden">
+<div class="bg-surface-container-low px-6 py-4">
+<h3 class="font-headline text-lg font-bold">Costing Analysis</h3>
+</div>
+<div class="p-6 space-y-8">
+<!-- Dynamic Cost (Computed) -->
+<div class="flex justify-between items-end">
+<div class="space-y-1">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant flex items-center gap-1">
+                                        Production Cost
+                                        <span class="material-symbols-outlined text-[14px]" data-icon="info">info</span>
+</span>
+<p class="text-sm text-on-surface-variant leading-tight">FIFO Batch Calculation</p>
+</div>
+<div class="text-right">
+<span class="font-headline text-2xl font-bold text-on-surface">$3.42</span>
+</div>
+</div>
+<!-- Static Sale Price (Editable) -->
+<div class="space-y-3">
+<label class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">Retail Sale Price</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant font-medium">$</span>
+<input class="w-full bg-surface-container-low border-b-2 border-outline-variant/20 focus:border-primary focus:ring-0 rounded-lg pl-8 pr-4 py-3 text-right font-headline text-xl font-bold" type="text" value="8.50"/>
+</div>
+</div>
+<!-- Profit Margin Badge -->
+<div class="pt-4 border-t border-surface-container-high space-y-4">
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium text-on-surface">Calculated Margin</span>
+<!-- Margin >= 20% Success State -->
+<span class="bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400 px-3 py-1 rounded-full text-sm font-bold flex items-center gap-1">
+<span class="material-symbols-outlined text-sm" data-icon="trending_up">trending_up</span>
+                                        59.7%
+                                    </span>
+</div>
+<div class="flex justify-between items-center">
+<span class="text-sm font-medium text-on-surface">Profit per Unit</span>
+<span class="font-headline text-xl font-bold text-on-surface text-right">$5.08</span>
+</div>
+</div>
+<!-- Warning Example (Hidden or Semantic Reference) -->
+<div class="p-4 rounded-xl bg-error-container/40 border border-error/10 flex gap-3">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+<div class="text-xs text-on-error-container">
+<p class="font-bold mb-1">Low Margin Alert</p>
+<p>If production costs rise above $6.80, your margin will drop below 20%.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Market Context Card -->
+<div class="bg-surface-container-low rounded-xl p-6 border border-surface-container-high/50">
+<h4 class="text-xs font-bold uppercase tracking-widest text-on-surface-variant mb-4">Competitor Reference</h4>
+<div class="space-y-4">
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Artisan Loaf (Local)</span>
+<span class="font-bold">$9.00</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-on-surface-variant">Boulangerie Average</span>
+<span class="font-bold">$8.25</span>
+</div>
+<div class="h-1 bg-surface-container-high rounded-full overflow-hidden mt-2">
+<div class="h-full bg-secondary-container w-[75%] rounded-full"></div>
+</div>
+<p class="text-[10px] text-on-surface-variant italic">Your price is 3% above local market average.</p>
+</div>
+</div>
+<!-- Secondary CTA -->
+<button class="w-full flex items-center justify-center gap-2 text-primary font-bold hover:bg-surface-container-high py-3 rounded-xl transition-all">
+<span class="material-symbols-outlined" data-icon="file_download">file_download</span>
+                        Export Cost Sheet
+                    </button>
+</aside>
+</div>
+<!-- Visual Decoration: Editorial Image Inset -->
+<div class="mt-16 grid grid-cols-12 gap-8">
+<div class="col-span-12 lg:col-span-8 overflow-hidden rounded-2xl aspect-[21/9] relative group">
+<img class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" data-alt="dramatic wide shot of a master baker shaping sourdough dough on a flour-dusted marble surface with soft warm natural light from a window" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAgQMCDzKAPGPz9pqHofW7uP3w3qp7eElUwHLMMVwO00RKy-4aEegPvbf6rsKvaeozCMXSb37XHJ7AaDLkjVLo_JJKab0nmk8ByBoikYIsu8hlo6Kim9_myGuBTjY4I5vVBaO8raK9XDHYSVSjV7ijOmfb5-_hQZyNgirwlRSn3ji2Lz43v-u85m8dxk35BrFycRubjtjPXfFcr1CeQoBx56JwcK9UItFkGw5nLp1cUOrIhk6WTqtU7I0WL7NHV2tbSTN5eVR2V27o"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
+<span class="text-white/80 text-xs font-bold uppercase tracking-widest mb-2">Recipe Story</span>
+<h3 class="text-white font-headline text-3xl font-bold">The Heritage Sourdough</h3>
+<p class="text-white/70 max-w-md mt-2">Our 50-year-old starter creates the foundation for every loaf, ensuring a deep, complex crumb and a perfect golden crust.</p>
+</div>
+</div>
+<div class="col-span-12 lg:col-span-4 bg-secondary-container/10 rounded-2xl p-8 flex flex-col justify-center border border-secondary-container/20">
+<span class="material-symbols-outlined text-4xl text-secondary mb-4" data-icon="auto_awesome" data-variation-settings="'FILL' 1">auto_awesome</span>
+<h4 class="font-headline text-2xl font-bold text-on-surface mb-2">AI Cost Optimizer</h4>
+<p class="text-on-surface-variant text-sm leading-relaxed">By switching to Batch #402 Flour, you could reduce production costs by 4% without compromising the fermentation profile.</p>
+<button class="mt-6 text-primary font-bold flex items-center gap-2 group">
+                        Apply Suggestion
+                        <span class="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+</div>
+</main>
+</div>
+</body></html>

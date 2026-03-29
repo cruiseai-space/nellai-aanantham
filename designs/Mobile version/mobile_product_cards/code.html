@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>The Artisanal Editor - Product Collections</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&amp;family=Inter:wght@400;500;600&amp;family=Noto+Serif:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-variant": "#ecdfe1",
+              "secondary": "#705d00",
+              "inverse-primary": "#ffb0cd",
+              "on-tertiary-fixed": "#25181a",
+              "surface": "#fff8f8",
+              "primary-container": "#d62083",
+              "on-surface": "#201a1c",
+              "inverse-surface": "#362f30",
+              "secondary-fixed": "#ffe16d",
+              "primary": "#b00068",
+              "on-background": "#201a1c",
+              "surface-container-lowest": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-container": "#fff8f8",
+              "on-primary-container": "#fff7f8",
+              "on-primary": "#ffffff",
+              "tertiary": "#685658",
+              "primary-fixed-dim": "#ffb0cd",
+              "background": "#fff8f8",
+              "primary-fixed": "#ffd9e4",
+              "on-tertiary": "#ffffff",
+              "on-surface-variant": "#584049",
+              "on-error": "#ffffff",
+              "tertiary-fixed": "#f5dde0",
+              "surface-container-highest": "#ecdfe1",
+              "outline-variant": "#e0bec8",
+              "on-tertiary-fixed-variant": "#534345",
+              "surface-container-low": "#fdf0f2",
+              "secondary-fixed-dim": "#e9c400",
+              "on-secondary-fixed": "#221b00",
+              "outline": "#8c6f79",
+              "on-primary-fixed-variant": "#8d0052",
+              "secondary-container": "#fcd400",
+              "surface-container": "#f8ebed",
+              "on-error-container": "#93000a",
+              "on-secondary-fixed-variant": "#544600",
+              "surface-dim": "#e3d7d9",
+              "surface-bright": "#fff8f8",
+              "error-container": "#ffdad6",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "surface-container-high": "#f2e5e7",
+              "tertiary-container": "#816e71",
+              "on-secondary": "#ffffff",
+              "inverse-on-surface": "#fbeef0",
+              "surface-tint": "#b8006d",
+              "on-secondary-container": "#6e5c00",
+              "on-primary-fixed": "#3e0021"
+            },
+            fontFamily: {
+              "headline": ["Noto Serif"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "serif": ["Playfair Display"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "3xl": "1.5rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        -webkit-font-smoothing: antialiased;
+        background-color: #fff8f8;
+      }
+      .asymmetric-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="font-body text-on-surface">
+<!-- Top Navigation -->
+<header class="bg-[#fff8f8]/80 backdrop-blur-md fixed top-0 w-full z-50 shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] transition-colors duration-300">
+<nav class="flex items-center justify-between px-6 py-4 w-full">
+<button class="text-[#b00068] hover:bg-[#f2e5e7] p-2 rounded-xl transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h1 class="font-['Playfair_Display'] font-bold text-lg text-[#b00068] tracking-tight">The Artisanal Editor</h1>
+<button class="text-[#b00068] hover:bg-[#f2e5e7] p-2 rounded-xl transition-all active:scale-90 duration-200">
+<span class="material-symbols-outlined">shopping_bag</span>
+</button>
+</nav>
+</header>
+<main class="pt-24 pb-32 px-6 max-w-md mx-auto">
+<!-- Section Header -->
+<header class="mb-10 text-center">
+<span class="font-label text-xs uppercase tracking-[0.2em] text-primary/60 mb-2 block">Curated Selections</span>
+<h2 class="font-serif text-4xl text-on-surface leading-tight">Morning Melodies</h2>
+</header>
+<!-- Bento Grid Stack -->
+<div class="asymmetric-grid">
+<!-- BESTSELLER VARIANT (4:3 + Badge) -->
+<article class="relative group bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] active:scale-95 transition-transform duration-150">
+<div class="relative aspect-[4/3] overflow-hidden">
+<img alt="Bestseller Pastry" class="w-full h-full object-cover" data-alt="Close-up of a golden flaky croissant on a marble surface with soft morning light and crumbs scattered artistically around" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBsY8uia-CaoWeWHyWF9UYoM5g6GOG3kUuRaVs9q7qRGCYr7vFOV5wV6dMazIxKlsDmEfEpoW_tMtDCIH6z4_05zy1RR2Jssw1eoyz8bPq3czz3YIc-j7l3rvWGkyt1E-mEpSXH7co6dDH7H2eSG8qsc2GYr06MKbdh_TOSWH0f3HQMRN43zCehTj8vbzgJhq2jQEwwYe49CMcjYSkLink-TZ_RcWvp-D2y9jArXQfltzbG_01yK9pLdy4o-8lQENJ1apYdx6CI1KU"/>
+<div class="absolute top-4 left-4 bg-secondary-container text-on-secondary-container px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-widest shadow-sm">
+                        Bestseller
+                    </div>
+<button class="absolute top-4 right-4 bg-white/40 backdrop-blur-md text-primary p-2 rounded-full active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="p-6">
+<div class="flex justify-between items-start mb-2">
+<h3 class="font-serif text-2xl text-on-surface">Heritage Croissant</h3>
+<span class="font-serif text-xl text-primary">$4.50</span>
+</div>
+<p class="text-sm text-on-surface/60 line-clamp-2">Our signature 72-hour fermented dough with AOP Charentes-Poitou butter layers.</p>
+</div>
+</article>
+<!-- STANDARD VARIANT (1:1) -->
+<article class="bg-surface-container-lowest rounded-3xl overflow-hidden shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] active:scale-95 transition-transform duration-150">
+<div class="aspect-square">
+<img alt="Artisan Tart" class="w-full h-full object-cover" data-alt="Vertical shot of a raspberry pistachio tart with delicate cream piping and fresh berries on a light ceramic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBV67loRL52nmARotLM0-YEuMRLDQYC-Le8ZOR7NfvAShcLB_8PvijnVbf4cD615Y7KpihcOSk5JUxqgM9xrENUdliyuDN8FzqezjfDV3XK0hR4Z2RezqI6OeHwUVyYpi5q43ZCQuKT_jn3aznMbrBlJiVRVNjT0TqkLmWiH6wK6ZlrKnys1d8lB3Rs3WWSEjJe1-eXJhEN39G6qq4CZ44O7fXGGrGXleRVpIzXRdWhWOr1R_cGBFcnm183iCZw7CMZnD2XKAoU04I"/>
+</div>
+<div class="p-5 flex justify-between items-center">
+<div>
+<h3 class="font-serif text-lg text-on-surface">Wild Berry Tart</h3>
+<p class="text-xs text-on-surface/50 font-medium uppercase tracking-wider">Seasonal Special</p>
+</div>
+<button class="bg-primary text-on-primary w-10 h-10 rounded-full flex items-center justify-center shadow-lg shadow-primary/20">
+<span class="material-symbols-outlined text-xl">add</span>
+</button>
+</div>
+</article>
+<!-- COMPACT VARIANT (Horizontal) -->
+<article class="flex bg-surface-container-lowest rounded-3xl overflow-hidden p-3 gap-4 shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] active:scale-95 transition-transform duration-150">
+<div class="w-24 h-24 shrink-0">
+<img alt="Cinnamon Roll" class="w-full h-full object-cover rounded-2xl" data-alt="Square top-down view of a single gourmet cinnamon roll with thick vanilla bean glaze dripping over the edges" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBE1jMZ9FNDayzK6qKEqJX_fmzh8OgeRDNZ6D7c6fL6woO1x21Pu2MVtD1CT8yvDF0NmMEfRbEs9cXqQS9gL2zpVyaShfGgZMtNuGIkX1EPKxQ0Eanmus9B87aCJRLF4XZdCsXI0TnLBFWUNRdMsWeAIW387uzn0veHW59TfnA06tQyfnrjbgwD0_fnVcGmPfwP-pADZoq3fIMrIswQKJ68pUc18Frap7iZaZRnz0tftjUHO3Z5HxZbMkJ0syik7tqdgy803zZ-_c4"/>
+</div>
+<div class="flex flex-col justify-center py-1">
+<h3 class="font-serif text-base text-on-surface mb-1">Cinnamon Knot</h3>
+<div class="flex items-center gap-1 mb-2">
+<span class="material-symbols-outlined text-secondary text-xs" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-[10px] font-bold text-on-surface/70">4.9 (120 reviews)</span>
+</div>
+<span class="text-sm font-semibold text-primary">$3.75</span>
+</div>
+<div class="ml-auto flex items-center pr-2">
+<span class="material-symbols-outlined text-on-surface/30">chevron_right</span>
+</div>
+</article>
+<!-- CATEGORY VARIANT (Full Bleed Overlay) -->
+<article class="relative h-64 rounded-3xl overflow-hidden shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] group active:scale-95 transition-transform duration-150">
+<img alt="Sourdough Collection" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" data-alt="Atmospheric shot of various rustic sourdough loaves in a wicker basket with flour dusting and a warm linen background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD23b1w9y5WQGCiP1GgFIuA2QN4_JdpM9sjeo0-Xgxx6IFBtIYEAqBdPwz7fg6c7MJW-hgWYPkrhbM2FkH6WL9RpMJbl0QVabMSZt9otAesSOtf03BgyXavaVtA4s27G6vFEjbIu73_FH3wTaY-FIodPpIrG4_HIpzIHMqm10ZExZHZLo_jAUhP-7KdWQZNoijyUR0VQcTh5NpakWSyHkyfd5Drxob7chXqgIuMIuANeCMSQ1rH_iAVwmZW-YLHJTnKYREKYykXE70"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+<div class="absolute bottom-0 left-0 p-8 w-full">
+<h3 class="font-serif text-3xl text-white mb-2 leading-none">The Crust &amp; Crumb</h3>
+<p class="text-white/70 text-sm mb-4">Discover our naturally leavened artisan sourdough collection.</p>
+<div class="flex items-center gap-2 text-secondary-container text-xs font-bold uppercase tracking-widest">
+                        Explore Collection <span class="material-symbols-outlined text-sm">arrow_forward</span>
+</div>
+</div>
+</article>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-6 pt-3 bg-[#fff8f8] shadow-[0_-4px_20px_rgba(176,0,104,0.05)] bg-gradient-to-b from-[#fdf0f2] to-[#fff8f8]">
+<a class="flex flex-col items-center justify-center bg-[#fcd400] text-[#b00068] rounded-2xl px-4 py-1.5 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">home</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-0.5">Home</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 hover:text-[#b00068] active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">restaurant_menu</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-0.5">Menu</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 hover:text-[#b00068] active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">auto_awesome</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-0.5">About</span>
+</a>
+<a class="flex flex-col items-center justify-center text-[#b00068]/50 hover:text-[#b00068] active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined">mail</span>
+<span class="font-['Inter'] text-[11px] font-medium tracking-wide uppercase mt-0.5">Contact</span>
+</a>
+</nav>
+<!-- FAB Overlay for specific context -->
+<button class="fixed right-6 bottom-24 bg-primary text-on-primary p-4 rounded-2xl shadow-xl shadow-primary/30 flex items-center justify-center z-40 active:scale-90 transition-transform">
+<span class="material-symbols-outlined">bakery_dining</span>
+</button>
+</body></html>

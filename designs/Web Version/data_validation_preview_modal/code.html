@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Data Validation &amp; Preview | Artisanal Editor</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=Inter:wght@400;500;600;700&amp;family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "outline": "#8c6f79",
+                        "on-surface-variant": "#584049",
+                        "on-primary": "#ffffff",
+                        "tertiary-fixed-dim": "#d8c1c4",
+                        "background": "#fff8f8",
+                        "on-tertiary-fixed-variant": "#534345",
+                        "on-tertiary": "#ffffff",
+                        "surface-variant": "#ecdfe1",
+                        "inverse-on-surface": "#fbeef0",
+                        "primary": "#b00068",
+                        "primary-fixed": "#ffd9e4",
+                        "on-error": "#ffffff",
+                        "inverse-surface": "#362f30",
+                        "surface-tint": "#b8006d",
+                        "on-primary-fixed-variant": "#8d0052",
+                        "error": "#ba1a1a",
+                        "tertiary": "#685658",
+                        "on-tertiary-fixed": "#25181a",
+                        "on-error-container": "#93000a",
+                        "on-primary-fixed": "#3e0021",
+                        "error-container": "#ffdad6",
+                        "surface": "#fff8f8",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#fff7f8",
+                        "on-secondary-fixed": "#221b00",
+                        "surface-container-high": "#f2e5e7",
+                        "on-secondary-container": "#6e5c00",
+                        "surface-container": "#f8ebed",
+                        "on-surface": "#201a1c",
+                        "on-background": "#201a1c",
+                        "tertiary-container": "#816e71",
+                        "primary-fixed-dim": "#ffb0cd",
+                        "surface-container-highest": "#ecdfe1",
+                        "secondary-fixed": "#ffe16d",
+                        "secondary": "#705d00",
+                        "on-secondary-fixed-variant": "#544600",
+                        "surface-dim": "#e3d7d9",
+                        "tertiary-fixed": "#f5dde0",
+                        "outline-variant": "#e0bec8",
+                        "primary-container": "#d62083",
+                        "inverse-primary": "#ffb0cd",
+                        "surface-container-low": "#fdf0f2",
+                        "secondary-fixed-dim": "#e9c400",
+                        "surface-container-lowest": "#ffffff",
+                        "on-tertiary-container": "#fff8f8",
+                        "surface-bright": "#fff8f8",
+                        "secondary-container": "#fcd400"
+                    },
+                    fontFamily: {
+                        "headline": ["Playfair Display"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .tabular-nums { font-variant-numeric: tabular-nums; }
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        
+        /* Custom Shadow from Design System */
+        .ambient-shadow {
+            box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.04), 0 24px 48px -12px hsla(350, 50%, 20%, 0.2);
+        }
+        
+        /* Glassmorphism Navigation from Design System */
+        .glass-nav {
+            background: hsla(350, 100%, 95%, 0.8);
+            backdrop-filter: blur(12px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface antialiased">
+<!-- Modal Backdrop -->
+<div class="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-xl p-4">
+<!-- Modal Container -->
+<div class="bg-surface-container-lowest w-full max-w-[800px] rounded-2xl ambient-shadow flex flex-col max-h-[921px] overflow-hidden">
+<!-- Header Section -->
+<header class="p-8 pb-4 flex justify-between items-start">
+<div class="space-y-2">
+<h2 class="font-headline text-2xl font-bold tracking-tight text-on-surface">Review Parsed Data</h2>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-secondary-container text-on-secondary-container text-[11px] font-bold tracking-wider uppercase">
+<span class="material-symbols-outlined text-[14px]" style="font-variation-settings: 'FILL' 1;">auto_awesome</span>
+                            Extracted via Groq AI
+                        </span>
+<span class="text-on-surface-variant/60 text-xs font-medium">Batch ID: #ART-2023-99</span>
+</div>
+</div>
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors text-on-surface-variant">
+<span class="material-symbols-outlined">close</span>
+</button>
+</header>
+<!-- Table Container (Scrollable) -->
+<div class="flex-1 overflow-y-auto px-8 py-4 no-scrollbar">
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<table class="w-full text-left border-separate border-spacing-0">
+<thead class="sticky top-0 bg-surface-container-high z-10">
+<tr>
+<th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/70 border-b border-outline-variant/20">Ingredient</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/70 border-b border-outline-variant/20">Qty</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/70 border-b border-outline-variant/20">Unit</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/70 border-b border-outline-variant/20 text-right">Unit Cost</th>
+<th class="px-4 py-3 text-[11px] font-bold uppercase tracking-widest text-on-surface-variant/70 border-b border-outline-variant/20 text-right">Total</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/10">
+<!-- Row 1 -->
+<tr class="group hover:bg-surface-container-highest/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-2">
+<span class="font-medium text-sm text-on-surface">Madagascar Vanilla Bean</span>
+<span class="material-symbols-outlined text-primary/40 text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="inline-block border-b border-dashed border-outline-variant px-1 text-sm tabular-nums">12</div>
+</td>
+<td class="px-4 py-4">
+<span class="text-sm text-on-surface-variant">units</span>
+</td>
+<td class="px-4 py-4 text-right tabular-nums text-sm text-on-surface-variant">
+                                    $4.50
+                                </td>
+<td class="px-4 py-4 text-right tabular-nums text-sm font-semibold text-primary">
+                                    $54.00
+                                </td>
+</tr>
+<!-- Row 2 -->
+<tr class="group bg-surface-container-lowest/40 hover:bg-surface-container-highest/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-2">
+<span class="font-medium text-sm text-on-surface">Unsalted Cultured Butter</span>
+<span class="material-symbols-outlined text-primary/40 text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="inline-block border-b border-dashed border-outline-variant px-1 text-sm tabular-nums">25</div>
+</td>
+<td class="px-4 py-4">
+<span class="text-sm text-on-surface-variant">kg</span>
+</td>
+<td class="px-4 py-4 text-right tabular-nums text-sm text-on-surface-variant">
+                                    $12.20
+                                </td>
+<td class="px-4 py-4 text-right tabular-nums text-sm font-semibold text-primary">
+                                    $305.00
+                                </td>
+</tr>
+<!-- Row 3 -->
+<tr class="group hover:bg-surface-container-highest/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-2">
+<span class="font-medium text-sm text-on-surface">Valrhona Dark Chocolate 70%</span>
+<span class="material-symbols-outlined text-primary/40 text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="inline-block border-b border-dashed border-outline-variant px-1 text-sm tabular-nums">15</div>
+</td>
+<td class="px-4 py-4">
+<span class="text-sm text-on-surface-variant">kg</span>
+</td>
+<td class="px-4 py-4 text-right tabular-nums text-sm text-on-surface-variant">
+                                    $28.40
+                                </td>
+<td class="px-4 py-4 text-right tabular-nums text-sm font-semibold text-primary">
+                                    $426.00
+                                </td>
+</tr>
+<!-- Row 4 -->
+<tr class="group bg-surface-container-lowest/40 hover:bg-surface-container-highest/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-2">
+<span class="font-medium text-sm text-on-surface">Organic Pastry Flour</span>
+<span class="material-symbols-outlined text-primary/40 text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="inline-block border-b border-dashed border-outline-variant px-1 text-sm tabular-nums">100</div>
+</td>
+<td class="px-4 py-4">
+<span class="text-sm text-on-surface-variant">kg</span>
+</td>
+<td class="px-4 py-4 text-right tabular-nums text-sm text-on-surface-variant">
+                                    $1.85
+                                </td>
+<td class="px-4 py-4 text-right tabular-nums text-sm font-semibold text-primary">
+                                    $185.00
+                                </td>
+</tr>
+<!-- Row 5 (Flagged for Review Style) -->
+<tr class="group bg-error-container/10 hover:bg-error-container/20 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-2">
+<span class="font-medium text-sm text-error">Grade A Maple Syrup</span>
+<span class="material-symbols-outlined text-error text-[16px]">warning</span>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="inline-block border-b-2 border-error text-sm tabular-nums text-error font-bold">--</div>
+</td>
+<td class="px-4 py-4">
+<span class="text-sm text-error/80">Liters</span>
+</td>
+<td class="px-4 py-4 text-right tabular-nums text-sm text-on-surface-variant">
+                                    $18.00
+                                    <span class="block text-[10px] text-error">Missing Qty</span>
+</td>
+<td class="px-4 py-4 text-right tabular-nums text-sm font-semibold text-on-surface-variant/40">
+                                    $0.00
+                                </td>
+</tr>
+<!-- Row 6 -->
+<tr class="group hover:bg-surface-container-highest/50 transition-colors">
+<td class="px-4 py-4">
+<div class="flex items-center gap-2">
+<span class="font-medium text-sm text-on-surface">Maldon Sea Salt Flakes</span>
+<span class="material-symbols-outlined text-primary/40 text-[16px] opacity-0 group-hover:opacity-100 transition-opacity">edit</span>
+</div>
+</td>
+<td class="px-4 py-4">
+<div class="inline-block border-b border-dashed border-outline-variant px-1 text-sm tabular-nums">2</div>
+</td>
+<td class="px-4 py-4">
+<span class="text-sm text-on-surface-variant">kg</span>
+</td>
+<td class="px-4 py-4 text-right tabular-nums text-sm text-on-surface-variant">
+                                    $14.25
+                                </td>
+<td class="px-4 py-4 text-right tabular-nums text-sm font-semibold text-primary">
+                                    $28.50
+                                </td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Summary Aside -->
+<div class="mt-6 flex flex-col md:flex-row justify-between items-start md:items-center p-4 bg-surface-container-high/40 rounded-xl border border-outline-variant/10">
+<div class="flex gap-4 items-center">
+<div class="h-10 w-10 rounded-full bg-primary/10 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined">receipt_long</span>
+</div>
+<div>
+<p class="text-[11px] font-bold uppercase tracking-wider text-on-surface-variant/70">Estimated Entry Total</p>
+<p class="text-xl font-bold font-headline text-on-surface tabular-nums tracking-tight">$998.50 <span class="text-xs font-body font-normal text-on-surface-variant/60 ml-1">USD</span></p>
+</div>
+</div>
+<div class="mt-4 md:mt-0 flex items-center gap-2 text-on-surface-variant text-xs italic">
+<span class="material-symbols-outlined text-[14px]">info</span>
+                        Adjusting Qty or Unit Cost will auto-update the total.
+                    </div>
+</div>
+</div>
+<!-- Footer Section -->
+<footer class="p-8 pt-4 border-t border-outline-variant/10 flex flex-col sm:flex-row justify-between items-center gap-4">
+<div class="flex items-center gap-2 text-on-surface-variant/60 text-sm">
+<span class="material-symbols-outlined text-sm">inventory_2</span>
+                    6 items detected in document
+                </div>
+<div class="flex items-center gap-4 w-full sm:w-auto">
+<button class="flex-1 sm:flex-none px-6 py-3 text-sm font-semibold text-[#b00040] hover:bg-error-container/20 rounded-xl transition-all active:scale-95">
+                        Discard
+                    </button>
+<button class="flex-1 sm:flex-none px-8 py-3 bg-gradient-to-br from-primary to-primary-container text-on-primary text-sm font-bold rounded-xl ambient-shadow hover:brightness-110 active:scale-95 transition-all">
+                        Confirm &amp; Insert Data
+                    </button>
+</div>
+</footer>
+</div>
+</div>
+<!-- Decorative Background Canvas (Visual Context) -->
+<main class="min-h-screen p-12 space-y-12">
+<section class="max-w-6xl mx-auto">
+<h1 class="font-headline text-5xl font-black text-primary mb-8 tracking-tighter">Inventory Management</h1>
+<div class="grid grid-cols-3 gap-8">
+<div class="col-span-2 aspect-[16/9] rounded-3xl bg-surface-container-low overflow-hidden relative">
+<img class="w-full h-full object-cover opacity-40 mix-blend-multiply" data-alt="Modern bakery kitchen with artisanal pastries on display in a sun-drenched minimalist interior" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDwS87ejGI-U_2mGcvDsnEglaegtH9FrghbifilcTZ_4Vqcf27yOtav80H4mbc8JXxJK1r91YVPw6vymSXp8Nzje8pQodmarautfRHc2-MkW5pup2IcFc8uW9z-bfksdPK-Zxlx66oUJ3vXkiuJKuo01lldRIQyxoL-1rhxhzK3wMJg3WNYETMBhsqQn4PcwsKfm5D58fvkj9_vaBplpMbJLBTLR1dAL30XOmzl_8hHR4OHi_sOYVif5Enhvg_BxvFzilEUyFUHTMU"/>
+</div>
+<div class="space-y-8">
+<div class="p-8 rounded-3xl bg-white ambient-shadow h-full flex flex-col justify-end">
+<span class="material-symbols-outlined text-primary text-4xl mb-4">analytics</span>
+<h3 class="font-headline text-2xl font-bold">Monthly Insights</h3>
+<p class="text-on-surface-variant mt-2">Track ingredient fluctuation and cost efficiency across all atelier branches.</p>
+</div>
+</div>
+</div>
+</section>
+</main>
+</body></html>

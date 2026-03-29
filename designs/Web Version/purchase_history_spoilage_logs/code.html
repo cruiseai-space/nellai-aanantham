@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Purchase History | Ingredient Tracker</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&amp;family=Inter:wght@300;400;500;600;700&amp;family=Noto+Serif:ital,wght@0,400;0,700;1,900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface": "#fff8f8",
+              "on-secondary-fixed": "#221b00",
+              "on-primary": "#ffffff",
+              "surface-bright": "#fff8f8",
+              "primary-container": "#d62083",
+              "primary-fixed": "#ffd9e4",
+              "tertiary": "#685658",
+              "primary": "#b00068",
+              "on-secondary-container": "#6e5c00",
+              "inverse-surface": "#362f30",
+              "tertiary-container": "#816e71",
+              "on-primary-container": "#fff7f8",
+              "on-background": "#201a1c",
+              "on-tertiary": "#ffffff",
+              "surface-container-highest": "#ecdfe1",
+              "surface-container-low": "#fdf0f2",
+              "outline": "#8c6f79",
+              "on-error-container": "#93000a",
+              "tertiary-fixed": "#f5dde0",
+              "secondary-fixed": "#ffe16d",
+              "surface-container": "#f8ebed",
+              "surface-tint": "#b8006d",
+              "on-surface-variant": "#584049",
+              "secondary": "#705d00",
+              "on-tertiary-fixed": "#25181a",
+              "on-secondary": "#ffffff",
+              "primary-fixed-dim": "#ffb0cd",
+              "on-tertiary-container": "#fff8f8",
+              "background": "#fff8f8",
+              "surface-variant": "#ecdfe1",
+              "on-error": "#ffffff",
+              "error": "#ba1a1a",
+              "on-tertiary-fixed-variant": "#534345",
+              "inverse-on-surface": "#fbeef0",
+              "on-surface": "#201a1c",
+              "outline-variant": "#e0bec8",
+              "surface-container-high": "#f2e5e7",
+              "tertiary-fixed-dim": "#d8c1c4",
+              "secondary-fixed-dim": "#e9c400",
+              "surface-container-lowest": "#ffffff"
+            },
+            fontFamily: {
+              "headline": ["Playfair Display", "serif"],
+              "body": ["Inter", "sans-serif"],
+              "label": ["Inter", "sans-serif"],
+              "brand": ["Noto Serif", "serif"]
+            },
+            borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+      }
+      body {
+        background-color: #fff8f8;
+      }
+    </style>
+</head>
+<body class="font-body text-on-surface overflow-x-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="fixed left-0 top-0 h-screen flex flex-col z-40 h-full w-64 border-r border-[#f2e5e7] dark:border-slate-800 bg-[#fff8f8] dark:bg-slate-950">
+<div class="p-6">
+<h1 class="text-xl font-bold text-[#b00068] tracking-tight font-brand">Artisanal Editor</h1>
+<p class="text-xs text-slate-500 font-medium">Inventory Management</p>
+</div>
+<div class="flex-1 px-4 space-y-2 mt-4">
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[#f2e5e7]/50 transition-colors duration-200 font-['Noto_Serif'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">dashboard</span> Dashboard
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[#f2e5e7]/50 transition-colors duration-200 font-['Noto_Serif'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">bakery_dining</span> Ingredients
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[#f2e5e7]/50 transition-colors duration-200 font-['Noto_Serif'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">local_shipping</span> Suppliers
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-[#b00068] bg-[#f2e5e7] dark:bg-[#b00068]/20 font-bold border-r-4 border-[#b00068] transition-colors duration-200 font-['Noto_Serif'] text-sm" href="#">
+<span class="material-symbols-outlined">receipt_long</span> Orders
+            </a>
+<a class="flex items-center gap-3 px-4 py-3 rounded-lg text-slate-600 dark:text-slate-400 hover:bg-[#f2e5e7]/50 transition-colors duration-200 font-['Noto_Serif'] font-medium text-sm" href="#">
+<span class="material-symbols-outlined">bar_chart</span> Reports
+            </a>
+</div>
+<div class="p-4 mt-auto mb-6 border-t border-surface-container-high mx-4 pt-6">
+<div class="flex items-center gap-3">
+<img class="w-10 h-10 rounded-full object-cover" data-alt="portrait of a professional bakery manager wearing a white chef coat in a bright artisanal kitchen" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBELBV0sO-t84QTEODCzn7Q2SfM8SO-DbmWpvp17CJIeFMExpHj3J62bMPdSQD_ZJ_gmdFR3a0zsAVicI3_jTrgIQQvwwNAGQBpjB9sdncLEgmA1PI219PB0aRAXKUzhg-28WWG3dEKjlsKn2vfZkRSYvIvSwAfbjcrMb3zuqxSAw_Y0xPAZJp7UpW6Ta8FXRGslxqxorWokk18yR6tXGNmkYdOcxX7WXt98r8aie0hzikh9KYQAoMX7CVgM3CNYlMf_fDpyrO9QVc"/>
+<div class="overflow-hidden">
+<p class="text-xs font-bold truncate">Bakery Manager</p>
+<p class="text-[10px] text-slate-500 truncate">master_baker@artisanal.com</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="ml-64 min-h-screen">
+<!-- TopAppBar (Shared Component) -->
+<header class="flex items-center justify-between px-8 sticky top-0 w-full h-16 bg-[#fff8f8]/80 dark:bg-slate-950/80 backdrop-blur-md border-b border-[#f2e5e7] dark:border-slate-800 z-30 shadow-sm">
+<div class="flex items-center gap-4">
+<span class="text-[#b00068] font-black italic font-brand text-lg">Ingredient Tracker</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="relative group">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 group-focus-within:text-primary transition-colors">search</span>
+<input class="bg-surface-container-low border-none rounded-full pl-10 pr-4 py-1.5 text-sm w-64 focus:ring-1 focus:ring-primary transition-all" placeholder="Search batches..." type="text"/>
+</div>
+<div class="flex items-center gap-4 text-slate-500">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-all">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-all">settings</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-all">help_outline</span>
+</div>
+</div>
+</header>
+<!-- Page Header & Title Section -->
+<section class="px-8 pt-10 pb-6">
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6">
+<div class="space-y-1">
+<h2 class="text-4xl md:text-5xl font-headline font-black text-on-surface tracking-tight">Purchase History</h2>
+<p class="text-on-surface/60 font-medium">Tracking artisanal raw materials and batch lifecycle.</p>
+</div>
+<!-- Date Range Picker Mockup -->
+<div class="flex items-center gap-2 bg-surface-container-lowest p-1.5 rounded-xl shadow-sm border border-surface-container-high">
+<div class="flex items-center px-4 py-2 gap-3 text-sm font-medium text-on-surface/80 cursor-pointer hover:bg-surface-container-low rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">calendar_month</span>
+<span>Oct 01, 2023 - Oct 31, 2023</span>
+</div>
+<div class="h-6 w-[1px] bg-surface-container-high"></div>
+<button class="p-2 text-primary hover:bg-primary/5 rounded-lg transition-colors">
+<span class="material-symbols-outlined text-[20px]">filter_list</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Data Table Container -->
+<section class="px-8 pb-12">
+<div class="bg-surface-container-lowest rounded-2xl shadow-sm overflow-hidden ring-1 ring-surface-container-high">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low">
+<th class="px-4 py-3 font-headline text-sm font-bold text-on-surface/70 uppercase tracking-widest border-b border-surface-container-high">Purchase Date</th>
+<th class="px-4 py-3 font-headline text-sm font-bold text-on-surface/70 uppercase tracking-widest border-b border-surface-container-high">Ingredient Name</th>
+<th class="px-4 py-3 font-headline text-sm font-bold text-on-surface/70 uppercase tracking-widest border-b border-surface-container-high">Batch ID</th>
+<th class="px-4 py-3 font-headline text-sm font-bold text-on-surface/70 uppercase tracking-widest border-b border-surface-container-high">Total Qty</th>
+<th class="px-4 py-3 font-headline text-sm font-bold text-on-surface/70 uppercase tracking-widest border-b border-surface-container-high text-right">Unit Cost</th>
+<th class="px-4 py-3 font-headline text-sm font-bold text-on-surface/70 uppercase tracking-widest border-b border-surface-container-high">Expiry Date</th>
+<th class="px-4 py-3 font-headline text-sm font-bold text-on-surface/70 uppercase tracking-widest border-b border-surface-container-high">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1: Active -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 28, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">grain</span>
+</div>
+<span class="text-sm font-semibold">Organic Rye Flour</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-991</td>
+<td class="px-4 py-3.5 text-sm font-medium">500 kg</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$4.20 /kg</td>
+<td class="px-4 py-3.5 text-sm text-on-surface/60 italic">Jan 15, 2024</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-surface-container-high text-on-surface/87 uppercase">Active</span>
+</td>
+</tr>
+<!-- Row 2: Consumed -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 24, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[18px]">cookie</span>
+</div>
+<span class="text-sm font-semibold">Valrhona Chocolate 70%</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-882</td>
+<td class="px-4 py-3.5 text-sm font-medium">25 kg</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$32.50 /kg</td>
+<td class="px-4 py-3.5 text-sm text-on-surface/60 italic">Nov 20, 2024</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-surface-container text-on-surface/50 uppercase">Consumed</span>
+</td>
+</tr>
+<!-- Row 3: Expired -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 15, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">water_drop</span>
+</div>
+<span class="text-sm font-semibold">Madagascar Vanilla Beans</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-771</td>
+<td class="px-4 py-3.5 text-sm font-medium">2 kg</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$240.00 /kg</td>
+<td class="px-4 py-3.5 text-sm font-bold text-secondary">Oct 25, 2023</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-secondary-container/30 text-secondary uppercase">Expired</span>
+</td>
+</tr>
+<!-- Row 4: Spoiled -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 12, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">egg</span>
+</div>
+<span class="text-sm font-semibold">Farm Fresh Egg Whites</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-654</td>
+<td class="px-4 py-3.5 text-sm font-medium">40 L</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$8.15 /L</td>
+<td class="px-4 py-3.5 text-sm font-bold text-error">Oct 14, 2023</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-error/10 text-error uppercase">Spoiled</span>
+</td>
+</tr>
+<!-- Row 5: Active -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 29, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">science</span>
+</div>
+<span class="text-sm font-semibold">Organic Cane Sugar</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-102</td>
+<td class="px-4 py-3.5 text-sm font-medium">1000 kg</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$1.95 /kg</td>
+<td class="px-4 py-3.5 text-sm text-on-surface/60 italic">Oct 29, 2025</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-surface-container-high text-on-surface/87 uppercase">Active</span>
+</td>
+</tr>
+<!-- Row 6: Active -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 20, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">liquor</span>
+</div>
+<span class="text-sm font-semibold">Cold Pressed Olive Oil</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-441</td>
+<td class="px-4 py-3.5 text-sm font-medium">150 L</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$14.50 /L</td>
+<td class="px-4 py-3.5 text-sm text-on-surface/60 italic">Jun 10, 2024</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-surface-container-high text-on-surface/87 uppercase">Active</span>
+</td>
+</tr>
+<!-- Row 7: Consumed -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 05, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-surface-container-high flex items-center justify-center text-tertiary">
+<span class="material-symbols-outlined text-[18px]">bakery_dining</span>
+</div>
+<span class="text-sm font-semibold">Sicilian Pistachios</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-211</td>
+<td class="px-4 py-3.5 text-sm font-medium">10 kg</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$58.00 /kg</td>
+<td class="px-4 py-3.5 text-sm text-on-surface/60 italic">Dec 20, 2023</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-surface-container text-on-surface/50 uppercase">Consumed</span>
+</td>
+</tr>
+<!-- Row 8: Expired -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 01, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-secondary-container/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined text-[18px]">opacity</span>
+</div>
+<span class="text-sm font-semibold">Almond Extract (Pure)</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-105</td>
+<td class="px-4 py-3.5 text-sm font-medium">5 L</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$45.00 /L</td>
+<td class="px-4 py-3.5 text-sm font-bold text-secondary">Oct 15, 2023</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-secondary-container/30 text-secondary uppercase">Expired</span>
+</td>
+</tr>
+<!-- Row 9: Active -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 30, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-primary-fixed/30 flex items-center justify-center text-primary">
+<span class="material-symbols-outlined text-[18px]">grain</span>
+</div>
+<span class="text-sm font-semibold">T55 Pastry Flour</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-111</td>
+<td class="px-4 py-3.5 text-sm font-medium">2000 kg</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$1.85 /kg</td>
+<td class="px-4 py-3.5 text-sm text-on-surface/60 italic">Oct 30, 2024</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-surface-container-high text-on-surface/87 uppercase">Active</span>
+</td>
+</tr>
+<!-- Row 10: Spoiled -->
+<tr class="hover:bg-surface-container-low/30 transition-colors">
+<td class="px-4 py-3.5 text-sm font-medium text-on-surface/80">Oct 18, 2023</td>
+<td class="px-4 py-3.5">
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded-lg bg-error/10 flex items-center justify-center text-error">
+<span class="material-symbols-outlined text-[18px]">icecream</span>
+</div>
+<span class="text-sm font-semibold">Double Cream (Dairy)</span>
+</div>
+</td>
+<td class="px-4 py-3.5 text-sm font-mono text-on-surface/60">BATCH-2023-322</td>
+<td class="px-4 py-3.5 text-sm font-medium">80 L</td>
+<td class="px-4 py-3.5 text-sm font-medium text-right">$6.40 /L</td>
+<td class="px-4 py-3.5 text-sm font-bold text-error">Oct 20, 2023</td>
+<td class="px-4 py-3.5">
+<span class="px-3 py-1 rounded-full text-[11px] font-bold tracking-wider bg-error/10 text-error uppercase">Spoiled</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination Footer -->
+<div class="px-6 py-4 flex items-center justify-between border-t border-surface-container-high text-sm font-medium text-on-surface/60 bg-surface-container-lowest">
+<p>Showing 1-10 of 142 records</p>
+<div class="flex items-center gap-1">
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg bg-primary text-on-primary">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">3</button>
+<span class="px-1 text-slate-300">...</span>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">15</button>
+<button class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-[18px]">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Insights Bento Grid -->
+<section class="px-8 pb-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="col-span-1 md:col-span-2 bg-surface-container-lowest p-6 rounded-2xl ring-1 ring-surface-container-high shadow-sm">
+<div class="flex items-center justify-between mb-6">
+<h3 class="font-headline text-xl font-bold">Wastage Distribution</h3>
+<button class="text-xs font-bold text-primary flex items-center gap-1">VIEW DETAILED REPORT <span class="material-symbols-outlined text-[14px]">arrow_forward</span></button>
+</div>
+<div class="flex flex-col gap-4">
+<div class="flex items-center gap-4">
+<span class="w-24 text-xs font-bold text-on-surface/60">SPOILED</span>
+<div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-error rounded-full" style="width: 12%"></div>
+</div>
+<span class="text-xs font-bold text-error">12% ($1,240)</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-24 text-xs font-bold text-on-surface/60">EXPIRED</span>
+<div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-secondary rounded-full" style="width: 8%"></div>
+</div>
+<span class="text-xs font-bold text-secondary">8% ($845)</span>
+</div>
+<div class="flex items-center gap-4">
+<span class="w-24 text-xs font-bold text-on-surface/60">EFFICIENT</span>
+<div class="flex-1 h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="h-full bg-primary-container rounded-full" style="width: 80%"></div>
+</div>
+<span class="text-xs font-bold text-primary-container">80% ($8,320)</span>
+</div>
+</div>
+</div>
+<div class="bg-primary p-6 rounded-2xl shadow-lg relative overflow-hidden group">
+<div class="absolute inset-0 bg-gradient-to-br from-primary to-primary-container opacity-50"></div>
+<div class="relative z-10 text-on-primary h-full flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-[40px] opacity-40 mb-2">trending_up</span>
+<h3 class="font-headline text-lg font-bold">Inventory Velocity</h3>
+<p class="text-sm opacity-80 mt-1">Average batch turnaround has improved by 14% this month.</p>
+</div>
+<div class="mt-6">
+<span class="text-3xl font-black italic">4.2 Days</span>
+<p class="text-[10px] uppercase font-bold tracking-widest mt-1 opacity-60">Average Shelf Life Before Consumption</p>
+</div>
+</div>
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-on-primary/10 rounded-full blur-2xl group-hover:scale-150 transition-transform duration-700"></div>
+</div>
+</section>
+</main>
+</body></html>
