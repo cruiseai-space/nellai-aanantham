@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import type { FormEvent } from 'react'
 import { useAuthStore } from '@/stores/authStore'
-import { Mail, Lock, Eye, EyeOff } from 'lucide-react'
+import { useOnlineStatus } from '@/hooks/useOnlineStatus'
+import { Mail, Lock, Eye, EyeOff, WifiOff } from 'lucide-react'
 
 export function LoginPage() {
   const { login, isLoading } = useAuthStore()
+  const isOnline = useOnlineStatus()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [showPassword, setShowPassword] = useState(false)
@@ -13,6 +15,11 @@ export function LoginPage() {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault()
     setError(null)
+
+    if (!isOnline) {
+      setError('No internet connection. Please check your network and try again.')
+      return
+    }
 
     const { error } = await login(email, password)
     if (error) {
@@ -96,7 +103,7 @@ export function LoginPage() {
 
       <button
         type="submit"
-        disabled={isLoading}
+        disabled={isLoading || !isOnline}
         className="
           w-full py-3 px-4 rounded-md
           gradient-primary text-on-primary font-medium
@@ -106,7 +113,12 @@ export function LoginPage() {
           flex items-center justify-center gap-2
         "
       >
-        {isLoading ? (
+        {!isOnline ? (
+          <>
+            <WifiOff size={20} />
+            <span>No Connection</span>
+          </>
+        ) : isLoading ? (
           <>
             <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
             <span>Signing in...</span>

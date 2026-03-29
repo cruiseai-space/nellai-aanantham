@@ -2,6 +2,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { useSubdomain } from '@/hooks/useSubdomain'
 import { AdminRoutes, CustomerRoutes } from '@/routes'
+import { OfflineBanner } from '@/components/OfflineBanner'
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -26,6 +27,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
+        <OfflineBanner />
         <AppContent />
       </BrowserRouter>
     </QueryClientProvider>

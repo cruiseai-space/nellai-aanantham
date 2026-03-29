@@ -53,19 +53,34 @@ export const useAuthStore = create<AuthState>()(
           return { error: null }
         } catch (error) {
           set({ isLoading: false })
-          return { error: error as Error }
+          
+          // Enhanced error handling for network issues
+          const err = error as Error
+          if (err.message?.includes('Failed to fetch') || err.name === 'TypeError') {
+            return {
+              error: new Error('Unable to connect to server. Please check your internet connection and try again.')
+            }
+          }
+          
+          return { error: err }
         }
       },
 
       logout: async () => {
         set({ isLoading: true })
-        await supabase.auth.signOut()
-        set({
-          user: null,
-          session: null,
-          isAuthenticated: false,
-          isLoading: false,
-        })
+        try {
+          await supabase.auth.signOut()
+        } catch (error) {
+          console.error('Logout error:', error)
+          // Continue with local logout even if network call fails
+        } finally {
+          set({
+            user: null,
+            session: null,
+            isAuthenticated: false,
+            isLoading: false,
+          })
+        }
       },
 
       checkSession: async () => {
@@ -88,7 +103,9 @@ export const useAuthStore = create<AuthState>()(
               isLoading: false,
             })
           }
-        } catch {
+        } catch (error) {
+          // Silently fail for session checks but log the error
+          console.error('Session check failed:', error)
           set({
             user: null,
             session: null,

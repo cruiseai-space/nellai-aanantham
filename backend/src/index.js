@@ -71,13 +71,15 @@ app.use((err, req, res, next) => {
   });
 });
 
-// Start server
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
-  console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
-  console.log(`🔐 Auth routes: http://localhost:${PORT}/api/auth`);
-  console.log(`📦 API routes: /api/ingredients, /api/batches, /api/recipes, /api/products, /api/orders, /api/transactions`);
-  console.log(`🤖 AI routes: /api/ai/parse-voice, /api/ai/parse-receipt, /api/ai/parse-csv, /api/ai/suggest-recipe`);
-});
+// Start server only if not in test mode
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`🚀 Server running on http://localhost:${PORT}`);
+    console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
+    console.log(`🔐 Auth routes: http://localhost:${PORT}/api/auth`);
+    console.log(`📦 API routes: /api/ingredients, /api/batches, /api/recipes, /api/products, /api/orders, /api/transactions`);
+    console.log(`🤖 AI routes: /api/ai/parse-voice, /api/ai/parse-receipt, /api/ai/parse-csv, /api/ai/suggest-recipe`);
+  });
+}
 
 module.exports = app;
