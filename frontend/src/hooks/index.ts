@@ -3,3 +3,4 @@ export { useBatches, useBatch, useBatchesByIngredient, useExpiringSoonBatches, u
 export { useRecipes, useRecipe, useRecipeCost, useCreateRecipe, useUpdateRecipe, useDeleteRecipe } from './useRecipes'
 export { useProducts, useProduct, useLowStockProducts, useCreateProduct, useUpdateProduct, useDeleteProduct } from './useProducts'
 export { useOrders, useOrder, useOrdersByStatus, useTodaysOrders, useCreateOrder, useUpdateOrder, useUpdateOrderStatus, useDeleteOrder } from './useOrders'
+export { useSubdomain } from './useSubdomain'
