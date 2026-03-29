@@ -16,3 +16,8 @@ dist/
 
 # OS files
 .DS_Store
+
+# API keys
+groq_ai_api_key.txt
+*.key
+*_api_key*

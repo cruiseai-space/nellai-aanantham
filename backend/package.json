@@ -7,7 +7,11 @@
     "start": "node src/index.js",
     "dev": "node --watch src/index.js"
   },
-  "keywords": ["inventory", "supabase", "express"],
+  "keywords": [
+    "inventory",
+    "supabase",
+    "express"
+  ],
   "author": "Nellai Aanantham",
   "license": "ISC",
   "dependencies": {
@@ -15,6 +19,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
+    "groq-sdk": "^1.1.2",
     "helmet": "^8.0.0"
   }
 }

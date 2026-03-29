@@ -11,6 +11,7 @@ const recipesRoutes = require('./routes/recipes');
 const productsRoutes = require('./routes/products');
 const ordersRoutes = require('./routes/orders');
 const transactionsRoutes = require('./routes/transactions');
+const aiRoutes = require('./routes/ai');
 const { authMiddleware } = require('./middleware/auth');
 
 const app = express();
@@ -50,6 +51,7 @@ app.use('/api/recipes', authMiddleware, recipesRoutes);
 app.use('/api/products', authMiddleware, productsRoutes);
 app.use('/api/orders', authMiddleware, ordersRoutes);
 app.use('/api/transactions', authMiddleware, transactionsRoutes);
+app.use('/api/ai', authMiddleware, aiRoutes);
 
 // 404 handler
 app.use((req, res) => {
@@ -74,6 +76,7 @@ app.listen(PORT, () => {
   console.log(`📋 Health check: http://localhost:${PORT}/api/health`);
   console.log(`🔐 Auth routes: http://localhost:${PORT}/api/auth`);
   console.log(`📦 API routes: /api/ingredients, /api/batches, /api/recipes, /api/products, /api/orders, /api/transactions`);
+  console.log(`🤖 AI routes: /api/ai/parse-voice, /api/ai/parse-receipt, /api/ai/parse-csv, /api/ai/suggest-recipe`);
 });
 
 module.exports = app;
