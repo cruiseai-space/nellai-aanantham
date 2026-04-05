@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { ordersApi } from '@/services/api'
+import { ordersApi, unwrapApiList, unwrapApiData } from '@/services/api'
 
 export interface OrderItem {
   product_id: string
@@ -13,21 +13,28 @@ export interface OrderItem {
 
 export interface Order {
   id: string
-  customer_name: string
-  customer_phone: string | null
-  delivery_date: string
-  delivery_time: string | null
-  status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'delivered' | 'cancelled'
-  total_amount: number
-  advance_paid: number
-  notes: string | null
+  /** DB: order_status — draft | scheduled | billed | cancelled */
+  status: 'draft' | 'scheduled' | 'billed' | 'cancelled'
+  scheduled_for: string | null
+  total_amount: number | null
+  created_by?: string
   created_at: string
-  updated_at: string
+  billed_at?: string | null
+  /** Optional legacy / future API fields */
+  customer_name?: string | null
+  customer_phone?: string | null
+  delivery_date?: string
+  delivery_time?: string | null
+  advance_paid?: number | null
+  notes?: string | null
+  updated_at?: string
   items?: OrderItem[]
 }
 
-export type CreateOrder = Omit<Order, 'id' | 'created_at' | 'updated_at'> & {
-  items: Array<{ product_id: string; quantity: number; unit_price: number }>
+/** Backend POST /orders currently accepts `scheduled_for`; items are added via separate routes. */
+export type CreateOrder = {
+  scheduled_for?: string | null
+  items?: Array<{ product_id: string; quantity: number; unit_price: number }>
 }
 export type UpdateOrder = Partial<CreateOrder>
 
@@ -35,8 +42,7 @@ export const useOrders = () => {
   return useQuery({
     queryKey: ['orders'],
     queryFn: async () => {
-      const { data } = await ordersApi.getAll()
-      return data as Order[]
+      return unwrapApiList<Order>(await ordersApi.getAll())
     },
   })
 }
@@ -45,8 +51,7 @@ export const useOrder = (id: string) => {
   return useQuery({
     queryKey: ['orders', id],
     queryFn: async () => {
-      const { data } = await ordersApi.getById(id)
-      return data as Order
+      return unwrapApiData<Order>(await ordersApi.getById(id))
     },
     enabled: !!id,
   })
@@ -56,8 +61,7 @@ export const useOrdersByStatus = (status: string) => {
   return useQuery({
     queryKey: ['orders', 'status', status],
     queryFn: async () => {
-      const { data } = await ordersApi.getByStatus(status)
-      return data as Order[]
+      return unwrapApiList<Order>(await ordersApi.getByStatus(status))
     },
     enabled: !!status,
   })
@@ -67,8 +71,7 @@ export const useTodaysOrders = () => {
   return useQuery({
     queryKey: ['orders', 'today'],
     queryFn: async () => {
-      const { data } = await ordersApi.getToday()
-      return data as Order[]
+      return unwrapApiList<Order>(await ordersApi.getToday())
     },
   })
 }

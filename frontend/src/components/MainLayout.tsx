@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import { Navigate, useLocation } from 'react-router-dom'
+import { Link, Navigate, useLocation } from 'react-router-dom'
 import { useAuthStore } from '@/stores/authStore'
 import {
   LayoutDashboard,
@@ -77,9 +77,10 @@ export function MainLayout({ children }: MainLayoutProps) {
               const Icon = item.icon
               const isActive = location.pathname === item.path
               return (
-                <a
+                <Link
                   key={item.path}
-                  href={item.path}
+                  to={item.path}
+                  onClick={() => setSidebarOpen(false)}
                   className={`
                     flex items-center gap-3 px-4 py-3 rounded-md
                     transition-all duration-micro
@@ -92,7 +93,7 @@ export function MainLayout({ children }: MainLayoutProps) {
                 >
                   <Icon size={20} />
                   <span className="font-medium">{item.label}</span>
-                </a>
+                </Link>
               )
             })}
           </nav>

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { batchesApi } from '@/services/api'
+import { batchesApi, unwrapApiList, unwrapApiData } from '@/services/api'
 
 export interface Batch {
   id: string
@@ -23,8 +23,7 @@ export const useBatches = () => {
   return useQuery({
     queryKey: ['batches'],
     queryFn: async () => {
-      const { data } = await batchesApi.getAll()
-      return data as Batch[]
+      return unwrapApiList<Batch>(await batchesApi.getAll())
     },
   })
 }
@@ -33,8 +32,7 @@ export const useBatch = (id: string) => {
   return useQuery({
     queryKey: ['batches', id],
     queryFn: async () => {
-      const { data } = await batchesApi.getById(id)
-      return data as Batch
+      return unwrapApiData<Batch>(await batchesApi.getById(id))
     },
     enabled: !!id,
   })
@@ -44,8 +42,7 @@ export const useBatchesByIngredient = (ingredientId: string) => {
   return useQuery({
     queryKey: ['batches', 'ingredient', ingredientId],
     queryFn: async () => {
-      const { data } = await batchesApi.getByIngredient(ingredientId)
-      return data as Batch[]
+      return unwrapApiList<Batch>(await batchesApi.getByIngredient(ingredientId))
     },
     enabled: !!ingredientId,
   })
@@ -55,8 +52,7 @@ export const useExpiringSoonBatches = () => {
   return useQuery({
     queryKey: ['batches', 'expiring-soon'],
     queryFn: async () => {
-      const { data } = await batchesApi.getExpiringSoon()
-      return data as Batch[]
+      return unwrapApiList<Batch>(await batchesApi.getExpiringSoon())
     },
   })
 }

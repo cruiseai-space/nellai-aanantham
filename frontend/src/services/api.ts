@@ -1,8 +1,31 @@
 import axios from 'axios'
-import type { AxiosError, InternalAxiosRequestConfig } from 'axios'
-import { supabase } from '@/lib/supabase'
+import type { AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
+import {
+  clearAuthState,
+  getAccessToken,
+  refreshAccessToken,
+  getPersistedAuth,
+} from '@/lib/authSession'
+import { useAuthStore } from '@/stores/authStore'
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api'
+
+/** Backend wraps JSON as `{ success, data?, error? }`. Axios `response.data` is that envelope. */
+export function unwrapApiData<T>(res: AxiosResponse<unknown>): T {
+  const body = res.data as { success?: boolean; data?: unknown; error?: string }
+  if (body && typeof body === 'object' && 'success' in body) {
+    if (!body.success) {
+      throw new Error(typeof body.error === 'string' ? body.error : 'Request failed')
+    }
+    return body.data as T
+  }
+  return res.data as T
+}
+
+export function unwrapApiList<T>(res: AxiosResponse<unknown>): T[] {
+  const raw = unwrapApiData<T[] | null | undefined>(res)
+  return Array.isArray(raw) ? raw : []
+}
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -11,29 +34,56 @@ export const api = axios.create({
   },
 })
 
-// Request interceptor to add auth token
+type RequestConfigWithRetry = InternalAxiosRequestConfig & { _retry?: boolean }
+
 api.interceptors.request.use(
-  async (config: InternalAxiosRequestConfig) => {
-    const { data: { session } } = await supabase.auth.getSession()
-    if (session?.access_token) {
-      config.headers.Authorization = `Bearer ${session.access_token}`
+  (config: InternalAxiosRequestConfig) => {
+    const token = getAccessToken()
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
     }
     return config
   },
-  (error: AxiosError) => {
-    return Promise.reject(error)
-  }
+  (error: AxiosError) => Promise.reject(error)
 )
 
-// Response interceptor for error handling
 api.interceptors.response.use(
   (response) => response,
-  (error: AxiosError) => {
-    if (error.response?.status === 401) {
-      // Handle unauthorized - redirect to login
-      window.location.href = '/login'
+  async (error: AxiosError) => {
+    const cfg = error.config as RequestConfigWithRetry | undefined
+    const status = error.response?.status
+
+    if (status !== 401 || !cfg) {
+      return Promise.reject(error)
     }
-    return Promise.reject(error)
+
+    const url = cfg.url ?? ''
+    if (url.includes('/auth/login') || url.includes('/auth/refresh')) {
+      return Promise.reject(error)
+    }
+
+    if (cfg._retry) {
+      clearAuthState()
+      window.location.href = '/login'
+      return Promise.reject(error)
+    }
+
+    cfg._retry = true
+    const refreshed = await refreshAccessToken()
+    if (!refreshed) {
+      clearAuthState()
+      window.location.href = '/login'
+      return Promise.reject(error)
+    }
+
+    const snap = getPersistedAuth()
+    if (snap?.session) {
+      useAuthStore.getState().setSession(snap.session)
+    }
+
+    cfg.headers = cfg.headers ?? {}
+    cfg.headers.Authorization = `Bearer ${getAccessToken() ?? ''}`
+    return api(cfg)
   }
 )
 
@@ -81,7 +131,7 @@ export const ordersApi = {
   create: (data: unknown) => api.post('/orders', data),
   update: (id: string, data: unknown) => api.put(`/orders/${id}`, data),
   delete: (id: string) => api.delete(`/orders/${id}`),
-  updateStatus: (id: string, status: string) => api.patch(`/orders/${id}/status`, { status }),
+  updateStatus: (id: string, status: string) => api.put(`/orders/${id}`, { status }),
   getByStatus: (status: string) => api.get(`/orders/status/${status}`),
   getToday: () => api.get('/orders/today'),
 }

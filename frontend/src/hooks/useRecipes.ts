@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { recipesApi } from '@/services/api'
+import { recipesApi, unwrapApiList, unwrapApiData } from '@/services/api'
 
 export interface RecipeIngredient {
   ingredient_id: string
@@ -35,8 +35,7 @@ export const useRecipes = () => {
   return useQuery({
     queryKey: ['recipes'],
     queryFn: async () => {
-      const { data } = await recipesApi.getAll()
-      return data as Recipe[]
+      return unwrapApiList<Recipe>(await recipesApi.getAll())
     },
   })
 }
@@ -45,8 +44,7 @@ export const useRecipe = (id: string) => {
   return useQuery({
     queryKey: ['recipes', id],
     queryFn: async () => {
-      const { data } = await recipesApi.getById(id)
-      return data as Recipe
+      return unwrapApiData<Recipe>(await recipesApi.getById(id))
     },
     enabled: !!id,
   })
@@ -56,8 +54,9 @@ export const useRecipeCost = (id: string) => {
   return useQuery({
     queryKey: ['recipes', id, 'cost'],
     queryFn: async () => {
-      const { data } = await recipesApi.getCost(id)
-      return data as { total_cost: number; cost_per_unit: number }
+      return unwrapApiData<{ total_cost: number; cost_per_unit: number }>(
+        await recipesApi.getCost(id)
+      )
     },
     enabled: !!id,
   })

@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { productsApi } from '@/services/api'
+import { productsApi, unwrapApiList, unwrapApiData } from '@/services/api'
 
 export interface Product {
   id: string
@@ -26,8 +26,7 @@ export const useProducts = () => {
   return useQuery({
     queryKey: ['products'],
     queryFn: async () => {
-      const { data } = await productsApi.getAll()
-      return data as Product[]
+      return unwrapApiList<Product>(await productsApi.getAll())
     },
   })
 }
@@ -36,8 +35,7 @@ export const useProduct = (id: string) => {
   return useQuery({
     queryKey: ['products', id],
     queryFn: async () => {
-      const { data } = await productsApi.getById(id)
-      return data as Product
+      return unwrapApiData<Product>(await productsApi.getById(id))
     },
     enabled: !!id,
   })
@@ -47,8 +45,7 @@ export const useLowStockProducts = () => {
   return useQuery({
     queryKey: ['products', 'low-stock'],
     queryFn: async () => {
-      const { data } = await productsApi.getLowStock()
-      return data as Product[]
+      return unwrapApiList<Product>(await productsApi.getLowStock())
     },
   })
 }

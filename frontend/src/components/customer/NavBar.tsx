@@ -50,13 +50,20 @@ export function NavBar() {
           ))}
         </div>
 
-        {/* Order Now Button */}
-        <Link
-          to="/contact"
-          className="hidden md:flex bg-[#d62083] text-white px-8 py-3 rounded-lg font-medium shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] hover:scale-95 duration-150 ease-in-out"
-        >
-          Order Now
-        </Link>
+        <div className="hidden md:flex items-center gap-4">
+          <Link
+            to="/login"
+            className="text-sm font-medium text-[#b00068]/70 hover:text-[#b00068] transition-colors"
+          >
+            Staff login
+          </Link>
+          <Link
+            to="/contact"
+            className="bg-[#d62083] text-white px-8 py-3 rounded-lg font-medium shadow-[0_1px_3px_hsla(0,0%,0%,0.04),0_10px_40px_-10px_hsla(350,50%,20%,0.08)] hover:scale-95 duration-150 ease-in-out"
+          >
+            Order Now
+          </Link>
+        </div>
 
         {/* Mobile Menu Button */}
         <button
@@ -91,6 +98,13 @@ export function NavBar() {
               {item.label}
             </Link>
           ))}
+          <Link
+            to="/login"
+            onClick={() => setMobileMenuOpen(false)}
+            className="block text-center text-sm font-medium text-[#b00068]/80 py-2"
+          >
+            Staff login
+          </Link>
           <Link
             to="/contact"
             onClick={() => setMobileMenuOpen(false)}

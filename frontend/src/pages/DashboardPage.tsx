@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import {
   Package,
   ShoppingCart,
@@ -12,10 +13,15 @@ import { useProducts } from '@/hooks/useProducts'
 import { useExpiringSoonBatches } from '@/hooks/useBatches'
 
 export function DashboardPage() {
-  const { data: lowStockIngredients = [] } = useLowStockIngredients()
-  const { data: todaysOrders = [] } = useTodaysOrders()
-  const { data: products = [] } = useProducts()
-  const { data: expiringBatches = [] } = useExpiringSoonBatches()
+  const { data: lowStockIngredientsRaw } = useLowStockIngredients()
+  const { data: todaysOrdersRaw } = useTodaysOrders()
+  const { data: productsRaw } = useProducts()
+  const { data: expiringBatchesRaw } = useExpiringSoonBatches()
+
+  const lowStockIngredients = Array.isArray(lowStockIngredientsRaw) ? lowStockIngredientsRaw : []
+  const todaysOrders = Array.isArray(todaysOrdersRaw) ? todaysOrdersRaw : []
+  const products = Array.isArray(productsRaw) ? productsRaw : []
+  const expiringBatches = Array.isArray(expiringBatchesRaw) ? expiringBatchesRaw : []
 
   const stats = [
     {
@@ -48,7 +54,9 @@ export function DashboardPage() {
     },
   ]
 
-  const pendingOrders = todaysOrders.filter(o => o.status === 'pending' || o.status === 'confirmed')
+  const pendingOrders = todaysOrders.filter(
+    (o) => o.status === 'draft' || o.status === 'scheduled'
+  )
 
   return (
     <div className="space-y-8">
@@ -140,17 +148,21 @@ export function DashboardPage() {
                 className="flex items-center justify-between p-4 bg-surface rounded-md"
               >
                 <div>
-                  <p className="font-medium">{order.customer_name}</p>
+                  <p className="font-medium">
+                    {order.customer_name?.trim() || `Order ${order.id.slice(0, 8)}…`}
+                  </p>
                   <p className="text-sm text-on-surface-secondary">
-                    Delivery: {order.delivery_time || 'Anytime'}
+                    {order.scheduled_for
+                      ? new Date(order.scheduled_for).toLocaleString()
+                      : order.delivery_time || 'Unscheduled'}
                   </p>
                 </div>
                 <div className="text-right">
-                  <p className="font-semibold text-primary">₹{order.total_amount}</p>
+                  <p className="font-semibold text-primary">₹{Number(order.total_amount ?? 0)}</p>
                   <span
                     className={`
                       px-2 py-1 text-xs font-medium rounded
-                      ${order.status === 'confirmed' ? 'bg-success/20 text-success' : 'bg-info/20 text-info'}
+                      ${order.status === 'scheduled' ? 'bg-success/20 text-success' : 'bg-info/20 text-info'}
                     `}
                   >
                     {order.status}
@@ -173,34 +185,34 @@ export function DashboardPage() {
           Quick Actions
         </h2>
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-          <a
-            href="/orders"
+          <Link
+            to="/orders"
             className="p-4 bg-primary/10 rounded-md text-center hover:bg-primary/20 transition-colors"
           >
             <ClipboardList className="mx-auto mb-2 text-primary" size={24} />
             <span className="text-sm font-medium">New Order</span>
-          </a>
-          <a
-            href="/ingredients"
+          </Link>
+          <Link
+            to="/ingredients"
             className="p-4 bg-success/10 rounded-md text-center hover:bg-success/20 transition-colors"
           >
             <Package className="mx-auto mb-2 text-success" size={24} />
             <span className="text-sm font-medium">Add Stock</span>
-          </a>
-          <a
-            href="/products"
+          </Link>
+          <Link
+            to="/products"
             className="p-4 bg-info/10 rounded-md text-center hover:bg-info/20 transition-colors"
           >
             <ShoppingCart className="mx-auto mb-2 text-info" size={24} />
             <span className="text-sm font-medium">Products</span>
-          </a>
-          <a
-            href="/batches"
+          </Link>
+          <Link
+            to="/batches"
             className="p-4 bg-warning/10 rounded-md text-center hover:bg-warning/20 transition-colors"
           >
             <AlertTriangle className="mx-auto mb-2 text-warning" size={24} />
             <span className="text-sm font-medium">Check Batches</span>
-          </a>
+          </Link>
         </div>
       </div>
     </div>

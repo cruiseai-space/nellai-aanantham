@@ -26,8 +26,14 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 });
 
+const g = globalThis as typeof globalThis & {
+  IntersectionObserver: typeof IntersectionObserver
+  localStorage: Storage
+  sessionStorage: Storage
+}
+
 // Mock IntersectionObserver
-global.IntersectionObserver = class IntersectionObserver {
+g.IntersectionObserver = class IntersectionObserver {
   constructor() {}
   disconnect() {}
   observe() {}
@@ -47,7 +53,7 @@ const localStorageMock = {
   removeItem: vi.fn(),
   clear: vi.fn(),
 };
-global.localStorage = localStorageMock as any;
+g.localStorage = localStorageMock as unknown as Storage;
 
 // Mock sessionStorage
 const sessionStorageMock = {
@@ -56,4 +62,4 @@ const sessionStorageMock = {
   removeItem: vi.fn(),
   clear: vi.fn(),
 };
-global.sessionStorage = sessionStorageMock as any;
+g.sessionStorage = sessionStorageMock as unknown as Storage;

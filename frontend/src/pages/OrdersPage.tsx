@@ -1,16 +1,29 @@
 import { useState } from 'react'
 import { Plus, Search, ClipboardList, Phone, Calendar, IndianRupee } from 'lucide-react'
 import { useOrders } from '@/hooks/useOrders'
+import type { Order } from '@/hooks/useOrders'
 
-type OrderStatus = 'pending' | 'confirmed' | 'preparing' | 'ready' | 'delivered' | 'cancelled'
+/** Matches DB enum `order_status` */
+type OrderStatus = 'draft' | 'scheduled' | 'billed' | 'cancelled'
 
-const statusColors: Record<OrderStatus, { bg: string; text: string }> = {
-  pending: { bg: 'bg-info/20', text: 'text-info' },
-  confirmed: { bg: 'bg-primary/20', text: 'text-primary' },
-  preparing: { bg: 'bg-warning/20', text: 'text-warning' },
-  ready: { bg: 'bg-success/20', text: 'text-success' },
-  delivered: { bg: 'bg-on-surface-tertiary/20', text: 'text-on-surface-secondary' },
+const statusColors: Record<
+  OrderStatus,
+  { bg: string; text: string }
+> = {
+  draft: { bg: 'bg-on-surface-tertiary/20', text: 'text-on-surface-secondary' },
+  scheduled: { bg: 'bg-info/20', text: 'text-info' },
+  billed: { bg: 'bg-success/20', text: 'text-success' },
   cancelled: { bg: 'bg-error/20', text: 'text-error' },
+}
+
+function orderDisplayTitle(order: Order): string {
+  const name = order.customer_name?.trim()
+  if (name) return name
+  return `Order ${order.id.slice(0, 8)}…`
+}
+
+function orderWhenIso(order: Order): string {
+  return order.scheduled_for ?? order.delivery_date ?? order.created_at
 }
 
 export function OrdersPage() {
@@ -18,10 +31,17 @@ export function OrdersPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [statusFilter, setStatusFilter] = useState<string>('all')
 
+  const q = searchQuery.trim().toLowerCase()
+
   const filteredOrders = orders.filter((order) => {
+    const title = orderDisplayTitle(order).toLowerCase()
+    const phone = (order.customer_phone ?? '').toLowerCase()
+    const idPart = (order.id ?? '').toLowerCase()
     const matchesSearch =
-      order.customer_name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      order.customer_phone?.includes(searchQuery)
+      !q ||
+      title.includes(q) ||
+      phone.includes(q) ||
+      idPart.includes(q)
     const matchesStatus = statusFilter === 'all' || order.status === statusFilter
     return matchesSearch && matchesStatus
   })
@@ -50,7 +70,7 @@ export function OrdersPage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-tertiary" size={20} />
           <input
             type="text"
-            placeholder="Search by name or phone..."
+            placeholder="Search by name, phone, or order id..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             className="w-full pl-10 pr-4 py-3 rounded-md bg-surface text-on-surface placeholder:text-on-surface-tertiary focus:outline-none focus:ring-2 focus:ring-primary transition-shadow"
@@ -61,12 +81,10 @@ export function OrdersPage() {
           onChange={(e) => setStatusFilter(e.target.value)}
           className="px-4 py-3 rounded-md bg-surface text-on-surface focus:outline-none focus:ring-2 focus:ring-primary"
         >
-          <option value="all">All Status</option>
-          <option value="pending">Pending</option>
-          <option value="confirmed">Confirmed</option>
-          <option value="preparing">Preparing</option>
-          <option value="ready">Ready</option>
-          <option value="delivered">Delivered</option>
+          <option value="all">All status</option>
+          <option value="draft">Draft</option>
+          <option value="scheduled">Scheduled</option>
+          <option value="billed">Billed</option>
           <option value="cancelled">Cancelled</option>
         </select>
       </div>
@@ -88,13 +106,18 @@ export function OrdersPage() {
         <div className="space-y-4">
           {filteredOrders.map((order) => {
             const status = order.status as OrderStatus
-            const colors = statusColors[status] || statusColors.pending
+            const colors = statusColors[status] ?? statusColors.draft
+            const when = orderWhenIso(order)
+            const total = Number(order.total_amount ?? 0)
+            const advance =
+              order.advance_paid != null ? Number(order.advance_paid) : null
+
             return (
               <div key={order.id} className="card p-6">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
                   <div className="flex-1">
                     <div className="flex items-center gap-3 mb-2">
-                      <h3 className="font-semibold text-lg">{order.customer_name}</h3>
+                      <h3 className="font-semibold text-lg">{orderDisplayTitle(order)}</h3>
                       <span className={`px-2 py-1 text-xs font-medium rounded capitalize ${colors.bg} ${colors.text}`}>
                         {order.status}
                       </span>
@@ -108,26 +131,28 @@ export function OrdersPage() {
                       )}
                       <span className="flex items-center gap-1">
                         <Calendar size={14} />
-                        {new Date(order.delivery_date).toLocaleDateString()}
-                        {order.delivery_time && ` at ${order.delivery_time}`}
+                        {new Date(when).toLocaleString()}
+                        {order.delivery_time && ` · ${order.delivery_time}`}
                       </span>
                     </div>
                   </div>
                   <div className="flex items-center gap-6">
                     <div className="text-right">
                       <p className="text-sm text-on-surface-secondary">Total</p>
-                      <p className="text-xl font-bold text-primary flex items-center">
+                      <p className="text-xl font-bold text-primary flex items-center justify-end">
                         <IndianRupee size={18} />
-                        {order.total_amount}
+                        {total}
                       </p>
                     </div>
-                    <div className="text-right">
-                      <p className="text-sm text-on-surface-secondary">Advance</p>
-                      <p className="text-lg font-semibold flex items-center">
-                        <IndianRupee size={16} />
-                        {order.advance_paid}
-                      </p>
-                    </div>
+                    {advance != null && (
+                      <div className="text-right">
+                        <p className="text-sm text-on-surface-secondary">Advance</p>
+                        <p className="text-lg font-semibold flex items-center justify-end">
+                          <IndianRupee size={16} />
+                          {advance}
+                        </p>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {order.notes && (
@@ -139,7 +164,7 @@ export function OrdersPage() {
                   <button className="py-2 px-4 text-sm font-medium rounded-md bg-surface hover:bg-surface-container transition-colors">
                     View Details
                   </button>
-                  {order.status !== 'delivered' && order.status !== 'cancelled' && (
+                  {order.status !== 'billed' && order.status !== 'cancelled' && (
                     <button className="py-2 px-4 text-sm font-medium rounded-md bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
                       Update Status
                     </button>

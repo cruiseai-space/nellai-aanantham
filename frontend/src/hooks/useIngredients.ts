@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
-import { ingredientsApi } from '@/services/api'
+import { ingredientsApi, unwrapApiList, unwrapApiData } from '@/services/api'
 
 export interface Ingredient {
   id: string
@@ -22,8 +22,7 @@ export const useIngredients = () => {
   return useQuery({
     queryKey: ['ingredients'],
     queryFn: async () => {
-      const { data } = await ingredientsApi.getAll()
-      return data as Ingredient[]
+      return unwrapApiList<Ingredient>(await ingredientsApi.getAll())
     },
   })
 }
@@ -32,8 +31,7 @@ export const useIngredient = (id: string) => {
   return useQuery({
     queryKey: ['ingredients', id],
     queryFn: async () => {
-      const { data } = await ingredientsApi.getById(id)
-      return data as Ingredient
+      return unwrapApiData<Ingredient>(await ingredientsApi.getById(id))
     },
     enabled: !!id,
   })
@@ -43,8 +41,7 @@ export const useLowStockIngredients = () => {
   return useQuery({
     queryKey: ['ingredients', 'low-stock'],
     queryFn: async () => {
-      const { data } = await ingredientsApi.getLowStock()
-      return data as Ingredient[]
+      return unwrapApiList<Ingredient>(await ingredientsApi.getLowStock())
     },
   })
 }
