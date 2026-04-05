@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
+const { logRouteError } = require('../utils/log');
 
 // GET / - List all ingredients for user
 router.get('/', async (req, res) => {
@@ -15,7 +16,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error fetching ingredients:', err);
+    logRouteError("ingredients Error fetching ingredients:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -46,7 +47,55 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data });
   } catch (err) {
-    console.error('Error creating ingredient:', err);
+    logRouteError("ingredients Error creating ingredient:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /low-stock — must be registered before /:id (otherwise "low-stock" is parsed as an id)
+router.get('/low-stock', async (req, res) => {
+  try {
+    const { data: ingredients, error: ingErr } = await supabaseAdmin
+      .from('ingredients')
+      .select('*')
+      .eq('created_by', req.user.id);
+
+    if (ingErr) throw ingErr;
+
+    const { data: batches, error: batchErr } = await supabaseAdmin
+      .from('ingredient_batches')
+      .select('ingredient_id, qty_remaining')
+      .eq('created_by', req.user.id);
+
+    if (batchErr) throw batchErr;
+
+    const byIngredient = {};
+    for (const b of batches || []) {
+      const id = b.ingredient_id;
+      byIngredient[id] = (byIngredient[id] || 0) + parseFloat(b.qty_remaining);
+    }
+
+    const DEFAULT_LOW_THRESHOLD = 5;
+    const rows = (ingredients || []).map((ing) => {
+      const current = byIngredient[ing.id] ?? 0;
+      const minStock =
+        ing.min_stock != null ? parseFloat(ing.min_stock) : DEFAULT_LOW_THRESHOLD;
+      return {
+        ...ing,
+        current_stock: current,
+        min_stock: ing.min_stock != null ? parseFloat(ing.min_stock) : 0,
+        _threshold: minStock,
+      };
+    });
+
+    const low = rows.filter((ing) => ing.current_stock <= ing._threshold).map((ing) => {
+      const { _threshold, ...rest } = ing;
+      return rest;
+    });
+
+    res.json({ success: true, data: low });
+  } catch (err) {
+    logRouteError("ingredients Error fetching low-stock ingredients:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -87,7 +136,7 @@ router.get('/:id', async (req, res) => {
       } 
     });
   } catch (err) {
-    console.error('Error fetching ingredient:', err);
+    logRouteError("ingredients Error fetching ingredient:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -126,7 +175,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error updating ingredient:', err);
+    logRouteError("ingredients Error updating ingredient:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -146,7 +195,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Ingredient deleted' });
   } catch (err) {
-    console.error('Error deleting ingredient:', err);
+    logRouteError("ingredients Error deleting ingredient:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });

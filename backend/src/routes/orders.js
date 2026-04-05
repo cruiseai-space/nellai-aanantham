@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
 const { consumeIngredientFIFO, checkRecipeAvailability } = require('../utils/fifo');
+const { logRouteError } = require('../utils/log');
 
 // GET / - List all orders with items
 router.get('/', async (req, res) => {
@@ -34,7 +35,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error fetching orders:', err);
+    logRouteError("orders Error fetching orders:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -59,7 +60,84 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data });
   } catch (err) {
-    console.error('Error creating order:', err);
+    logRouteError("orders Error creating order:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /today — before /:id
+router.get('/today', async (req, res) => {
+  try {
+    const { data, error } = await supabaseAdmin
+      .from('orders')
+      .select(`
+        *,
+        order_items (
+          id,
+          product_id,
+          quantity,
+          cost_at_sale,
+          price_at_sale,
+          products (id, name, sale_price)
+        )
+      `)
+      .eq('created_by', req.user.id)
+      .order('created_at', { ascending: false })
+      .limit(200);
+
+    if (error) throw error;
+
+    const today = new Date().toISOString().slice(0, 10);
+    const filtered = (data || []).filter((o) => {
+      const d = o.scheduled_for || o.created_at;
+      return d && String(d).slice(0, 10) === today;
+    });
+
+    const mapped = filtered.map((o) => ({
+      ...o,
+      customer_name: o.customer_name ?? 'Customer',
+      delivery_date: o.delivery_date ?? (o.scheduled_for || o.created_at),
+      delivery_time: o.delivery_time ?? null,
+      total_amount: o.total_amount ?? 0,
+      advance_paid: o.advance_paid ?? 0,
+      notes: o.notes ?? null,
+      status: o.status,
+    }));
+
+    res.json({ success: true, data: mapped });
+  } catch (err) {
+    logRouteError("orders Error fetching today orders:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /status/:status — before /:id
+router.get('/status/:status', async (req, res) => {
+  try {
+    const { status } = req.params;
+
+    const { data, error } = await supabaseAdmin
+      .from('orders')
+      .select(`
+        *,
+        order_items (
+          id,
+          product_id,
+          quantity,
+          cost_at_sale,
+          price_at_sale,
+          products (id, name, sale_price)
+        )
+      `)
+      .eq('created_by', req.user.id)
+      .eq('status', status)
+      .order('created_at', { ascending: false });
+
+    if (error) throw error;
+
+    res.json({ success: true, data: data || [] });
+  } catch (err) {
+    logRouteError("orders Error fetching orders by status:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -109,7 +187,7 @@ router.get('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error fetching order:', err);
+    logRouteError("orders Error fetching order:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -145,7 +223,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error updating order:', err);
+    logRouteError("orders Error updating order:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -190,7 +268,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Order deleted' });
   } catch (err) {
-    console.error('Error deleting order:', err);
+    logRouteError("orders Error deleting order:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -281,7 +359,7 @@ router.post('/:id/items', async (req, res) => {
 
     res.status(201).json({ success: true, data: orderItem });
   } catch (err) {
-    console.error('Error adding order item:', err);
+    logRouteError("orders Error adding order item:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -323,7 +401,7 @@ router.delete('/:id/items/:itemId', async (req, res) => {
 
     res.json({ success: true, message: 'Item removed' });
   } catch (err) {
-    console.error('Error removing order item:', err);
+    logRouteError("orders Error removing order item:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -454,7 +532,7 @@ router.post('/:id/bill', async (req, res) => {
         .eq('id', item.id);
 
       if (updateError) {
-        console.error('Failed to update order item cost:', updateError);
+        logRouteError("orders Failed to update order item cost:", updateError);
       }
 
       totalCost += itemCost;
@@ -486,7 +564,7 @@ router.post('/:id/bill', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error('Error billing order:', err);
+    logRouteError("orders Error billing order:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });

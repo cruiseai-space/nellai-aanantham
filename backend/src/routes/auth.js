@@ -1,7 +1,12 @@
 const express = require('express');
-const { supabaseAdmin } = require('../config/supabase');
+const { supabase, supabaseAdmin } = require('../config/supabase');
 const { authMiddleware } = require('../middleware/auth');
 
+const { logRouteError } = require('../utils/log');
+const {
+  isSupabaseUnreachableError,
+  UNAVAILABLE_MESSAGE,
+} = require('../utils/supabaseReachability');
 const router = express.Router();
 
 /**
@@ -29,9 +34,15 @@ router.post('/signup', async (req, res) => {
     });
 
     if (error) {
+      if (isSupabaseUnreachableError(error)) {
+        return res.status(503).json({
+          error: 'Service Unavailable',
+          message: UNAVAILABLE_MESSAGE,
+        });
+      }
       return res.status(400).json({
         error: 'Signup Failed',
-        message: error.message
+        message: error.message,
       });
     }
 
@@ -44,10 +55,16 @@ router.post('/signup', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error('Signup error:', err);
+    logRouteError("auth Signup error:", err);
+    if (isSupabaseUnreachableError(err)) {
+      return res.status(503).json({
+        error: 'Service Unavailable',
+        message: UNAVAILABLE_MESSAGE,
+      });
+    }
     res.status(500).json({
       error: 'Internal Server Error',
-      message: 'Failed to create user'
+      message: 'Failed to create user',
     });
   }
 });
@@ -67,15 +84,22 @@ router.post('/login', async (req, res) => {
       });
     }
 
-    const { data, error } = await supabaseAdmin.auth.signInWithPassword({
+    // Anon auth client (server-side only) — password grant must not use the service role key.
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password
     });
 
     if (error) {
+      if (isSupabaseUnreachableError(error)) {
+        return res.status(503).json({
+          error: 'Service Unavailable',
+          message: UNAVAILABLE_MESSAGE,
+        });
+      }
       return res.status(401).json({
         error: 'Login Failed',
-        message: error.message
+        message: error.message,
       });
     }
 
@@ -93,10 +117,16 @@ router.post('/login', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error('Login error:', err);
+    logRouteError("auth Login error:", err);
+    if (isSupabaseUnreachableError(err)) {
+      return res.status(503).json({
+        error: 'Service Unavailable',
+        message: UNAVAILABLE_MESSAGE,
+      });
+    }
     res.status(500).json({
       error: 'Internal Server Error',
-      message: 'Failed to sign in'
+      message: 'Failed to sign in',
     });
   }
 });
@@ -118,7 +148,7 @@ router.post('/logout', authMiddleware, async (req, res) => {
       message: 'Logout successful'
     });
   } catch (err) {
-    console.error('Logout error:', err);
+    logRouteError("auth Logout error:", err);
     res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to sign out'
@@ -142,7 +172,7 @@ router.get('/me', authMiddleware, async (req, res) => {
       }
     });
   } catch (err) {
-    console.error('Get user error:', err);
+    logRouteError("auth Get user error:", err);
     res.status(500).json({
       error: 'Internal Server Error',
       message: 'Failed to get user'
@@ -165,14 +195,20 @@ router.post('/refresh', async (req, res) => {
       });
     }
 
-    const { data, error } = await supabaseAdmin.auth.refreshSession({
+    const { data, error } = await supabase.auth.refreshSession({
       refresh_token
     });
 
     if (error) {
+      if (isSupabaseUnreachableError(error)) {
+        return res.status(503).json({
+          error: 'Service Unavailable',
+          message: UNAVAILABLE_MESSAGE,
+        });
+      }
       return res.status(401).json({
         error: 'Refresh Failed',
-        message: error.message
+        message: error.message,
       });
     }
 
@@ -185,10 +221,16 @@ router.post('/refresh', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error('Refresh error:', err);
+    logRouteError("auth Refresh error:", err);
+    if (isSupabaseUnreachableError(err)) {
+      return res.status(503).json({
+        error: 'Service Unavailable',
+        message: UNAVAILABLE_MESSAGE,
+      });
+    }
     res.status(500).json({
       error: 'Internal Server Error',
-      message: 'Failed to refresh token'
+      message: 'Failed to refresh token',
     });
   }
 });

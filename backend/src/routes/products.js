@@ -1,4 +1,5 @@
 const express = require('express');
+const { logRouteError } = require('../utils/log');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
 const { checkRecipeAvailability } = require('../utils/fifo');
@@ -27,7 +28,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error fetching products:', err);
+    logRouteError("products Error fetching products:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -71,7 +72,17 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data });
   } catch (err) {
-    console.error('Error creating product:', err);
+    logRouteError("products Error creating product:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /low-stock — before /:id (schema may not have stock columns; return [] until modeled)
+router.get('/low-stock', async (req, res) => {
+  try {
+    res.json({ success: true, data: [] });
+  } catch (err) {
+    logRouteError("products Error fetching low-stock products:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -130,7 +141,7 @@ router.get('/:id', async (req, res) => {
       }
     });
   } catch (err) {
-    console.error('Error fetching product:', err);
+    logRouteError("products Error fetching product:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -181,7 +192,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error updating product:', err);
+    logRouteError("products Error updating product:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -201,7 +212,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Product deleted' });
   } catch (err) {
-    console.error('Error deleting product:', err);
+    logRouteError("products Error deleting product:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });

@@ -1,4 +1,5 @@
 const { supabaseAdmin } = require('../config/supabase');
+const { logRouteError } = require('./log');
 
 /**
  * FIFO Consumption Logic
@@ -76,7 +77,7 @@ async function consumeIngredientFIFO(ingredientId, quantityNeeded, userId, note 
         });
 
       if (logError) {
-        console.error('Failed to create inventory log:', logError);
+        logRouteError('fifo:inventory_log', logError);
       }
 
       consumedBatches.push({

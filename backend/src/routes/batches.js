@@ -1,4 +1,5 @@
 const express = require('express');
+const { logRouteError } = require('../utils/log');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
 const { consumeIngredientFIFO } = require('../utils/fifo');
@@ -19,7 +20,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error fetching batches:', err);
+    logRouteError("batches Error fetching batches:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -76,12 +77,74 @@ router.post('/', async (req, res) => {
       });
 
     if (logError) {
-      console.error('Failed to create inventory log:', logError);
+      logRouteError("batches Failed to create inventory log:", logError);
     }
 
     res.status(201).json({ success: true, data: batch });
   } catch (err) {
-    console.error('Error creating batch:', err);
+    logRouteError("batches Error creating batch:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /expiring-soon — before /:id
+router.get('/expiring-soon', async (req, res) => {
+  try {
+    const horizon = new Date();
+    horizon.setDate(horizon.getDate() + 14);
+    const horizonStr = horizon.toISOString().slice(0, 10);
+
+    const { data, error } = await supabaseAdmin
+      .from('ingredient_batches')
+      .select(`
+        *,
+        ingredients (id, name, unit)
+      `)
+      .eq('created_by', req.user.id)
+      .not('expiry_date', 'is', null)
+      .lte('expiry_date', horizonStr)
+      .gt('qty_remaining', 0)
+      .order('expiry_date', { ascending: true });
+
+    if (error) throw error;
+
+    const mapped = (data || []).map((b) => ({
+      ...b,
+      quantity: parseFloat(b.qty_remaining),
+    }));
+
+    res.json({ success: true, data: mapped });
+  } catch (err) {
+    logRouteError("batches Error fetching expiring batches:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /ingredient/:ingredientId — before /:id
+router.get('/ingredient/:ingredientId', async (req, res) => {
+  try {
+    const { ingredientId } = req.params;
+
+    const { data, error } = await supabaseAdmin
+      .from('ingredient_batches')
+      .select(`
+        *,
+        ingredients (id, name, unit)
+      `)
+      .eq('ingredient_id', ingredientId)
+      .eq('created_by', req.user.id)
+      .order('purchase_date', { ascending: true });
+
+    if (error) throw error;
+
+    const mapped = (data || []).map((b) => ({
+      ...b,
+      quantity: parseFloat(b.qty_remaining),
+    }));
+
+    res.json({ success: true, data: mapped });
+  } catch (err) {
+    logRouteError("batches Error fetching batches by ingredient:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -111,7 +174,7 @@ router.get('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error fetching batch:', err);
+    logRouteError("batches Error fetching batch:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -150,7 +213,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error updating batch:', err);
+    logRouteError("batches Error updating batch:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -170,7 +233,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Batch deleted' });
   } catch (err) {
-    console.error('Error deleting batch:', err);
+    logRouteError("batches Error deleting batch:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -231,7 +294,7 @@ router.post('/:id/consume', async (req, res) => {
       });
 
     if (logError) {
-      console.error('Failed to create inventory log:', logError);
+      logRouteError("batches Failed to create inventory log:", logError);
     }
 
     res.json({ 
@@ -241,7 +304,7 @@ router.post('/:id/consume', async (req, res) => {
       cost: qtyToConsume * parseFloat(batch.unit_cost)
     });
   } catch (err) {
-    console.error('Error consuming from batch:', err);
+    logRouteError("batches Error consuming from batch:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -271,7 +334,7 @@ router.post('/consume-fifo', async (req, res) => {
 
     res.json({ success: true, ...result });
   } catch (err) {
-    console.error('Error in FIFO consumption:', err);
+    logRouteError("batches Error in FIFO consumption:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });

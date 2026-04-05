@@ -1,6 +1,8 @@
 const express = require('express');
+const { logRouteError } = require('../utils/log');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
+const { checkRecipeAvailability } = require('../utils/fifo');
 
 // GET / - List all recipes with items
 router.get('/', async (req, res) => {
@@ -23,7 +25,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error fetching recipes:', err);
+    logRouteError("recipes Error fetching recipes:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -87,7 +89,47 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data: completeRecipe });
   } catch (err) {
-    console.error('Error creating recipe:', err);
+    logRouteError("recipes Error creating recipe:", err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// GET /:id/cost — before GET /:id
+router.get('/:id/cost', async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const { data: recipe, error } = await supabaseAdmin
+      .from('recipes')
+      .select('*')
+      .eq('id', id)
+      .eq('created_by', req.user.id)
+      .single();
+
+    if (error) {
+      if (error.code === 'PGRST116') {
+        return res.status(404).json({ success: false, error: 'Recipe not found' });
+      }
+      throw error;
+    }
+
+    const availability = await checkRecipeAvailability(id, 1);
+    if (availability.error) {
+      return res.status(500).json({ success: false, error: availability.error });
+    }
+
+    const totalCost = typeof availability.totalCost === 'number' ? availability.totalCost : 0;
+    const rawYield = recipe?.yield_quantity;
+    const yieldQty = rawYield != null && rawYield !== '' ? parseFloat(rawYield) : NaN;
+    const yieldSafe = Number.isFinite(yieldQty) && yieldQty > 0 ? yieldQty : 1;
+    const costPerUnit = totalCost / yieldSafe;
+
+    res.json({
+      success: true,
+      data: { total_cost: totalCost, cost_per_unit: costPerUnit },
+    });
+  } catch (err) {
+    logRouteError("recipes Error computing recipe cost:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -121,7 +163,7 @@ router.get('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error fetching recipe:', err);
+    logRouteError("recipes Error fetching recipe:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -188,7 +230,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    console.error('Error updating recipe:', err);
+    logRouteError("recipes Error updating recipe:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });
@@ -215,7 +257,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Recipe deleted' });
   } catch (err) {
-    console.error('Error deleting recipe:', err);
+    logRouteError("recipes Error deleting recipe:", err);
     res.status(500).json({ success: false, error: err.message });
   }
 });

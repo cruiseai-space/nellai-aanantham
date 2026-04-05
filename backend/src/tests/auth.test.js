@@ -105,6 +105,24 @@ describe('Auth Endpoints', () => {
       expect(response.body.user.email).toBe(testUsers.admin.email);
     });
 
+    it('should return 503 when Supabase is unreachable (fetch failed)', async () => {
+      mockSupabaseAdmin.auth.signInWithPassword.mockResolvedValue({
+        data: null,
+        error: { message: 'fetch failed' },
+      });
+
+      const response = await request(app)
+        .post('/api/auth/login')
+        .send({
+          email: testUsers.admin.email,
+          password: testUsers.admin.password,
+        });
+
+      expect(response.status).toBe(503);
+      expect(response.body.error).toBe('Service Unavailable');
+      expect(response.body.message).toMatch(/Cannot reach Supabase/i);
+    });
+
     it('should return 401 for invalid password', async () => {
       mockSupabaseAdmin.auth.signInWithPassword.mockResolvedValue({
         data: null,

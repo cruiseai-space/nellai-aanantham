@@ -1,4 +1,9 @@
 const { supabaseAdmin } = require('../config/supabase');
+const { logRouteError } = require('../utils/log');
+const {
+  isSupabaseUnreachableError,
+  UNAVAILABLE_MESSAGE,
+} = require('../utils/supabaseReachability');
 
 /**
  * JWT validation middleware using Supabase
@@ -21,9 +26,15 @@ const authMiddleware = async (req, res, next) => {
     const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
 
     if (error || !user) {
+      if (isSupabaseUnreachableError(error)) {
+        return res.status(503).json({
+          error: 'Service Unavailable',
+          message: UNAVAILABLE_MESSAGE,
+        });
+      }
       return res.status(401).json({
         error: 'Unauthorized',
-        message: error?.message || 'Invalid or expired token'
+        message: error?.message || 'Invalid or expired token',
       });
     }
 
@@ -33,10 +44,14 @@ const authMiddleware = async (req, res, next) => {
 
     next();
   } catch (err) {
-    console.error('Auth middleware error:', err);
-    return res.status(500).json({
-      error: 'Internal Server Error',
-      message: 'Authentication failed'
+    const code = err?.cause?.code || err?.code;
+    logRouteError('authMiddleware', err);
+    return res.status(503).json({
+      error: 'Service Unavailable',
+      message:
+        code === 'UND_ERR_CONNECT_TIMEOUT'
+          ? 'Cannot reach Supabase to validate the token. Check network or run Node with --dns-result-order=ipv4first.'
+          : 'Authentication failed',
     });
   }
 };

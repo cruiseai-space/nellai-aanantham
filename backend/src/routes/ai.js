@@ -1,4 +1,5 @@
 const express = require('express');
+const { logRouteError } = require('../utils/log');
 const router = express.Router();
 const aiService = require('../services/ai');
 
@@ -31,7 +32,7 @@ router.post('/parse-voice', async (req, res) => {
       data: result
     });
   } catch (error) {
-    console.error('Voice parsing error:', error);
+    logRouteError("ai Voice parsing error:", error);
     res.status(500).json({
       error: 'AI Processing Error',
       message: error.message
@@ -61,7 +62,7 @@ router.post('/parse-receipt', async (req, res) => {
       data: result
     });
   } catch (error) {
-    console.error('Receipt parsing error:', error);
+    logRouteError("ai Receipt parsing error:", error);
     res.status(500).json({
       error: 'AI Processing Error',
       message: error.message
@@ -99,7 +100,7 @@ router.post('/parse-csv', async (req, res) => {
       data: result
     });
   } catch (error) {
-    console.error('CSV parsing error:', error);
+    logRouteError("ai CSV parsing error:", error);
     res.status(500).json({
       error: 'AI Processing Error',
       message: error.message
@@ -136,7 +137,7 @@ router.post('/suggest-recipe', async (req, res) => {
       data: result
     });
   } catch (error) {
-    console.error('Recipe suggestion error:', error);
+    logRouteError("ai Recipe suggestion error:", error);
     res.status(500).json({
       error: 'AI Processing Error',
       message: error.message
