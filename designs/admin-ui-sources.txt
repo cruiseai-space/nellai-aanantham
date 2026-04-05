@@ -1,0 +1,20 @@
+Admin UI reference assets (modals, toasts, layout tokens)
+
+Toasts (web)
+  designs/Web Version/toast_notification_system/code.html
+  designs/Mobile version/mobile_toast_system/code.html
+
+Modals / overlays / drawers (web)
+  designs/Web Version/data_validation_preview_modal/code.html
+  designs/Web Version/inventory_management_add_batch_drawer/code.html
+  designs/Web Version/product_detail_overlay/code.html
+
+Dashboard / management (web)
+  designs/Web Version/bakery_management_dashboard/code.html
+
+Buttons
+  designs/Web Version/button_component_library/code.html
+
+Global design tokens narrative
+  designs/DESIGN.md
+  designs/Web Version/artisanal_aanantham/DESIGN.md
