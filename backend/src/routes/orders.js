@@ -3,6 +3,7 @@ const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
 const { consumeIngredientFIFO, checkRecipeAvailability } = require('../utils/fifo');
 const { logRouteError } = require('../utils/log');
+const { respondRouteError } = require('../utils/respondRouteError');
 
 // GET / - List all orders with items
 router.get('/', async (req, res) => {
@@ -35,8 +36,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("orders Error fetching orders:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error fetching orders:');
   }
 });
 
@@ -60,8 +60,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data });
   } catch (err) {
-    logRouteError("orders Error creating order:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error creating order:');
   }
 });
 
@@ -106,8 +105,7 @@ router.get('/today', async (req, res) => {
 
     res.json({ success: true, data: mapped });
   } catch (err) {
-    logRouteError("orders Error fetching today orders:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error fetching today orders:');
   }
 });
 
@@ -137,8 +135,7 @@ router.get('/status/:status', async (req, res) => {
 
     res.json({ success: true, data: data || [] });
   } catch (err) {
-    logRouteError("orders Error fetching orders by status:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error fetching orders by status:');
   }
 });
 
@@ -187,8 +184,7 @@ router.get('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("orders Error fetching order:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error fetching order:');
   }
 });
 
@@ -223,8 +219,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("orders Error updating order:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error updating order:');
   }
 });
 
@@ -268,8 +263,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Order deleted' });
   } catch (err) {
-    logRouteError("orders Error deleting order:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error deleting order:');
   }
 });
 
@@ -359,8 +353,7 @@ router.post('/:id/items', async (req, res) => {
 
     res.status(201).json({ success: true, data: orderItem });
   } catch (err) {
-    logRouteError("orders Error adding order item:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error adding order item:');
   }
 });
 
@@ -401,8 +394,7 @@ router.delete('/:id/items/:itemId', async (req, res) => {
 
     res.json({ success: true, message: 'Item removed' });
   } catch (err) {
-    logRouteError("orders Error removing order item:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error removing order item:');
   }
 });
 
@@ -564,8 +556,7 @@ router.post('/:id/bill', async (req, res) => {
       }
     });
   } catch (err) {
-    logRouteError("orders Error billing order:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'orders Error billing order:');
   }
 });
 

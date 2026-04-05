@@ -1,5 +1,5 @@
 const express = require('express');
-const { logRouteError } = require('../utils/log');
+const { respondRouteError } = require('../utils/respondRouteError');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
 
@@ -27,8 +27,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("transactions Error fetching transactions:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'transactions Error fetching transactions:');
   }
 });
 
@@ -76,8 +75,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data });
   } catch (err) {
-    logRouteError("transactions Error creating transaction:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'transactions Error creating transaction:');
   }
 });
 
@@ -122,8 +120,7 @@ router.get('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("transactions Error fetching transaction:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'transactions Error fetching transaction:');
   }
 });
 

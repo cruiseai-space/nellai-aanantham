@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
-const { logRouteError } = require('../utils/log');
+const { respondRouteError } = require('../utils/respondRouteError');
 
 // GET / - List all ingredients for user
 router.get('/', async (req, res) => {
@@ -16,8 +16,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("ingredients Error fetching ingredients:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'ingredients Error fetching ingredients:');
   }
 });
 
@@ -47,8 +46,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data });
   } catch (err) {
-    logRouteError("ingredients Error creating ingredient:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'ingredients Error creating ingredient:');
   }
 });
 
@@ -95,8 +93,7 @@ router.get('/low-stock', async (req, res) => {
 
     res.json({ success: true, data: low });
   } catch (err) {
-    logRouteError("ingredients Error fetching low-stock ingredients:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'ingredients Error fetching low-stock ingredients:');
   }
 });
 
@@ -136,8 +133,7 @@ router.get('/:id', async (req, res) => {
       } 
     });
   } catch (err) {
-    logRouteError("ingredients Error fetching ingredient:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'ingredients Error fetching ingredient:');
   }
 });
 
@@ -175,8 +171,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("ingredients Error updating ingredient:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'ingredients Error updating ingredient:');
   }
 });
 
@@ -195,8 +190,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Ingredient deleted' });
   } catch (err) {
-    logRouteError("ingredients Error deleting ingredient:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'ingredients Error deleting ingredient:');
   }
 });
 

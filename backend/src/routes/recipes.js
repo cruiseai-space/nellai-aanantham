@@ -1,5 +1,5 @@
 const express = require('express');
-const { logRouteError } = require('../utils/log');
+const { respondRouteError } = require('../utils/respondRouteError');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
 const { checkRecipeAvailability } = require('../utils/fifo');
@@ -25,8 +25,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("recipes Error fetching recipes:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'recipes Error fetching recipes:');
   }
 });
 
@@ -89,8 +88,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data: completeRecipe });
   } catch (err) {
-    logRouteError("recipes Error creating recipe:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'recipes Error creating recipe:');
   }
 });
 
@@ -129,8 +127,7 @@ router.get('/:id/cost', async (req, res) => {
       data: { total_cost: totalCost, cost_per_unit: costPerUnit },
     });
   } catch (err) {
-    logRouteError("recipes Error computing recipe cost:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'recipes Error computing recipe cost:');
   }
 });
 
@@ -163,8 +160,7 @@ router.get('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("recipes Error fetching recipe:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'recipes Error fetching recipe:');
   }
 });
 
@@ -230,8 +226,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("recipes Error updating recipe:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'recipes Error updating recipe:');
   }
 });
 
@@ -257,8 +252,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Recipe deleted' });
   } catch (err) {
-    logRouteError("recipes Error deleting recipe:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'recipes Error deleting recipe:');
   }
 });
 

@@ -1,5 +1,5 @@
 const express = require('express');
-const { logRouteError } = require('../utils/log');
+const { respondRouteError } = require('../utils/respondRouteError');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
 const { checkRecipeAvailability } = require('../utils/fifo');
@@ -28,8 +28,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("products Error fetching products:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'products Error fetching products:');
   }
 });
 
@@ -72,8 +71,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data });
   } catch (err) {
-    logRouteError("products Error creating product:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'products Error creating product:');
   }
 });
 
@@ -82,8 +80,7 @@ router.get('/low-stock', async (req, res) => {
   try {
     res.json({ success: true, data: [] });
   } catch (err) {
-    logRouteError("products Error fetching low-stock products:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'products Error fetching low-stock products:');
   }
 });
 
@@ -141,8 +138,7 @@ router.get('/:id', async (req, res) => {
       }
     });
   } catch (err) {
-    logRouteError("products Error fetching product:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'products Error fetching product:');
   }
 });
 
@@ -192,8 +188,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("products Error updating product:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'products Error updating product:');
   }
 });
 
@@ -212,8 +207,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Product deleted' });
   } catch (err) {
-    logRouteError("products Error deleting product:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'products Error deleting product:');
   }
 });
 

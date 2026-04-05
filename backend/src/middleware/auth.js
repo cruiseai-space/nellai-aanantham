@@ -9,6 +9,30 @@ const {
  * JWT validation middleware using Supabase
  * Extracts Bearer token, validates with Supabase, and attaches user to req.user
  */
+const AUTH_GET_USER_RETRIES = Math.min(
+  Math.max(Number(process.env.SUPABASE_AUTH_GET_USER_RETRIES || 2), 0),
+  4
+);
+
+async function getUserWithRetry(token) {
+  let lastError = null;
+  const attempts = 1 + AUTH_GET_USER_RETRIES;
+  for (let i = 0; i < attempts; i++) {
+    const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
+    if (user && !error) {
+      return { user, error: null };
+    }
+    lastError = error;
+    if (error && !isSupabaseUnreachableError(error)) {
+      return { user: null, error };
+    }
+    if (i < attempts - 1) {
+      await new Promise((r) => setTimeout(r, 300 * (i + 1)));
+    }
+  }
+  return { user: null, error: lastError };
+}
+
 const authMiddleware = async (req, res, next) => {
   try {
     const authHeader = req.headers.authorization;
@@ -22,8 +46,7 @@ const authMiddleware = async (req, res, next) => {
 
     const token = authHeader.substring(7); // Remove 'Bearer ' prefix
 
-    // Validate JWT with Supabase
-    const { data: { user }, error } = await supabaseAdmin.auth.getUser(token);
+    const { user, error } = await getUserWithRetry(token);
 
     if (error || !user) {
       if (isSupabaseUnreachableError(error)) {

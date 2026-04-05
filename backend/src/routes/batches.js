@@ -1,5 +1,6 @@
 const express = require('express');
 const { logRouteError } = require('../utils/log');
+const { respondRouteError } = require('../utils/respondRouteError');
 const router = express.Router();
 const { supabaseAdmin } = require('../config/supabase');
 const { consumeIngredientFIFO } = require('../utils/fifo');
@@ -20,8 +21,7 @@ router.get('/', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("batches Error fetching batches:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error fetching batches:');
   }
 });
 
@@ -82,8 +82,7 @@ router.post('/', async (req, res) => {
 
     res.status(201).json({ success: true, data: batch });
   } catch (err) {
-    logRouteError("batches Error creating batch:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error creating batch:');
   }
 });
 
@@ -115,8 +114,7 @@ router.get('/expiring-soon', async (req, res) => {
 
     res.json({ success: true, data: mapped });
   } catch (err) {
-    logRouteError("batches Error fetching expiring batches:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error fetching expiring batches:');
   }
 });
 
@@ -144,8 +142,7 @@ router.get('/ingredient/:ingredientId', async (req, res) => {
 
     res.json({ success: true, data: mapped });
   } catch (err) {
-    logRouteError("batches Error fetching batches by ingredient:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error fetching batches by ingredient:');
   }
 });
 
@@ -174,8 +171,7 @@ router.get('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("batches Error fetching batch:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error fetching batch:');
   }
 });
 
@@ -213,8 +209,7 @@ router.put('/:id', async (req, res) => {
 
     res.json({ success: true, data });
   } catch (err) {
-    logRouteError("batches Error updating batch:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error updating batch:');
   }
 });
 
@@ -233,8 +228,7 @@ router.delete('/:id', async (req, res) => {
 
     res.json({ success: true, message: 'Batch deleted' });
   } catch (err) {
-    logRouteError("batches Error deleting batch:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error deleting batch:');
   }
 });
 
@@ -304,8 +298,7 @@ router.post('/:id/consume', async (req, res) => {
       cost: qtyToConsume * parseFloat(batch.unit_cost)
     });
   } catch (err) {
-    logRouteError("batches Error consuming from batch:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error consuming from batch:');
   }
 });
 
@@ -334,8 +327,7 @@ router.post('/consume-fifo', async (req, res) => {
 
     res.json({ success: true, ...result });
   } catch (err) {
-    logRouteError("batches Error in FIFO consumption:", err);
-    res.status(500).json({ success: false, error: err.message });
+    respondRouteError(res, err, 'batches Error in FIFO consumption:');
   }
 });
 
