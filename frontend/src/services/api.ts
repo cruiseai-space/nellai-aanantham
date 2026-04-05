@@ -27,8 +27,12 @@ export function unwrapApiList<T>(res: AxiosResponse<unknown>): T[] {
   return Array.isArray(raw) ? raw : []
 }
 
+/** Align with backend Supabase fetch budget; billing can run longer (FIFO). */
+const DEFAULT_TIMEOUT_MS = 60_000
+
 export const api = axios.create({
   baseURL: API_URL,
+  timeout: DEFAULT_TIMEOUT_MS,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -134,6 +138,29 @@ export const ordersApi = {
   updateStatus: (id: string, status: string) => api.put(`/orders/${id}`, { status }),
   getByStatus: (status: string) => api.get(`/orders/status/${status}`),
   getToday: () => api.get('/orders/today'),
+  addItem: (orderId: string, body: { product_id: string; quantity: number }) =>
+    api.post(`/orders/${orderId}/items`, body),
+  removeItem: (orderId: string, itemId: string) =>
+    api.delete(`/orders/${orderId}/items/${itemId}`),
+  bill: (orderId: string) =>
+    api.post(`/orders/${orderId}/bill`, null, { timeout: 120_000 }),
+}
+
+/** Bill response includes `summary` alongside `data`; use this instead of `unwrapApiData`. */
+export function unwrapBillOrder(res: AxiosResponse<unknown>): {
+  order: unknown
+  summary: unknown
+} {
+  const body = res.data as {
+    success?: boolean
+    data?: unknown
+    summary?: unknown
+    error?: string
+  }
+  if (!body || typeof body !== 'object' || body.success !== true) {
+    throw new Error(typeof body?.error === 'string' ? body.error : 'Bill order failed')
+  }
+  return { order: body.data, summary: body.summary }
 }
 
 export const dashboardApi = {
